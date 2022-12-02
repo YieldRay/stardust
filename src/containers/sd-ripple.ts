@@ -3,7 +3,7 @@ import { customElement, property, query } from "lit/decorators.js";
 
 @customElement("sd-ripple")
 export class SDRipple extends LitElement {
-    @property({ type: Boolean })
+    @property({ type: Boolean, reflect: true })
     disabled = false; // 是否禁用涟漪
 
     @property({ type: Number })

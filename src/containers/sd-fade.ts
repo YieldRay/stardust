@@ -4,7 +4,7 @@ import { customElement, property, query } from "lit/decorators.js";
 @customElement("sd-fade")
 export class SDFade extends LitElement {
     @property({ type: Boolean })
-    hidden = false;
+    hidden = false; // 是否隐藏，此属性不能反映到标签属性！
 
     static styles = css`
         .container {
@@ -41,12 +41,18 @@ export class SDFade extends LitElement {
     private _show() {
         this.container.style.display = "";
         this.container.removeEventListener("transitionend", this._transitionListener);
-        requestAnimationFrame(() => setTimeout(() => this.container.classList.remove("hide"), 0));
+        animate(() => this.container.classList.remove("hide"));
     }
     private _hide() {
         this.container.addEventListener("transitionend", this._transitionListener);
-        this.container.classList.add("hide");
+        animate(() => this.container.classList.add("hide"));
     }
+}
+
+function animate(cb: FrameRequestCallback) {
+    setTimeout(() => {
+        requestAnimationFrame(cb);
+    }, 0);
 }
 
 declare global {

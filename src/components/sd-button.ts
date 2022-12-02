@@ -5,15 +5,16 @@ import { SDRipple } from "../containers/sd-ripple";
 
 @customElement("sd-button")
 export class SDButton extends LitElement {
-    @property({ type: Boolean })
-    disabled = false;
+    @property({ type: Boolean, reflect: true })
+    disabled = false; // 是否禁用按钮
 
-    // forward the style property
-    style!: CSSStyleDeclaration;
+    style!: CSSStyleDeclaration; // forward the style property
 
     static styles = css`
         :host {
             display: inline-block;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         :host > .container {
             cursor: pointer;
@@ -26,7 +27,7 @@ export class SDButton extends LitElement {
         .container {
             font-family: inherit;
             transition: border-color var(--sd-time-normal);
-            color: var(--sd-color-text);
+            color: var(--sd-color-text-reverse);
             padding: var(--sd-length-padding);
             background-color: var(--sd-color-primary);
             background-clip: padding-box;

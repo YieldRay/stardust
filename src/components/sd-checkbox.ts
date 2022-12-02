@@ -8,20 +8,25 @@ export class SDCheckBox extends LitElement {
         this.addEventListener("click", () => (this.checked = !this.checked));
     }
 
-    @property({ type: Boolean })
-    checked = false;
+    @property({ type: Boolean, reflect: true })
+    checked = false; // 是否选中
 
-    // forward the style property
-    style!: CSSStyleDeclaration;
+    style!: CSSStyleDeclaration; // forward the style property
 
     static styles = css`
         :host {
             --size: 1em;
             display: inline-block;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
             overflow: hidden;
         }
         :host(:hover) > .box {
             border-color: var(--sd-color-border-active);
+        }
+        :host([checked]) > .box {
+            background-color: var(--sd-color-primary);
+            color: var(--sd-color-text-reverse);
         }
         .box {
             transition: border-color var(--sd-time-fast);
@@ -42,9 +47,11 @@ export class SDCheckBox extends LitElement {
     `;
 
     render() {
-        return html`<div class="box center" .style=${this.style ?? nothing}>
-            ${this.checked ? html`<slot>✔</slot>` : nothing}
-        </div>`;
+        return html`
+            <div class="box center" .style=${this.style ?? nothing}>
+                <sd-fade .hidden=${!this.checked}> <slot>✔</slot> </sd-fade>
+            </div>
+        `;
     }
 }
 

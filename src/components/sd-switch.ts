@@ -3,19 +3,20 @@ import { customElement, property, query, state } from "lit/decorators.js";
 
 @customElement("sd-switch")
 export class SDSwitch extends LitElement {
-    @property({ type: Boolean })
-    checked = false;
+    @property({ type: Boolean, reflect: true })
+    checked = false; // 是否选中
+
+    style!: CSSStyleDeclaration; // forward the style property
 
     @state()
     isInit = true;
-
-    // forward the style property
-    style!: CSSStyleDeclaration;
 
     static styles = css`
         :host {
             display: inline-block;
             overflow: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
             vertical-align: text-bottom;
             --size: 1em;
             --scale: 1.75;
@@ -42,7 +43,7 @@ export class SDSwitch extends LitElement {
             display: inline-block;
             cursor: pointer;
             user-select: none;
-            color: var(--sd-color-text);
+            color: var(--sd-color-text-reverse);
             width: var(--width);
             height: var(--height);
             overflow: hidden;
@@ -68,24 +69,24 @@ export class SDSwitch extends LitElement {
             overflow: hidden;
             left: 0;
             top: 0;
-            transition: left var(--duration) ease-in;
+            transition: left var(--duration) ease-in-out;
         }
         .slot-inner {
             transform: scale(0.75);
         }
 
         .to-left {
-            animation: var(--duration) ease-in 0s forwards toLeft;
+            animation: var(--duration) ease-in-out 0s forwards toLeft;
         }
         .to-right {
-            animation: var(--duration) ease-in 0s forwards toRight;
+            animation: var(--duration) ease-in-out 0s forwards toRight;
         }
 
         @keyframes toRight {
             from {
                 left: 0;
             }
-            88% {
+            50% {
                 width: var(--width);
                 left: 0;
             }
@@ -98,8 +99,9 @@ export class SDSwitch extends LitElement {
             from {
                 left: var(--distance);
             }
-            12% {
+            50% {
                 width: var(--width);
+                left: 0;
             }
             to {
                 width: var(--ball-size);
@@ -111,14 +113,16 @@ export class SDSwitch extends LitElement {
     @query("#ball")
     ballElem!: HTMLDivElement;
     render() {
-        return html` <div class="box" .style=${this.style ?? nothing} @click=${() => (this.checked = !this.checked)}>
-            <div id="ball"></div>
-            <div class="slot-outer center" .style=${this.checked ? `left: var(--distance)` : nothing}>
-                <div class="slot-inner">
-                    <slot></slot>
+        return html`
+            <div class="box" .style=${this.style ?? nothing} @click=${() => (this.checked = !this.checked)}>
+                <div id="ball"></div>
+                <div class="slot-outer center" .style=${this.checked ? `left: var(--distance)` : nothing}>
+                    <div class="slot-inner">
+                        <slot></slot>
+                    </div>
                 </div>
             </div>
-        </div>`;
+        `;
     }
 
     protected updated(changedProperties: PropertyValueMap<this>): void {
