@@ -12,22 +12,26 @@ export class SDCheckBox extends LitElement {
     checked = false;
 
     // forward the style property
-    @property()
     style!: CSSStyleDeclaration;
 
     static styles = css`
         :host {
+            --size: 1em;
             display: inline-block;
             overflow: hidden;
         }
+        :host(:hover) > .box {
+            border-color: var(--sd-color-border-active);
+        }
         .box {
+            transition: border-color var(--sd-time-fast);
             box-sizing: border-box;
             display: inline-block;
             cursor: pointer;
             user-select: none;
-            width: 1em;
-            height: 1em;
-            border: solid var(--sd-color-border) 0.1em;
+            width: var(--size);
+            height: var(--size);
+            border: solid var(--sd-color-border) calc(var(--size) * 0.12);
             overflow: hidden;
         }
         .center {
@@ -38,7 +42,9 @@ export class SDCheckBox extends LitElement {
     `;
 
     render() {
-        return html`<div class="box center" style=${this.style}>${this.checked ? html`<slot>✔</slot>` : nothing}</div>`;
+        return html`<div class="box center" .style=${this.style ?? nothing}>
+            ${this.checked ? html`<slot>✔</slot>` : nothing}
+        </div>`;
     }
 }
 

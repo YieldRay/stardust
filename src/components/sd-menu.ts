@@ -1,8 +1,8 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
-@customElement("sd-tabs")
-export class SDTabs extends LitElement {
+@customElement("sd-menu")
+export class SDMenu extends LitElement {
     static styles = css``;
     render() {
         return html``;
@@ -11,6 +11,6 @@ export class SDTabs extends LitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        "sd-tabs": SDTabs;
+        "sd-menu": SDMenu;
     }
 }

@@ -1,0 +1,24 @@
+/* https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Types */
+:root {
+    /* color */
+    --sd-color-text: #fff;
+    --sd-color-primary: #b3e5fc;
+    --sd-color-border: #eeeeee;
+    --sd-color-border-active: #e0e0e0;
+    --sd-color-alert: #fff9c4;
+    --sd-color-disabled: #000;
+    --sd-color-shadow: rgba(0, 0, 0, 0.2);
+}
+
+:root {
+    /* length */
+    --sd-length-radius: 0.85em;
+    --sd-length-border: 2px;
+    --sd-length-padding: 0.3em 0.5em;
+}
+
+:root {
+    --sd-time-fast: 0.15s;
+    --sd-time-normal: 0.3s;
+    --sd-time-slow: 0.45s;
+}
