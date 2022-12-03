@@ -15,7 +15,9 @@
     /* length */
     --sd-length-radius: 0.85em;
     --sd-length-border: 2px;
-    --sd-length-padding: 0.3em 0.5em;
+    --sd-length-padding-x: 0.5em;
+    --sd-length-padding-y: 0.3em;
+    --sd-length-padding: var(--sd-length-padding-y) var(--sd-length-padding-x);
 
     /* time */
     --sd-time-fast: 0.15s;

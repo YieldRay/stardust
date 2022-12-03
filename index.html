@@ -37,20 +37,38 @@
                 </div>
             </sd-card>
 
-            <sd-collapse position="top">
-                <span slot="open">
-                    <div style="padding: 1em">展开 ▼</div>
-                </span>
-                <span slot="close">
-                    <div style="padding: 1em">折叠 ▲</div>
-                </span>
-                <div style="padding: 2em">this is a collapse</div>
-            </sd-collapse>
+            <sd-card>
+                <sd-collapse position="top">
+                    <span slot="open">
+                        <sd-button>展开 ▼</sd-button>
+                    </span>
+                    <span slot="close">
+                        <sd-button>折叠 ▲</sd-button>
+                    </span>
+                    <sd-card>this is a collapse</sd-card>
+                </sd-collapse>
+            </sd-card>
+
+            <sd-menu style="margin-left: 80vw">
+                <sd-button>菜单按钮</sd-button>
+                <div slot="menu" style="padding: 2em; width: 50vw; background: pink">
+                    此menu插槽内元素位置是通过计算所设置的，优先显示在默认插槽的右下角
+                </div>
+            </sd-menu>
+            <br />
+            123
+            <br />
+            456
+            <br />
+            789
+            <br />
         </div>
 
         <sd-modal position="center-right">
             <p>I'm floating!</p>
         </sd-modal>
+
+        <sd-divider position="right">The End</sd-divider>
         <sd-fab fixed backtop autohide></sd-fab>
     </body>
 </html>

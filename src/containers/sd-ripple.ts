@@ -4,7 +4,7 @@ import { customElement, property, query } from "lit/decorators.js";
 @customElement("sd-ripple")
 export class SDRipple extends LitElement {
     /**
-     * 是否禁用涟漪  
+     * 是否禁用涟漪
      * 一般用于容器内部元素禁用时禁用涟漪
      */
     @property({ type: Boolean, reflect: true })
@@ -65,6 +65,9 @@ export class SDRipple extends LitElement {
         this.addEventListener("click", this._handleClick);
     }
 
+    /** 所有涟漪元素的引用 */
+    private _ripplesRef = new Set<HTMLDivElement>();
+
     private _handleClick(event: MouseEvent) {
         if (this.disabled) return;
         const container = this.container;
@@ -79,7 +82,23 @@ export class SDRipple extends LitElement {
         ripple.style.height = bigger + "px";
         ripple.classList.add("ripple");
         container.append(ripple);
-        ripple.addEventListener("animationend", () => ripple.remove());
+        this._ripplesRef.add(ripple);
+        ripple.addEventListener("animationend", () => {
+            this._ripplesRef.delete(ripple);
+            ripple.remove();
+        });
+    }
+
+    /**
+     * 移除所有涟漪效果
+     */
+    public removeRipple() {
+        this._ripplesRef.forEach((e) => e.remove());
+        this._ripplesRef.clear();
+    }
+
+    updated() {
+        this.removeRipple();
     }
 }
 

@@ -56,11 +56,10 @@ export class SDCollapse extends LitElement {
         `;
     }
 
-    protected firstUpdated() {
-        const handleClick = (() => (this.hidden = !this.hidden)).bind(this);
-        this.action.addEventListener("click", handleClick);
-    }
+    private _handleClick = (() => (this.hidden = !this.hidden)).bind(this);
     protected updated() {
+        this.action.removeEventListener("click", this._handleClick);
+        this.action.addEventListener("click", this._handleClick);
         if (this.hidden) {
             this.body.style.maxHeight = 0 + "px";
         } else {

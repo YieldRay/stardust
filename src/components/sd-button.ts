@@ -10,7 +10,9 @@ export class SDButton extends LitElement {
 
     static styles = css`
         :host {
-            display: inline-block;
+            display: inline-flex; /* 消除空字符空间 */
+            margin: 0;
+            padding: 0;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
@@ -41,11 +43,7 @@ export class SDButton extends LitElement {
     @query("#container")
     container!: SDRipple;
     render() {
-        return html`
-            <sd-ripple id="container">
-                <slot></slot>
-            </sd-ripple>
-        `;
+        return html`<sd-ripple id="container"><slot></slot></sd-ripple>`;
     }
 }
 
