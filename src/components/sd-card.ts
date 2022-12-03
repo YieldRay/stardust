@@ -1,6 +1,11 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+
+/**
+ * `slot=header`
+ * `slot=footer`
+ */
 @customElement("sd-card")
 export class SDCard extends LitElement {
     static styles = css`

@@ -9,3 +9,4 @@ export { SDCard } from "./components/sd-card";
 export { SDRipple } from "./containers/sd-ripple";
 export { SDModal } from "./containers/sd-modal";
 export { SDFade } from "./containers/sd-fade";
+export { SDCollapse } from "./containers/sd-collapse";

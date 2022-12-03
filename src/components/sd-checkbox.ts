@@ -1,17 +1,18 @@
-import { LitElement, css, html, nothing } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
+/**
+ * `--size`元素的尺寸
+ */
 @customElement("sd-checkbox")
 export class SDCheckBox extends LitElement {
     constructor() {
         super();
         this.addEventListener("click", () => (this.checked = !this.checked));
     }
-
+    /** 是否选中 */
     @property({ type: Boolean, reflect: true })
-    checked = false; // 是否选中
-
-    style!: CSSStyleDeclaration; // forward the style property
+    checked = false;
 
     static styles = css`
         :host {
@@ -26,10 +27,12 @@ export class SDCheckBox extends LitElement {
         }
         :host([checked]) > .box {
             background-color: var(--sd-color-primary);
-            color: var(--sd-color-text-reverse);
         }
         .box {
             transition: border-color var(--sd-time-fast);
+            color: var(--sd-color-text-reverse);
+            line-height: calc(var(--size) * 0.8);
+            text-align: center;
             box-sizing: border-box;
             display: inline-block;
             cursor: pointer;
@@ -48,8 +51,10 @@ export class SDCheckBox extends LitElement {
 
     render() {
         return html`
-            <div class="box center" .style=${this.style ?? nothing}>
-                <sd-fade .hidden=${!this.checked}> <slot>✔</slot> </sd-fade>
+            <div class="box">
+                <sd-fade .hidden=${!this.checked}>
+                    <slot>✔</slot>
+                </sd-fade>
             </div>
         `;
     }

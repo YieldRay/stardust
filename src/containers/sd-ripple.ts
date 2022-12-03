@@ -3,13 +3,19 @@ import { customElement, property, query } from "lit/decorators.js";
 
 @customElement("sd-ripple")
 export class SDRipple extends LitElement {
+    /**
+     * 是否禁用涟漪  
+     * 一般用于容器内部元素禁用时禁用涟漪
+     */
     @property({ type: Boolean, reflect: true })
-    disabled = false; // 是否禁用涟漪
+    disabled = false; //
 
+    /**
+     * 涟漪缩放尺寸，默认为1
+     * 默认情况下涟漪的直径为元素宽高中较大的一个
+     */
     @property({ type: Number })
-    scale = 1; // 涟漪缩放尺寸
-
-    style!: CSSStyleDeclaration; // forward the style property
+    scale = 1; //
 
     static styles = css`
         :host {
@@ -44,11 +50,12 @@ export class SDRipple extends LitElement {
         }
     `;
 
-    @query(".container")
+    @query("#container")
     container!: HTMLDivElement;
+
     render() {
         return html`
-            <div class="container" .style=${this.style ?? nothing}>
+            <div id="container" .style=${this.style ?? nothing}>
                 <slot></slot>
             </div>
         `;
@@ -58,7 +65,7 @@ export class SDRipple extends LitElement {
         this.addEventListener("click", this._handleClick);
     }
 
-    protected _handleClick(event: MouseEvent) {
+    private _handleClick(event: MouseEvent) {
         if (this.disabled) return;
         const container = this.container;
         const ripple = document.createElement("div");

@@ -1,11 +1,15 @@
-import { LitElement, css, html, nothing } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
+type PositionX = "left" | "center" | "right";
+type PositionY = "top" | "center" | "bottom";
+type Position = "disabled" | `${PositionY}-${PositionX}`;
 @customElement("sd-modal")
 export class SDModal extends LitElement {
-    @property({ type: Boolean })
-    overlay = false;
-
+    /**
+     * 浮动的位置，若类型不匹配将报错  
+     * 可设置为disabled或为空，此时将取消浮动（static定位）
+     */
     @property({
         converter(value) {
             if (!value) return "disabled";
@@ -22,12 +26,10 @@ export class SDModal extends LitElement {
         },
         reflect: true,
     })
-    position = "disabled"; // if position cannot be parsed, an error will occur
-
-    style!: CSSStyleDeclaration;
+    position: Position = "disabled";
 
     static styles = css`
-        .container {
+        #container {
             position: fixed;
         }
         .disabled {
@@ -78,12 +80,12 @@ export class SDModal extends LitElement {
         }
     `;
 
-    @query(".container")
+    @query("#container")
     container!: HTMLDivElement;
 
     render() {
         return html`
-            <div class="container ${this.position}" .style=${this.style ?? nothing}>
+            <div id="container" class="${this.position}">
                 <slot></slot>
             </div>
         `;

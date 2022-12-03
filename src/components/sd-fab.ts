@@ -1,4 +1,4 @@
-import { LitElement, css, html, nothing } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property, state, query } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { throttle } from "froebel/function";
@@ -8,24 +8,28 @@ import { SDRipple } from "../containers/sd-ripple";
 //@ts-ignore
 import { SDFade } from "../containers/sd-fade";
 
+/**
+ * `--size`元素的尺寸，即直径
+ * `--distance`元素浮动时，离右下角的距离
+ */
 @customElement("sd-fab")
 export class SDFab extends LitElement {
+    /** 启用点击按钮则回到顶部 */
+    @property({ type: Boolean })
+    backtop = false;
+    /** 是否悬浮在右下角 */
+    @property({ type: Boolean })
+    fixed = false;
+    /** 是否自动隐藏，仅在fixed设置为true时有效 */
+    @property({ type: Boolean })
+    autohide = false;
+    /** 滚动的阈值，在此阈值之内元素将隐藏，仅在autohide设置为true时有效 */
     @property({ type: Number })
-    threshold = 25; // 滚动的阈值，在此阈值之内元素将隐藏
+    threshold = 25;
 
-    @property({ type: Boolean })
-    backtop = false; // 点击FAB则back-to-top
-
-    @property({ type: Boolean })
-    autohide = false; // 是否自动隐藏，仅在fixed属性设置为true时有效
-
-    @property({ type: Boolean })
-    fixed = false; // 是否悬浮在右下角，位置可以通过自定义style属性覆盖
-
+    /** 隐藏状态 */
     @state()
     hidden = false;
-
-    style!: CSSStyleDeclaration; // forward the style property
 
     static styles = css`
         :host {
@@ -34,7 +38,7 @@ export class SDFab extends LitElement {
             -webkit-tap-highlight-color: transparent;
         }
 
-        .container {
+        #container {
             box-shadow: 1px 1px 1px var(--sd-color-shadow), -1px 1px 1px var(--sd-color-shadow);
             cursor: pointer;
             display: inline-block;
@@ -42,16 +46,15 @@ export class SDFab extends LitElement {
             height: var(--size);
             border-radius: 50%;
             transition: opacity var(--sd-time-normal);
-        }
-        .center {
+
             display: flex;
             align-items: center;
             justify-content: center;
         }
     `;
 
-    @query(".container")
-    container!: HTMLDivElement;
+    @query("#container")
+    container!: SDRipple;
 
     render() {
         return html`
@@ -63,7 +66,7 @@ export class SDFab extends LitElement {
                     })}
                 >
                     <sd-fade .hidden=${this.hidden}>
-                        <sd-ripple scale="1.2" class="container center" .style=${this.style ?? nothing}>
+                        <sd-ripple scale="1.2" id="container">
                             <slot>
                                 <div>▲</div>
                             </slot>

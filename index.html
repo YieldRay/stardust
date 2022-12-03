@@ -17,18 +17,35 @@
     </head>
     <body>
         <sd-button>SD-BUTTON</sd-button>
+        <sd-checkbox></sd-checkbox>
         <sd-checkbox style="--size: 2em">?</sd-checkbox>
+        <sd-switch></sd-switch>
         <sd-switch style="--size: 2em">G</sd-switch>
         <div style="height: 100vh">
             <sd-card>
                 <div slot="header">
                     <h1>StarDust!</h1>
                 </div>
-                card
+                <script>
+                    document.write(location.origin + "/dist/stardust.js");
+                    document.write("<br>");
+                    document.write(location.origin + "/dist/style.css");
+                </script>
+
                 <div slot="footer">
-                    <p>a sd-card</p>
+                    <p>this is a sd-card</p>
                 </div>
             </sd-card>
+
+            <sd-collapse position="top">
+                <span slot="open">
+                    <div style="padding: 1em">展开 ▼</div>
+                </span>
+                <span slot="close">
+                    <div style="padding: 1em">折叠 ▲</div>
+                </span>
+                <div style="padding: 2em">this is a collapse</div>
+            </sd-collapse>
         </div>
 
         <sd-modal position="center-right">

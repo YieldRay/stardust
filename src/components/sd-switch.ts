@@ -1,12 +1,15 @@
 import { LitElement, css, html, nothing, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 
+/**
+ * `--size` 元素的尺寸，即高度
+ * `--scale` 元素的宽高比，高度即为 --size * --scale
+ */
 @customElement("sd-switch")
 export class SDSwitch extends LitElement {
+    /** 是否选中 */
     @property({ type: Boolean, reflect: true })
-    checked = false; // 是否选中
-
-    style!: CSSStyleDeclaration; // forward the style property
+    checked = false;
 
     @state()
     isInit = true;
@@ -34,10 +37,10 @@ export class SDSwitch extends LitElement {
             justify-content: center;
             vertical-align: middle;
         }
-        :host(:hover) > .box {
+        :host(:hover) > #box {
             border-color: var(--sd-color-border-active);
         }
-        .box {
+        #box {
             transition: border-color var(--sd-time-fast);
             box-sizing: border-box;
             display: inline-block;
@@ -62,7 +65,7 @@ export class SDSwitch extends LitElement {
             top: 0;
         }
 
-        .slot-outer {
+        #slotOuter {
             width: var(--ball-size);
             height: var(--ball-size);
             position: absolute;
@@ -71,8 +74,9 @@ export class SDSwitch extends LitElement {
             top: 0;
             transition: left var(--duration) ease-in-out;
         }
-        .slot-inner {
-            transform: scale(0.75);
+
+        #slotInner {
+            font-size: calc(var(--ball-size) * 0.75);
         }
 
         .to-left {
@@ -114,10 +118,10 @@ export class SDSwitch extends LitElement {
     ballElem!: HTMLDivElement;
     render() {
         return html`
-            <div class="box" .style=${this.style ?? nothing} @click=${() => (this.checked = !this.checked)}>
+            <div id="box" @click=${() => (this.checked = !this.checked)}>
                 <div id="ball"></div>
-                <div class="slot-outer center" .style=${this.checked ? `left: var(--distance)` : nothing}>
-                    <div class="slot-inner">
+                <div id="slotOuter" class="center" .style=${this.checked ? `left: var(--distance)` : nothing}>
+                    <div id="slotInner">
                         <slot></slot>
                     </div>
                 </div>

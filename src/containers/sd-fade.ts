@@ -3,24 +3,27 @@ import { customElement, property, query } from "lit/decorators.js";
 
 @customElement("sd-fade")
 export class SDFade extends LitElement {
+    /** 是否隐藏，此属性不能反映到标签属性！ */
     @property({ type: Boolean })
-    hidden = false; // 是否隐藏，此属性不能反映到标签属性！
+    hidden = false;
 
     static styles = css`
-        .container {
+        #container {
             transition: opacity var(--sd-time-normal);
+            max-width: 100%;
+            max-height: 100%;
         }
         .hide {
             opacity: 0;
         }
     `;
 
-    @query(".container")
+    @query("#container")
     container!: HTMLDivElement;
 
     render() {
         return html`
-            <div class="container">
+            <div id="container">
                 <slot></slot>
             </div>
         `;
