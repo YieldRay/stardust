@@ -7,15 +7,13 @@ export class SDRipple extends LitElement {
      * 是否禁用涟漪
      * 一般用于容器内部元素禁用时禁用涟漪
      */
-    @property({ type: Boolean, reflect: true })
-    disabled = false; //
+    @property({ type: Boolean, reflect: true }) disabled = false;
 
     /**
      * 涟漪缩放尺寸，默认为1
      * 默认情况下涟漪的直径为元素宽高中较大的一个
      */
-    @property({ type: Number })
-    scale = 1; //
+    @property({ type: Number }) scale = 1;
 
     static styles = css`
         :host {
@@ -50,13 +48,12 @@ export class SDRipple extends LitElement {
         }
     `;
 
-    @query("#container")
-    container!: HTMLDivElement;
+    @query("#container") container!: HTMLDivElement;
 
     render() {
         return html`
             <div id="container" .style=${this.style ?? nothing}>
-                <slot></slot>
+                <slot @slotchange=${() => this.removeRipple()}></slot>
             </div>
         `;
     }
@@ -64,9 +61,6 @@ export class SDRipple extends LitElement {
     protected firstUpdated() {
         this.addEventListener("click", this._handleClick);
     }
-
-    /** 所有涟漪元素的引用 */
-    private _ripplesRef = new Set<HTMLDivElement>();
 
     private _handleClick(event: MouseEvent) {
         if (this.disabled) return;
@@ -82,9 +76,7 @@ export class SDRipple extends LitElement {
         ripple.style.height = bigger + "px";
         ripple.classList.add("ripple");
         container.append(ripple);
-        this._ripplesRef.add(ripple);
         ripple.addEventListener("animationend", () => {
-            this._ripplesRef.delete(ripple);
             ripple.remove();
         });
     }
@@ -93,8 +85,7 @@ export class SDRipple extends LitElement {
      * 移除所有涟漪效果
      */
     public removeRipple() {
-        this._ripplesRef.forEach((e) => e.remove());
-        this._ripplesRef.clear();
+        this.renderRoot.querySelectorAll(".ripple").forEach((e) => e.remove());
     }
 
     updated() {

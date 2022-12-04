@@ -9,27 +9,22 @@ import { SDRipple } from "../containers/sd-ripple";
 import { SDFade } from "../containers/sd-fade";
 
 /**
- * `--size`元素的尺寸，即直径
- * `--distance`元素浮动时，离右下角的距离
+ * @cssproperty --size 元素的尺寸，即直径
+ * @cssproperty --distance 元素浮动时，离右下角的距离
  */
 @customElement("sd-fab")
 export class SDFab extends LitElement {
     /** 启用点击按钮则回到顶部 */
-    @property({ type: Boolean })
-    backtop = false;
+    @property({ type: Boolean }) backtop = false;
     /** 是否悬浮在右下角 */
-    @property({ type: Boolean })
-    fixed = false;
+    @property({ type: Boolean }) fixed = false;
     /** 是否自动隐藏，仅在fixed设置为true时有效 */
-    @property({ type: Boolean })
-    autohide = false;
+    @property({ type: Boolean }) autohide = false;
     /** 滚动的阈值，在此阈值之内元素将隐藏，仅在autohide设置为true时有效 */
-    @property({ type: Number })
-    threshold = 25;
+    @property({ type: Number }) threshold = 25;
 
     /** 隐藏状态 */
-    @state()
-    hidden = false;
+    @state() hidden = false;
 
     static styles = css`
         :host {
@@ -53,8 +48,7 @@ export class SDFab extends LitElement {
         }
     `;
 
-    @query("#container")
-    container!: SDRipple;
+    @query("#container") container!: SDRipple;
 
     render() {
         return html`

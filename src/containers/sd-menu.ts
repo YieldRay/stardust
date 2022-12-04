@@ -3,8 +3,7 @@ import { customElement, property, query } from "lit/decorators.js";
 
 @customElement("sd-menu")
 export class SDMenu extends LitElement {
-    @property({ type: Boolean })
-    hidden = false;
+    @property({ type: Boolean }) hidden = false;
 
     static styles = css`
         :host {
@@ -15,14 +14,13 @@ export class SDMenu extends LitElement {
         }
         #menu {
             position: absolute;
+            transition: left right top bottom var(--sd-time-normal);
         }
     `;
 
-    @query("#body")
-    body!: HTMLDivElement;
+    @query("#body") body!: HTMLDivElement;
 
-    @query("#menu")
-    menu!: HTMLDivElement;
+    @query("#menu") menu!: HTMLDivElement;
 
     render() {
         return html`

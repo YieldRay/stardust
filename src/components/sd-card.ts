@@ -1,10 +1,9 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
-
 /**
- * `slot=header`
- * `slot=footer`
+ * @slot header
+ * @slot footer
  */
 @customElement("sd-card")
 export class SDCard extends LitElement {
@@ -15,6 +14,9 @@ export class SDCard extends LitElement {
             color: var(--sd-color-text);
             background-color: var(--sd-color-secondary);
             border: solid var(--sd-color-border) var(--sd-length-border);
+        }
+        .container:hover {
+            border-color: var(--sd-color-border-active);
         }
         .header {
         }

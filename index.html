@@ -17,9 +17,17 @@
     </head>
     <body>
         <sd-button>SD-BUTTON</sd-button>
-        <sd-checkbox></sd-checkbox>
+        <sd-checkbox checked disabled>
+            <span slot="label-before">(</span>
+            ▪
+            <span slot="label-after">)</span>
+        </sd-checkbox>
         <sd-checkbox style="--size: 2em">?</sd-checkbox>
-        <sd-switch></sd-switch>
+        <sd-switch>
+            <span slot="label-before">(</span>
+
+            <span slot="label-after">)</span>
+        </sd-switch>
         <sd-switch style="--size: 2em">G</sd-switch>
         <div style="height: 100vh">
             <sd-card>
@@ -62,6 +70,12 @@
             <br />
             789
             <br />
+
+            <sd-tabs>
+                <sd-tab>AA</sd-tab>
+                <sd-tab>BB</sd-tab>
+                <sd-tab>CC</sd-tab>
+            </sd-tabs>
         </div>
 
         <sd-modal position="center-right">

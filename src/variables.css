@@ -13,7 +13,7 @@
     --sd-color-shadow: rgba(0, 0, 0, 0.2);
 
     /* length */
-    --sd-length-radius: 0.85em;
+    --sd-length-radius: 0.75em;
     --sd-length-border: 2px;
     --sd-length-padding-x: 0.5em;
     --sd-length-padding-y: 0.3em;

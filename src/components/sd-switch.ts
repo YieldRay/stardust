@@ -2,17 +2,21 @@ import { LitElement, css, html, nothing, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 
 /**
- * `--size` 元素的尺寸，即高度
- * `--scale` 元素的宽高比，高度即为 --size * --scale
+ * @cssproperty --size 元素的尺寸，即高度
+ * @cssproperty --scale 元素的宽高比，高度即为 --size * --scale
+ * @slot 开关内部
+ * @slot label-before 开关前的标签，可以触发开关
+ * @slot label-after 开关后的标签，可以触发开关
+ * @event change {{checked: Boolean}}
  */
 @customElement("sd-switch")
 export class SDSwitch extends LitElement {
     /** 是否选中 */
-    @property({ type: Boolean, reflect: true })
-    checked = false;
+    @property({ type: Boolean, reflect: true }) checked = false;
+    /** 是否禁用 */
+    @property({ type: Boolean, reflect: true }) disabled = false;
 
-    @state()
-    isInit = true;
+    @state() isInit = true;
 
     static styles = css`
         :host {
@@ -31,16 +35,26 @@ export class SDSwitch extends LitElement {
             --ball-size: calc(var(--height) - var(--border) * 2);
             --distance: calc(var(--width) - var(--ball-size) - 2 * var(--border));
         }
-        .center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            vertical-align: middle;
-        }
-        :host(:hover) > #box {
+
+        :host(:hover) .box {
             border-color: var(--sd-color-border-active);
         }
-        #box {
+
+        :host([disabled]) {
+            opacity: 0.4;
+        }
+
+        label {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            all: unset;
+        }
+
+        .box {
             transition: border-color var(--sd-time-fast);
             box-sizing: border-box;
             display: inline-block;
@@ -53,6 +67,12 @@ export class SDSwitch extends LitElement {
             border-radius: var(--height);
             border: solid var(--sd-color-border) var(--border);
             position: relative;
+        }
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
         }
 
         #ball {
@@ -114,18 +134,36 @@ export class SDSwitch extends LitElement {
         }
     `;
 
-    @query("#ball")
-    ballElem!: HTMLDivElement;
+    @query("#ball") ballElem!: HTMLDivElement;
+
+    @query("input") input!: HTMLInputElement;
+
     render() {
         return html`
-            <div id="box" @click=${() => (this.checked = !this.checked)}>
-                <div id="ball"></div>
-                <div id="slotOuter" class="center" .style=${this.checked ? `left: var(--distance)` : nothing}>
-                    <div id="slotInner">
-                        <slot></slot>
+            <label>
+                <input
+                    type="checkbox"
+                    .checked=${this.checked}
+                    ?disabled=${this.disabled}
+                    @change=${() => {
+                        this.checked = this.input.checked;
+                        this.dispatchEvent(
+                            new CustomEvent<{ checked: Boolean }>("change", { detail: { checked: this.checked } })
+                        );
+                    }}
+                />
+
+                <slot name="label-before"></slot>
+                <span class="box">
+                    <div id="ball"></div>
+                    <div id="slotOuter" class="center" .style=${this.checked ? `left: var(--distance)` : nothing}>
+                        <div id="slotInner">
+                            <slot></slot>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </span>
+                <slot name="label-after"></slot>
+            </label>
         `;
     }
 

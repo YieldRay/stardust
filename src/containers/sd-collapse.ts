@@ -3,14 +3,13 @@ import { customElement, property, query } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
 
 /**
- * `slot=open`
- * `slot=close`
+ * @slot open
+ * @slot close
  */
 @customElement("sd-collapse")
 export class SDCollapse extends LitElement {
     /** 是否隐藏 */
-    @property({ type: Boolean, reflect: false })
-    hidden = false;
+    @property({ type: Boolean, reflect: false }) hidden = false;
 
     /** 位置，默认为top，可选为bottom */
     @property({
@@ -31,11 +30,9 @@ export class SDCollapse extends LitElement {
         }
     `;
 
-    @query("#action")
-    action!: HTMLDivElement;
+    @query("#action") action!: HTMLDivElement;
 
-    @query("#body")
-    body!: HTMLDivElement;
+    @query("#body") body!: HTMLDivElement;
 
     render() {
         const actionArea = () =>

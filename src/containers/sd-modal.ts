@@ -7,7 +7,7 @@ type Position = "disabled" | `${PositionY}-${PositionX}`;
 @customElement("sd-modal")
 export class SDModal extends LitElement {
     /**
-     * 浮动的位置，若类型不匹配将报错  
+     * 浮动的位置，若类型不匹配将报错
      * 可设置为disabled或为空，此时将取消浮动（static定位）
      */
     @property({
@@ -80,8 +80,7 @@ export class SDModal extends LitElement {
         }
     `;
 
-    @query("#container")
-    container!: HTMLDivElement;
+    @query("#container") container!: HTMLDivElement;
 
     render() {
         return html`

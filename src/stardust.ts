@@ -6,6 +6,8 @@ export { SDSwitch } from "./components/sd-switch";
 export { SDFab } from "./components/sd-fab";
 export { SDCard } from "./components/sd-card";
 export { SDDivider } from "./components/sd-divider";
+export { SDTabs } from "./components/sd-tabs";
+export { SDTab } from "./components/sd-tab";
 // containers
 export { SDRipple } from "./containers/sd-ripple";
 export { SDModal } from "./containers/sd-modal";

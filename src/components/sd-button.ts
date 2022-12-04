@@ -3,10 +3,13 @@ import { customElement, property, query } from "lit/decorators.js";
 
 import { SDRipple } from "../containers/sd-ripple";
 
+/**
+ * @dependency sd-ripple
+ */
 @customElement("sd-button")
 export class SDButton extends LitElement {
-    @property({ type: Boolean, reflect: true })
-    disabled = false; // 是否禁用按钮
+    /**  是否禁用按钮 */
+    @property({ type: Boolean, reflect: true }) disabled = false;
 
     static styles = css`
         :host {
@@ -40,8 +43,8 @@ export class SDButton extends LitElement {
         }
     `;
 
-    @query("#container")
-    container!: SDRipple;
+    @query("#container") container!: SDRipple;
+
     render() {
         return html`<sd-ripple id="container"><slot></slot></sd-ripple>`;
     }
