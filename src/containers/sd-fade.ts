@@ -3,7 +3,7 @@ import { customElement, property, query } from "lit/decorators.js";
 
 @customElement("sd-fade")
 export class SDFade extends LitElement {
-    /** 是否隐藏，此属性不能反映到标签属性！ */
+    /** 是否隐藏，此属性不反映到标签属性！ */
     @property({ type: Boolean }) hidden = false;
 
     static styles = css`

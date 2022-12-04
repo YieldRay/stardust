@@ -47,20 +47,22 @@
             </sd-card>
 
             <sd-card>
-                <sd-collapse position="top">
-                    <span slot="open">
-                        <sd-button>展开 ▼</sd-button>
-                    </span>
-                    <span slot="close">
-                        <sd-button>折叠 ▲</sd-button>
-                    </span>
-                    <sd-card>this is a collapse</sd-card>
-                </sd-collapse>
+                <sd-loading>
+                    <span slot="loading"> <sd-spinner></sd-spinner></span>
+                    <p>This</p>
+                    <p>is</p>
+                    <p>content</p>
+                </sd-loading>
             </sd-card>
+
+            <sd-detail>
+                <span slot="summary"> this is summary </span>
+                this is detail
+            </sd-detail>
 
             <sd-menu style="margin-left: 80vw">
                 <sd-button>菜单按钮</sd-button>
-                <div slot="menu" style="padding: 2em; width: 50vw; background: pink">
+                <div slot="menu" style="padding: 2em; width: 50vw; background: var(--sd-color-alert)">
                     此menu插槽内元素位置是通过计算所设置的，优先显示在默认插槽的右下角
                 </div>
             </sd-menu>
@@ -72,7 +74,7 @@
             789
             <br />
 
-            <sd-tabs>
+            <sd-tabs tab="1">
                 <sd-tab>AA</sd-tab>
                 <sd-tab>BB</sd-tab>
                 <sd-tab>CC</sd-tab>

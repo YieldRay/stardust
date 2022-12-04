@@ -2,7 +2,6 @@ import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
-
 /**
  * @summary 此元素应置于 <sd-tabs> 元素内
  */
@@ -16,11 +15,12 @@ export class SDTab extends LitElement {
         }
         div {
             padding: var(--sd-length-padding);
+            border-radius: var(--sd-length-radius);
+            transition: background-color, color var(--sd-time-fast);
         }
         .active {
             color: var(--sd-color-text-reverse);
             background-color: var(--sd-color-primary);
-            border-radius: var(--sd-length-radius);
         }
     `;
     render() {

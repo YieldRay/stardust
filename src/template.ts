@@ -1,16 +1,18 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
-@customElement("sd-slider")
-export class SDSlider extends LitElement {
+//! 此文件只是一个模板
+@customElement("sd-xxx")
+export class SDxxx extends LitElement {
     static styles = css``;
+
     render() {
-        return html``;
+        html``;
     }
 }
 
 declare global {
     interface HTMLElementTagNameMap {
-        "sd-slider": SDSlider;
+        "sd-xxx": SDxxx;
     }
 }

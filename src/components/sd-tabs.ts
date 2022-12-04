@@ -21,12 +21,12 @@ export class SDTabs extends LitElement {
             tab.active = true;
             const index = tabs!.indexOf(tab);
 
-            if (this.index != index)
+            if (this.tab != index)
                 // only update if tab changes
                 this.dispatchEvent(
                     new CustomEvent<{ index: Number; tab: SDTab }>("change", { detail: { tab, index } })
                 );
-            this.index = index;
+            this.tab = index;
         });
     }
 
@@ -37,7 +37,7 @@ export class SDTabs extends LitElement {
     /**
      * 选中的sd-tab子元素的序号，第一个为0，顺序同文档顺序。若没有，则为-1
      */
-    @property({ type: Number, reflect: true }) index = -1;
+    @property({ type: Number, reflect: true }) tab = -1;
 
     static styles = css`
         .container {
@@ -67,16 +67,16 @@ export class SDTabs extends LitElement {
     }
 
     protected updated(changedProperties: PropertyValueMap<this>) {
-        if (changedProperties.has("index")) {
-            if (this.index < 0) return;
+        if (changedProperties.has("tab")) {
+            if (this.tab < 0) return;
             const tabs = this.getAllTabs();
             if (!tabs) return;
-            if (this.index >= tabs.length) {
+            if (this.tab >= tabs.length) {
                 tabs.forEach((t) => (t.active = false));
                 return;
             }
             tabs.forEach((t) => (t.active = false));
-            tabs[this.index].active = true;
+            tabs[this.tab].active = true;
         }
     }
 }

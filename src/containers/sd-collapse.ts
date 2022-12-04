@@ -1,15 +1,17 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, css, html, PropertyValueMap } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
 
 /**
- * @slot open
- * @slot close
+ * @summary 一般来说，这个元素需要包装才能使用
+ * @slot toggle 切换展开/折叠状态
+ * @event change {{expand: Boolean}}
+ *
  */
 @customElement("sd-collapse")
 export class SDCollapse extends LitElement {
-    /** 是否隐藏 */
-    @property({ type: Boolean, reflect: false }) hidden = false;
+    /** 是否展开 */
+    @property({ type: Boolean, reflect: true }) expand = false;
 
     /** 位置，默认为top，可选为bottom */
     @property({
@@ -21,46 +23,42 @@ export class SDCollapse extends LitElement {
     position: "top" | "bottom" = "top";
 
     static styles = css`
-        #body {
+        .body {
+            display: block;
             overflow: hidden;
             transition: all var(--sd-time-normal);
         }
-        #action {
+        .action {
+            display: block;
             cursor: pointer;
         }
     `;
 
-    @query("#action") action!: HTMLDivElement;
-
-    @query("#body") body!: HTMLDivElement;
+    @query(".body") body!: HTMLDivElement;
 
     render() {
-        const actionArea = () =>
-            html`
-                <div id="action">
-                    ${when(
-                        this.hidden,
-                        () => html`<slot name="open"> open</slot>`,
-                        () => html`<slot name="close"> close</slot>`
-                    )}
-                </div>
-            `;
+        const toggleArea = () =>
+            html` <slot name="toggle" class="action" @click=${() => this._handleClick()}>toggle</slot> `;
 
         return html`
-            ${when(this.position === "top", actionArea)}
-            <div id="body"><slot></slot></div>
-            ${when(this.position === "bottom", actionArea)}
+            ${when(this.position === "top", toggleArea)}
+            <div class="body"><slot></slot></div>
+            ${when(this.position === "bottom", toggleArea)}
         `;
     }
 
-    private _handleClick = (() => (this.hidden = !this.hidden)).bind(this);
-    protected updated() {
-        this.action.removeEventListener("click", this._handleClick);
-        this.action.addEventListener("click", this._handleClick);
-        if (this.hidden) {
-            this.body.style.maxHeight = 0 + "px";
-        } else {
-            this.body.style.maxHeight = this.body.scrollHeight + "px";
+    private _handleClick() {
+        this.expand = !this.expand;
+        this.dispatchEvent(new CustomEvent<{ expand: boolean }>("change", { detail: { expand: this.expand } }));
+    }
+
+    protected updated(changedProperties: PropertyValueMap<this>) {
+        if (changedProperties.has("expand")) {
+            if (this.expand) {
+                this.body.style.maxHeight = this.body.scrollHeight + "px";
+            } else {
+                this.body.style.maxHeight = 0 + "px";
+            }
         }
     }
 }
