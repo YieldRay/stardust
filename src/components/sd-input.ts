@@ -63,6 +63,7 @@ export class SDInput extends LitElement {
             border-radius: var(--padding-x);
             overflow: hidden;
             display: inline-flex;
+            align-items: center;
         }
         :host(:hover) .container {
             border-color: var(--sd-color-border-active);

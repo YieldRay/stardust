@@ -29,7 +29,7 @@ export class SDModal extends LitElement {
     position: Position = "disabled";
 
     static styles = css`
-        #container {
+        .container {
             position: fixed;
         }
         .disabled {
@@ -82,7 +82,7 @@ export class SDModal extends LitElement {
 
     render() {
         return html`
-            <div class="${this.position}">
+            <div class="container ${this.position}">
                 <slot></slot>
             </div>
         `;
