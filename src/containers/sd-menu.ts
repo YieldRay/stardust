@@ -18,9 +18,9 @@ export class SDMenu extends LitElement {
         }
     `;
 
-    @query("#body") body!: HTMLDivElement;
+    @query("#body") private body!: HTMLDivElement;
 
-    @query("#menu") menu!: HTMLDivElement;
+    @query("#menu") private menu!: HTMLDivElement;
 
     render() {
         return html`
@@ -60,7 +60,7 @@ export class SDMenu extends LitElement {
         }
     }
 
-    updated() {
+    protected updated() {
         this.calcPos();
     }
 }

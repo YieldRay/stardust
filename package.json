@@ -15,14 +15,17 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
+        "doc": "rm -rf docs && wca analyze src --format markdown --outDir docs",
         "minify": "npx esbuild --minify --allow-overwrite dist/stardust.js --outfile=dist/stardust.js"
     },
     "dependencies": {
-        "froebel": "^0.22.0",
-        "lit": "^2.4.0"
+        "lit": "^2.4.0",
+        "froebel": "^0.22.0"
     },
     "devDependencies": {
+        "vite": "^3.2.3",
         "typescript": "^4.6.4",
-        "vite": "^3.2.3"
+        "web-component-analyzer": "^2.0.0-next.4",
+        "rollup-plugin-minify-html-literals": "^1.2.6"
     }
 }

@@ -1,5 +1,5 @@
 import { LitElement, css, html } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 
 type PositionX = "left" | "center" | "right";
 type PositionY = "top" | "center" | "bottom";
@@ -80,11 +80,9 @@ export class SDModal extends LitElement {
         }
     `;
 
-    @query("#container") container!: HTMLDivElement;
-
     render() {
         return html`
-            <div id="container" class="${this.position}">
+            <div class="${this.position}">
                 <slot></slot>
             </div>
         `;

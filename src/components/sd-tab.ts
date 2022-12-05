@@ -3,7 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
 /**
- * @summary 此元素应置于 <sd-tabs> 元素内
+ *  此元素应置于 <sd-tabs> 元素内
  */
 @customElement("sd-tab")
 export class SDTab extends LitElement {

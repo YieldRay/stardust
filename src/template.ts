@@ -7,7 +7,7 @@ export class SDxxx extends LitElement {
     static styles = css``;
 
     render() {
-        html``;
+        return html``;
     }
 }
 

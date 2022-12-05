@@ -2,12 +2,12 @@ import { LitElement, css, html, nothing, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 
 /**
- * @cssproperty --size 元素的尺寸，即高度
- * @cssproperty --scale 元素的宽高比，高度即为 --size * --scale
- * @slot 开关内部
- * @slot label-before 开关前的标签，可以触发开关
- * @slot label-after 开关后的标签，可以触发开关
- * @event change {{checked: Boolean}}
+ * @cssprop --size - 元素的尺寸，即高度
+ * @cssprop --scale - 元素的宽高比，高度即为 --size * --scale
+ * @slot - 开关内部
+ * @slot before - 开关前的标签，可以触发开关
+ * @slot after - 开关后的标签，可以触发开关
+ * @fires change - {{checked: Boolean}}
  */
 @customElement("sd-switch")
 export class SDSwitch extends LitElement {
@@ -134,9 +134,9 @@ export class SDSwitch extends LitElement {
         }
     `;
 
-    @query("#ball") ballElem!: HTMLDivElement;
+    @query("#ball") private ballElem!: HTMLDivElement;
 
-    @query("input") input!: HTMLInputElement;
+    @query("input") private input!: HTMLInputElement;
 
     render() {
         return html`
@@ -153,7 +153,7 @@ export class SDSwitch extends LitElement {
                     }}
                 />
 
-                <slot name="label-before"></slot>
+                <slot name="before"></slot>
                 <span class="box">
                     <div id="ball"></div>
                     <div id="slotOuter" class="center" .style=${this.checked ? `left: var(--distance)` : nothing}>
@@ -162,7 +162,7 @@ export class SDSwitch extends LitElement {
                         </div>
                     </div>
                 </span>
-                <slot name="label-after"></slot>
+                <slot name="after"></slot>
             </label>
         `;
     }

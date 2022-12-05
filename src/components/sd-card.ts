@@ -2,8 +2,8 @@ import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
 /**
- * @slot header
- * @slot footer
+ * @slot header - 卡片首部
+ * @slot footer - 卡片尾部
  */
 @customElement("sd-card")
 export class SDCard extends LitElement {

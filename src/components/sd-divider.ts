@@ -22,7 +22,7 @@ export class SDDivider extends LitElement {
             color: var(--sd-color-border);
         }
         div {
-            flex: 16;
+            flex: 12;
             height: calc(var(--sd-length-border) * 0.75);
             background: var(--sd-color-border);
         }

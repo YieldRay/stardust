@@ -8,7 +8,8 @@ import { SDCollapse } from "../containers/sd-collapse";
 import { SDCard } from "../components/sd-card";
 
 /**
- * @summary High-level component of sd-collapse
+ * High-level component of sd-collapse
+ *
  * @dependency sd-collapse
  * @dependency sd-card
  */

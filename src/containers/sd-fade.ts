@@ -17,7 +17,7 @@ export class SDFade extends LitElement {
         }
     `;
 
-    @query("#container") container!: HTMLDivElement;
+    @query("#container") private container!: HTMLDivElement;
 
     render() {
         return html`

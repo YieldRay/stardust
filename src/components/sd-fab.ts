@@ -9,8 +9,8 @@ import { SDRipple } from "../containers/sd-ripple";
 import { SDFade } from "../containers/sd-fade";
 
 /**
- * @cssproperty --size 元素的尺寸，即直径
- * @cssproperty --distance 元素浮动时，离右下角的距离
+ * @cssprop --size - 元素的尺寸，即直径
+ * @cssprop --distance - 元素浮动时，离右下角的距离
  */
 @customElement("sd-fab")
 export class SDFab extends LitElement {
@@ -48,7 +48,7 @@ export class SDFab extends LitElement {
         }
     `;
 
-    @query("#container") container!: SDRipple;
+    @query("#container") private container!: SDRipple;
 
     render() {
         return html`

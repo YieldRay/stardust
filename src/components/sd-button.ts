@@ -1,6 +1,7 @@
 import { css, html, LitElement } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 
+//@ts-ignore
 import { SDRipple } from "../containers/sd-ripple";
 
 /**
@@ -19,34 +20,32 @@ export class SDButton extends LitElement {
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-        :host > #container {
+        :host > .container {
             cursor: pointer;
             display: inline-block;
         }
-        :host([disabled]) > #container {
+        :host([disabled]) > .container {
             cursor: not-allowed;
             opacity: 0.6;
         }
-        #container {
+        .container {
             font-family: inherit;
             transition: border-color var(--sd-time-normal);
-            color: var(--sd-color-text-reverse);
             padding: var(--sd-length-padding);
+            color: var(--sd-color-text-reverse);
             background-color: var(--sd-color-primary);
             background-clip: padding-box;
             border-radius: var(--sd-length-radius);
             border: solid transparent var(--sd-length-border);
             overflow: hidden;
         }
-        #container:hover {
+        .container:hover {
             border: solid var(--sd-color-border) var(--sd-length-border);
         }
     `;
 
-    @query("#container") container!: SDRipple;
-
     render() {
-        return html`<sd-ripple id="container"><slot></slot></sd-ripple>`;
+        return html`<sd-ripple class="container"><slot></slot></sd-ripple>`;
     }
 }
 

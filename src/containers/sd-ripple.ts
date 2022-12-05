@@ -48,7 +48,7 @@ export class SDRipple extends LitElement {
         }
     `;
 
-    @query("#container") container!: HTMLDivElement;
+    @query("#container") private container!: HTMLDivElement;
 
     render() {
         return html`
@@ -88,7 +88,7 @@ export class SDRipple extends LitElement {
         this.renderRoot.querySelectorAll(".ripple").forEach((e) => e.remove());
     }
 
-    updated() {
+    protected updated() {
         this.removeRipple();
     }
 }

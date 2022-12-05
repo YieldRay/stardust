@@ -1,12 +1,13 @@
 import { LitElement, css, html, PropertyValueMap } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, queryAssignedElements } from "lit/decorators.js";
 import { SDTab } from "./sd-tab";
 
 const isSDTab = (e: Element): e is SDTab => e.tagName === "sd-tab".toUpperCase();
 
 /**
- * @summary 此元素应包含 <sd-tab> 元素
- *  @event change {{ index: Number; tab: SDTab }}
+ * 此元素应包含 <sd-tab> 元素
+ *
+ * @fires change - {{ index: Number; tab: SDTab }}
  */
 @customElement("sd-tabs")
 export class SDTabs extends LitElement {
@@ -16,11 +17,13 @@ export class SDTabs extends LitElement {
         this.addEventListener("click", (e) => {
             const tab = (e as MouseEvent & { path: Array<Element> }).path.find(isSDTab);
             if (!tab) return;
-            const tabs = this.getAllTabs();
-            tabs!.forEach((tab) => (tab.active = false));
-            tab.active = true;
-            const index = tabs!.indexOf(tab);
 
+            // set .active
+            this.tabs.forEach((tab) => (tab.active = false));
+            tab.active = true;
+
+            // update index
+            const index = this.tabs.indexOf(tab);
             if (this.tab != index)
                 // only update if tab changes
                 this.dispatchEvent(
@@ -30,14 +33,15 @@ export class SDTabs extends LitElement {
         });
     }
 
-    public getAllTabs() {
-        return this.renderRoot.querySelector("slot")?.assignedElements({ flatten: true }).filter(isSDTab);
-    }
-
     /**
      * 选中的sd-tab子元素的序号，第一个为0，顺序同文档顺序。若没有，则为-1
      */
     @property({ type: Number, reflect: true }) tab = -1;
+
+    /**
+     * 获取插槽所有子<sd-tab>元素
+     */
+    @queryAssignedElements({ flatten: true, selector: "" }) private tabs!: Array<SDTab>;
 
     static styles = css`
         .container {
@@ -49,6 +53,7 @@ export class SDTabs extends LitElement {
 
         slot {
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
             user-select: none;
         }
 
@@ -69,14 +74,12 @@ export class SDTabs extends LitElement {
     protected updated(changedProperties: PropertyValueMap<this>) {
         if (changedProperties.has("tab")) {
             if (this.tab < 0) return;
-            const tabs = this.getAllTabs();
-            if (!tabs) return;
-            if (this.tab >= tabs.length) {
-                tabs.forEach((t) => (t.active = false));
+            if (this.tab >= this.tabs.length) {
+                this.tabs.forEach((t) => (t.active = false));
                 return;
             }
-            tabs.forEach((t) => (t.active = false));
-            tabs[this.tab].active = true;
+            this.tabs.forEach((t) => (t.active = false));
+            this.tabs[this.tab].active = true;
         }
     }
 }

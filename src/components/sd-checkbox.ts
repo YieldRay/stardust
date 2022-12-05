@@ -2,11 +2,11 @@ import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
 /**
- * @cssproperty --size 元素的尺寸
- * @slot 开关内部
- * @slot label-before 开关前的标签，可以触发开关
- * @slot label-after 开关后的标签，可以触发开关
- * @event change {{checked: Boolean}}
+ * @cssprop --size - 元素的尺寸
+ * @slot - 开关内部
+ * @slot before - 开关前的标签，可以触发开关
+ * @slot after - 开关后的标签，可以触发开关
+ * @fires change - {{checked: Boolean}}
  */
 @customElement("sd-checkbox")
 export class SDCheckBox extends LitElement {
@@ -57,8 +57,7 @@ export class SDCheckBox extends LitElement {
         }
     `;
 
-    @query("input")
-    input!: HTMLInputElement;
+    @query("input") private input!: HTMLInputElement;
     render() {
         return html`
             <label>
@@ -74,13 +73,13 @@ export class SDCheckBox extends LitElement {
                     }}
                 />
 
-                <slot name="label-before"></slot>
+                <slot name="before"></slot>
                 <span class="box">
                     <sd-fade .hidden=${!this.checked}>
                         <slot>✔</slot>
                     </sd-fade>
                 </span>
-                <slot name="label-after"></slot>
+                <slot name="after"></slot>
             </label>
         `;
     }

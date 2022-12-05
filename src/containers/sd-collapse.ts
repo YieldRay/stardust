@@ -3,9 +3,10 @@ import { customElement, property, query } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
 
 /**
- * @summary 一般来说，这个元素需要包装才能使用
- * @slot toggle 切换展开/折叠状态
- * @event change {{expand: Boolean}}
+ * 一般来说，这个元素需要包装才能使用
+ *
+ * @slot toggle - 切换展开/折叠状态
+ * @fires change - {{expand: Boolean}}
  *
  */
 @customElement("sd-collapse")
@@ -34,7 +35,7 @@ export class SDCollapse extends LitElement {
         }
     `;
 
-    @query(".body") body!: HTMLDivElement;
+    @query(".body") private body!: HTMLDivElement;
 
     render() {
         const toggleArea = () =>

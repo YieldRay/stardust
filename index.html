@@ -17,27 +17,31 @@
     </head>
     <body>
         <sd-button>SD-BUTTON</sd-button>
-        <sd-checkbox checked disabled>
-            <span slot="label-before">(</span>
-            ▪
-            <span slot="label-after">)</span>
-        </sd-checkbox>
-        <sd-checkbox style="--size: 2em">?</sd-checkbox>
-        <sd-switch>
-            <span slot="label-before">(</span>
 
-            <span slot="label-after">)</span>
+        <sd-checkbox checked disabled>
+            <span slot="before">(</span>
+            ▪
+            <span slot="after">)</span>
+        </sd-checkbox>
+
+        <sd-checkbox style="--size: 2em">?</sd-checkbox>
+
+        <sd-switch>
+            <span slot="before">(</span>
+            <span slot="after">)</span>
         </sd-switch>
+
         <sd-switch style="--size: 2em">G</sd-switch>
+
         <div style="height: 100vh">
             <sd-card>
                 <div slot="header">
                     <h1>StarDust!</h1>
                 </div>
                 <script>
-                    document.write(location.origin + "/dist/stardust.js");
+                    document.write(new URL("./dist/stardust.js", location).href);
                     document.write("<br>");
-                    document.write(location.origin + "/dist/style.css");
+                    document.write(new URL("./dist/style.css", location).href);
                 </script>
 
                 <div slot="footer">
@@ -65,6 +69,7 @@
                     此menu插槽内元素位置是通过计算所设置的，优先显示在默认插槽的右下角
                 </div>
             </sd-menu>
+
             <br />
             123
             <br />
@@ -84,7 +89,12 @@
             <p>I'm floating!</p>
         </sd-modal>
 
+        <sd-input placeholder="请输入">
+            <span slot="before">@</span>
+        </sd-input>
+
         <sd-divider position="right">The End</sd-divider>
+
         <sd-fab fixed backtop autohide></sd-fab>
     </body>
 </html>
