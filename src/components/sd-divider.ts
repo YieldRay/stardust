@@ -21,8 +21,8 @@ export class SDDivider extends LitElement {
             align-items: center;
             color: var(--sd-color-border);
         }
-        div {
-            flex: 12;
+        .line {
+            flex: 9;
             height: calc(var(--sd-length-border) * 0.75);
             background: var(--sd-color-border);
         }
@@ -30,9 +30,9 @@ export class SDDivider extends LitElement {
 
     render() {
         return html`
-            <div .style=${when(this.position === "left", () => "flex:1")}></div>
+            <div class="line" .style=${when(this.position === "left", () => "flex:1")}></div>
             <span><slot></slot></span>
-            <div .style=${when(this.position === "right", () => "flex:1")}></div>
+            <div class="line" .style=${when(this.position === "right", () => "flex:1")}></div>
         `;
     }
 }

@@ -3,6 +3,10 @@ import { customElement, property } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
 import { classMap } from "lit/directives/class-map.js";
 
+/**
+ * @slot -
+ * @slot loading -
+ */
 @customElement("sd-loading")
 export class SDLoading extends LitElement {
     @property({ type: Boolean }) loading = true;

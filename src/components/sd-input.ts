@@ -9,6 +9,8 @@ import { customElement, property, query } from "lit/decorators.js";
  */
 @customElement("sd-input")
 export class SDInput extends LitElement {
+    @property() type = "text";
+
     @property()
     get value() {
         if (!this.input) return "";
@@ -26,9 +28,9 @@ export class SDInput extends LitElement {
                 <slot name="before"></slot>
                 <input
                     .value=${this.value}
+                    .type=${this.type}
                     @change=${() => this._handleChange()}
                     @input=${() => this._handleInput()}
-                    type="text"
                     placeholder=${this.placeholder}
                 />
                 <slot name="after"></slot>

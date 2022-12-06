@@ -1,6 +1,9 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
+/**
+ * @fires
+ */
 @customElement("sd-fade")
 export class SDFade extends LitElement {
     /** 是否隐藏，此属性不反映到标签属性！ */
@@ -42,18 +45,20 @@ export class SDFade extends LitElement {
     private _show() {
         this.container.style.display = "";
         this.container.removeEventListener("transitionend", this._transitionListener);
-        animate(() => this.container.classList.remove("hide"));
+        this._animate(() => this.container.classList.remove("hide"));
+        this.dispatchEvent(new CustomEvent("show"));
     }
     private _hide() {
         this.container.addEventListener("transitionend", this._transitionListener);
-        animate(() => this.container.classList.add("hide"));
+        this._animate(() => this.container.classList.add("hide"));
+        this.dispatchEvent(new CustomEvent("hide"));
     }
-}
 
-function animate(cb: FrameRequestCallback) {
-    setTimeout(() => {
+    private async _animate(cb: FrameRequestCallback): Promise<void> {
+        await this.updateComplete;
+        await new Promise((r) => setTimeout(r, 0));
         requestAnimationFrame(cb);
-    }, 0);
+    }
 }
 
 declare global {

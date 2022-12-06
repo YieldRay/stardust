@@ -1,6 +1,10 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
+/**
+ * @slot - 默认插槽
+ * @slot menu - 悬浮的菜单元素，位置相对默认插槽自动计算
+ */
 @customElement("sd-menu")
 export class SDMenu extends LitElement {
     @property({ type: Boolean }) hidden = false;
@@ -25,9 +29,9 @@ export class SDMenu extends LitElement {
     render() {
         return html`
             <div id="body">
-                <slot></slot>
+                <slot @slotchange=${() => this.calculatePosition()}></slot>
                 <div id="menu">
-                    <slot name="menu"> </slot>
+                    <slot name="menu" @slotchange=${() => this.calculatePosition()}> </slot>
                 </div>
             </div>
         `;
@@ -36,7 +40,7 @@ export class SDMenu extends LitElement {
     /**
      * 调用此方法重新计算并设置菜单位置
      */
-    public calcPos() {
+    public calculatePosition() {
         const { body, menu } = this;
         const bodyRect = body.getBoundingClientRect();
 
@@ -61,7 +65,7 @@ export class SDMenu extends LitElement {
     }
 
     protected updated() {
-        this.calcPos();
+        this.calculatePosition();
     }
 }
 
