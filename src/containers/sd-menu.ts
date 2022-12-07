@@ -15,6 +15,8 @@ export class SDMenu extends LitElement {
         }
         #body {
             position: relative;
+            max-width: 100vw;
+            max-height: 100vh;
         }
         #menu {
             position: absolute;

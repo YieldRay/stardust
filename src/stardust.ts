@@ -7,6 +7,7 @@ export { SDDivider } from "./components/sd-divider";
 export { SDDetail } from "./components/sd-detail";
 export { SDFab } from "./components/sd-fab";
 export { SDInput } from "./components/sd-input";
+export { SDProgress } from "./components/sd-progress";
 export { SDSpinner } from "./components/sd-spinner";
 export { SDSwitch } from "./components/sd-switch";
 export { SDTab } from "./components/sd-tab";
