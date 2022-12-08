@@ -16,6 +16,6 @@ export { SDTabs } from "./components/sd-tabs";
 export { SDCollapse } from "./containers/sd-collapse";
 export { SDFade } from "./containers/sd-fade";
 export { SDLoading } from "./containers/sd-loading";
-export { SDMenu } from "./containers/sd-menu";
+export { SDFloat } from "./containers/sd-float";
 export { SDModal } from "./containers/sd-modal";
 export { SDRipple } from "./containers/sd-ripple";

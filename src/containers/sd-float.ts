@@ -3,10 +3,10 @@ import { customElement, property, query } from "lit/decorators.js";
 
 /**
  * @slot - 默认插槽
- * @slot menu - 悬浮的菜单元素，位置相对默认插槽自动计算
+ * @slot float - 悬浮的元素，位置相对默认插槽自动计算
  */
-@customElement("sd-menu")
-export class SDMenu extends LitElement {
+@customElement("sd-float")
+export class SDFloat extends LitElement {
     @property({ type: Boolean }) hidden = false;
 
     static styles = css`
@@ -18,22 +18,22 @@ export class SDMenu extends LitElement {
             max-width: 100vw;
             max-height: 100vh;
         }
-        #menu {
+        #float {
             position: absolute;
-            transition: left right top bottom var(--sd-time-normal);
+            transition: all var(--sd-time-normal);
         }
     `;
 
     @query("#body") private body!: HTMLDivElement;
 
-    @query("#menu") private menu!: HTMLDivElement;
+    @query("#float") private float!: HTMLDivElement;
 
     render() {
         return html`
             <div id="body">
                 <slot @slotchange=${() => this.calculatePosition()}></slot>
-                <div id="menu">
-                    <slot name="menu" @slotchange=${() => this.calculatePosition()}> </slot>
+                <div id="float">
+                    <slot name="float" @slotchange=${() => this.calculatePosition()}> </slot>
                 </div>
             </div>
         `;
@@ -43,26 +43,26 @@ export class SDMenu extends LitElement {
      * 调用此方法重新计算并设置菜单位置
      */
     public calculatePosition() {
-        const { body, menu } = this;
+        const { body, float } = this;
         const bodyRect = body.getBoundingClientRect();
 
         if (bodyRect.top > window.innerHeight - bodyRect.bottom) {
             // top
-            menu.style.top = "";
-            menu.style.bottom = "100%";
+            float.style.top = "";
+            float.style.bottom = "100%";
         } else {
             // bottom
-            menu.style.top = "100%";
-            menu.style.bottom = "";
+            float.style.top = "100%";
+            float.style.bottom = "";
         }
         if (bodyRect.left > window.innerWidth - bodyRect.left) {
             // left
-            menu.style.left = "";
-            menu.style.right = "0px";
+            float.style.left = "";
+            float.style.right = "0px";
         } else {
             // right
-            menu.style.left = "0px";
-            menu.style.right = "";
+            float.style.left = "0px";
+            float.style.right = "";
         }
     }
 
@@ -73,6 +73,6 @@ export class SDMenu extends LitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        "sd-menu": SDMenu;
+        "sd-float": SDFloat;
     }
 }

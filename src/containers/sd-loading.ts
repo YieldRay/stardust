@@ -18,7 +18,7 @@ export class SDLoading extends LitElement {
         }
         .opacity {
             opacity: 0.4;
-            cursor: not-allowed;
+            cursor: progress
         }
 
         .loading {
