@@ -13,9 +13,9 @@ export { SDSwitch } from "./components/sd-switch";
 export { SDTab } from "./components/sd-tab";
 export { SDTabs } from "./components/sd-tabs";
 // containers
+export { SDAside } from "./containers/sd-aside";
 export { SDCollapse } from "./containers/sd-collapse";
 export { SDFade } from "./containers/sd-fade";
-export { SDLoading } from "./containers/sd-loading";
 export { SDFloat } from "./containers/sd-float";
-export { SDModal } from "./containers/sd-modal";
+export { SDLoading } from "./containers/sd-loading";
 export { SDRipple } from "./containers/sd-ripple";

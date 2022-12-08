@@ -1,73 +1,91 @@
 import { LitElement, css, html } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 
-/**
- * @slot - 默认插槽
- * @slot float - 悬浮的元素，位置相对默认插槽自动计算
- */
+type PositionX = "left" | "center" | "right";
+type PositionY = "top" | "center" | "bottom";
+type Position = "disabled" | `${PositionY}-${PositionX}`;
 @customElement("sd-float")
 export class SDFloat extends LitElement {
-    @property({ type: Boolean }) hidden = false;
+    /**
+     * 浮动的位置，若类型不匹配将报错
+     * 可设置为disabled或为空，此时将取消浮动（static定位）
+     */
+    @property({
+        converter(value) {
+            if (!value) return "disabled";
+            if (value === "disabled") return value;
+            const pos = value.split("-");
+            if (pos.length != 2)
+                throw new Error(`the position attr in <sd-modal> cannot be parsed! It should be like: "top-center"`);
+            let [y, x] = pos;
+            if (!["left", "right", "center"].includes(x))
+                throw new Error(`"${x}" is wrong, it should be "left" or "right" or "center"`);
+            if (!["top", "bottom", "center"].includes(y))
+                throw new Error(`"${y}" is wrong, it should be "top" or "bottom" or "center"`);
+            return `${y}-${x}`;
+        },
+        reflect: true,
+    })
+    position: Position = "disabled";
 
     static styles = css`
-        :host {
-            display: inline-block;
+        .container {
+            position: fixed;
         }
-        #body {
-            position: relative;
-            max-width: 100vw;
-            max-height: 100vh;
+        .disabled {
+            position: static;
         }
-        #float {
-            position: absolute;
-            transition: all var(--sd-time-normal);
+        .top-left {
+            top: 0;
+            left: 0;
+        }
+        .top-center {
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+        .top-right {
+            top: 0;
+            right: 0;
+        }
+        .center-left {
+            top: 50%;
+            left: 0;
+            transform: translate(0, -50%);
+        }
+        .center-center {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .center-right {
+            top: 50%;
+            right: 0;
+            transform: translate(0, -50%);
+        }
+        .bottom-left {
+            top: 100%;
+            left: 0;
+            transform: translate(0, -100%);
+        }
+        .bottom-center {
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -100%);
+        }
+        .bottom-right {
+            top: 100%;
+            right: 0;
+            transform: translate(0, -100%);
         }
     `;
 
-    @query("#body") private body!: HTMLDivElement;
-
-    @query("#float") private float!: HTMLDivElement;
-
     render() {
         return html`
-            <div id="body">
-                <slot @slotchange=${() => this.calculatePosition()}></slot>
-                <div id="float">
-                    <slot name="float" @slotchange=${() => this.calculatePosition()}> </slot>
-                </div>
+            <div class="container ${this.position}">
+                <slot></slot>
             </div>
         `;
-    }
-
-    /**
-     * 调用此方法重新计算并设置菜单位置
-     */
-    public calculatePosition() {
-        const { body, float } = this;
-        const bodyRect = body.getBoundingClientRect();
-
-        if (bodyRect.top > window.innerHeight - bodyRect.bottom) {
-            // top
-            float.style.top = "";
-            float.style.bottom = "100%";
-        } else {
-            // bottom
-            float.style.top = "100%";
-            float.style.bottom = "";
-        }
-        if (bodyRect.left > window.innerWidth - bodyRect.left) {
-            // left
-            float.style.left = "";
-            float.style.right = "0px";
-        } else {
-            // right
-            float.style.left = "0px";
-            float.style.right = "";
-        }
-    }
-
-    protected updated() {
-        this.calculatePosition();
     }
 }
 

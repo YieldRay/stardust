@@ -6,7 +6,7 @@ import { throttle } from "froebel/function";
 //@ts-ignore
 import { SDRipple } from "../containers/sd-ripple";
 //@ts-ignore
-import { SDFade } from "../containers/sd-fade";
+import { SDFloat } from "../containers/sd-float";
 
 /**
  * @cssprop --size - 元素的尺寸，即直径
@@ -41,7 +41,6 @@ export class SDFab extends LitElement {
             height: var(--size);
             border-radius: 50%;
             transition: opacity var(--sd-time-normal);
-
             display: flex;
             align-items: center;
             justify-content: center;
@@ -52,7 +51,7 @@ export class SDFab extends LitElement {
 
     render() {
         return html`
-            <sd-modal position="${this.fixed ? "bottom-right" : "disabled"}">
+            <sd-float position="${this.fixed ? "bottom-right" : "disabled"}">
                 <div
                     style=${styleMap({
                         marginRight: this.fixed ? "var(--distance)" : null,
@@ -67,7 +66,7 @@ export class SDFab extends LitElement {
                         </sd-ripple>
                     </sd-fade>
                 </div>
-            </sd-modal>
+            </sd-float>
         `;
     }
 
