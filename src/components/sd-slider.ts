@@ -75,10 +75,10 @@ export class SDSlider extends LitElement {
     private _handleClick(e: MouseEvent) {
         const rect = this.bar.getBoundingClientRect();
         const percentage = this._calcPercentage(rect, e);
+        this.ball.style.left = percentage + "%";
         // set value & fire event
         this.value = percentage;
         this.dispatchEvent(new CustomEvent("change", { detail: { value: percentage } }));
-        this.ball.style.left = percentage + "%";
     }
 
     private _handleMove() {

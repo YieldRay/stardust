@@ -1,9 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
-/**
- * @fires
- */
 @customElement("sd-fade")
 export class SDFade extends LitElement {
     /** 是否隐藏，此属性不反映到标签属性！ */
@@ -46,12 +43,10 @@ export class SDFade extends LitElement {
         this.container.style.display = "";
         this.container.removeEventListener("transitionend", this._transitionListener);
         this._animate(() => this.container.classList.remove("hide"));
-        this.dispatchEvent(new CustomEvent("show"));
     }
     private _hide() {
         this.container.addEventListener("transitionend", this._transitionListener);
         this._animate(() => this.container.classList.add("hide"));
-        this.dispatchEvent(new CustomEvent("hide"));
     }
 
     private async _animate(cb: FrameRequestCallback): Promise<void> {

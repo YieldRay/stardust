@@ -58,8 +58,8 @@ export class SDFab extends LitElement {
                         marginBottom: this.fixed ? "var(--distance)" : null,
                     })}
                 >
-                    <sd-fade .hidden=${this.hidden} @show=${() => this.container.removeRipple()}>
-                        <sd-ripple scale="1.2" id="container">
+                    <sd-fade .hidden=${this.hidden}>
+                        <sd-ripple scale="1.25" id="container">
                             <slot>
                                 <div>▲</div>
                             </slot>

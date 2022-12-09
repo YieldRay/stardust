@@ -1,4 +1,4 @@
-import { css, html, LitElement, nothing } from "lit";
+import { css, html, LitElement } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
 @customElement("sd-ripple")
@@ -28,23 +28,13 @@ export class SDRipple extends LitElement {
             box-sizing: border-box;
             border-radius: 50%;
             transform-origin: center center;
-            background-color: rgba(0, 0, 0, 0.2);
-            animation: ripple var(--sd-time-slow);
+            background-color: rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: scale(0);
         }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-            35% {
-                transform: scale(0.9);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0;
-            }
+        .animate {
+            opacity: 1;
+            transform: scale(1);
         }
     `;
 
@@ -52,32 +42,45 @@ export class SDRipple extends LitElement {
 
     render() {
         return html`
-            <div id="container" .style=${this.style ?? nothing}>
+            <div id="container">
                 <slot @slotchange=${() => this.removeRipple()}></slot>
             </div>
         `;
     }
 
     protected firstUpdated() {
-        this.addEventListener("click", this._handleClick);
+        this.addEventListener("mousedown", this._handleMouseDown);
     }
 
-    private _handleClick(event: MouseEvent) {
-        if (this.disabled) return;
-        const container = this.container;
+    private _genRipple(e: MouseEvent) {
         const ripple = document.createElement("div");
         const rect = this.getBoundingClientRect(); // calc size of :host
-        const bigger = this.scale * Math.max(rect.width, rect.height);
-        const left = event.clientX - rect.x;
-        const top = event.clientY - rect.y;
-        ripple.style.left = left - bigger / 2 + "px";
-        ripple.style.top = top - bigger / 2 + "px";
-        ripple.style.width = bigger + "px";
-        ripple.style.height = bigger + "px";
+        const size = this.scale * Math.max(rect.width, rect.height);
+        const left = e.clientX - rect.x;
+        const top = e.clientY - rect.y;
+        ripple.style.left = left - size / 2 + "px";
+        ripple.style.top = top - size / 2 + "px";
+        ripple.style.width = size + "px";
+        ripple.style.height = size + "px";
+        ripple.style.transition = `all cubic-bezier(0,1.12,0,1) 60s`;
         ripple.classList.add("ripple");
+        return ripple;
+    }
+
+    private _handleMouseDown(event: MouseEvent) {
+        if (this.disabled) return;
+        const container = this.container;
+        const ripple = this._genRipple(event);
         container.append(ripple);
-        ripple.addEventListener("animationend", () => {
-            ripple.remove();
+        const remove = () => ripple.remove();
+        ripple.addEventListener("transitionend", remove);
+        requestAnimationFrame(() => ripple.classList.add("animate"));
+        window.addEventListener("mouseup", () => {
+            ripple.classList.remove("animate");
+            ripple.style.transition = "all cubic-bezier(0,1.21,.81,.95) var(--sd-time-slow)";
+            requestAnimationFrame(() => {
+                ripple.classList.add("animate");
+            });
         });
     }
 
