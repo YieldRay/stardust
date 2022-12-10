@@ -1,8 +1,7 @@
 import { LitElement, css, html, PropertyValueMap } from "lit";
 import { customElement, property, queryAssignedElements } from "lit/decorators.js";
+import { findTagInPath } from "../utils";
 import { SDTab } from "./sd-tab";
-
-const isSDTab = (e: Element): e is SDTab => e.tagName === "sd-tab".toUpperCase();
 
 /**
  * 此元素应包含 <sd-tab> 元素
@@ -15,7 +14,7 @@ export class SDTabs extends LitElement {
         super();
 
         this.addEventListener("click", (e) => {
-            const tab = (e as MouseEvent & { path: Array<Element> }).path.find(isSDTab);
+            const tab = findTagInPath<SDTab>(e, "sd-tab");
             if (!tab) return;
 
             // set .active
@@ -41,7 +40,7 @@ export class SDTabs extends LitElement {
     /**
      * 获取插槽所有子<sd-tab>元素
      */
-    @queryAssignedElements({ flatten: true, selector: "" }) private tabs!: Array<SDTab>;
+    @queryAssignedElements({ flatten: true, selector: "sd-tab" }) tabs!: Array<SDTab>;
 
     static styles = css`
         .container {

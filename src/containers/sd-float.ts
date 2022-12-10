@@ -3,7 +3,13 @@ import { customElement, property } from "lit/decorators.js";
 
 type PositionX = "left" | "center" | "right";
 type PositionY = "top" | "center" | "bottom";
-type Position = "disabled" | `${PositionY}-${PositionX}`;
+const isX = (str: string): str is PositionX => ["left", "right", "center"].includes(str);
+const isY = (str: string): str is PositionY => ["top", "bottom", "center"].includes(str);
+export type Position = "disabled" | `${PositionX}-${PositionY}` | `${PositionY}-${PositionX}`;
+
+//? Pos is for inner use, while Position is exported
+type Pos = Exclude<Position, `${PositionX}-${PositionY}`>; // "disabled" | `${PositionY}-${PositionX}`;
+
 @customElement("sd-float")
 export class SDFloat extends LitElement {
     /**
@@ -12,21 +18,21 @@ export class SDFloat extends LitElement {
      */
     @property({
         converter(value) {
+            const errMsg = `The position attribute set to <sd-modal> cannot be parsed! It should be like "top-center"`;
             if (!value) return "disabled";
             if (value === "disabled") return value;
             const pos = value.split("-");
-            if (pos.length != 2)
-                throw new Error(`the position attr in <sd-modal> cannot be parsed! It should be like: "top-center"`);
-            let [y, x] = pos;
-            if (!["left", "right", "center"].includes(x))
-                throw new Error(`"${x}" is wrong, it should be "left" or "right" or "center"`);
-            if (!["top", "bottom", "center"].includes(y))
-                throw new Error(`"${y}" is wrong, it should be "top" or "bottom" or "center"`);
+            if (pos.length != 2) throw new Error(errMsg);
+            const [lhs, rhs] = pos;
+            let x: PositionX, y: PositionY;
+            if (isX(lhs) && isY(rhs)) (x = lhs), (y = rhs);
+            else if (isY(lhs) && isX(rhs)) (x = rhs), (y = lhs);
+            else throw new Error(errMsg);
             return `${y}-${x}`;
         },
         reflect: true,
     })
-    position: Position = "disabled";
+    position: Pos = "disabled";
 
     static styles = css`
         .container {

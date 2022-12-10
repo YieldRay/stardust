@@ -2,8 +2,8 @@ import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
 /**
- * @slot before -
- * @slot after -
+ * @slot before - 输入框内部，文本前方
+ * @slot after - 输入框内部，文本后方
  * @fires change - {{value: String}}
  * @fires input - {{value: String}}
  */
@@ -65,7 +65,6 @@ export class SDInput extends LitElement {
             border-radius: var(--padding-x);
             overflow: hidden;
             display: inline-flex;
-            align-items: center;
         }
         :host(:hover) .container {
             border-color: var(--sd-color-border-active);

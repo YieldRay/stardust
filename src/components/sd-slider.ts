@@ -7,9 +7,24 @@ import { customElement, property, query } from "lit/decorators.js";
 @customElement("sd-slider")
 export class SDSlider extends LitElement {
     /**
-     * 滑动条当前百分比，范围0-100
+     * 每步长度，默认为连续值。若设置，应设置为整数，否则由于Javascript计算浮点数失精会造成错误
      */
-    @property({ type: Number }) value = 0;
+    @property({ type: Number, reflect: false }) step = 0;
+    @property({ type: Number }) min = 0;
+    @property({ type: Number }) max = 100;
+    /**
+     * 滑动条当前百分比，范围 min-max 默认为 0-100
+     */
+    @property({ type: Number, reflect: true }) value = this.min;
+
+    protected firstUpdated() {
+        if (!this.hasAttribute("value")) {
+            this.value = this.min;
+        }
+        const percentage = ((this.value - this.min) / (this.max - this.min)) * 100;
+        this.ball.style.left = this._calcStep(percentage, true) + "%";
+    }
+
     static styles = css`
         :host {
             --size: 1em;
@@ -54,15 +69,16 @@ export class SDSlider extends LitElement {
         return html`
             <div class="container">
                 <div class="bar" @click=${this._handleClick}>
-                    <div class="ball" @mousedown=${this._handleMove}></div>
+                    <div class="ball" @dragstart=${() => false} @mousedown=${this._handleMove}></div>
                 </div>
             </div>
         `;
     }
 
     /**
-     * this method calc percentage ranging 0-100
+     * this method calculate percentage ranging in 0-100
      */
+
     private _calcPercentage(rect: DOMRect, e: MouseEvent) {
         const { clientX } = e;
         const percentage = ((clientX - rect.left) / rect.width) * 100;
@@ -72,13 +88,34 @@ export class SDSlider extends LitElement {
         return value;
     }
 
+    private _calcStep(value: number, byPercent = false) {
+        let step = this.step;
+        if (byPercent) {
+            step = step * (100 / (this.max - this.min));
+        }
+        if (!step || step <= 0) return value;
+        const mod = value % step;
+        if (mod === 0) return value;
+        if (mod < step / 2) {
+            value -= mod;
+        } else {
+            value += step - mod;
+        }
+        return value;
+    }
+
+    private _calcValue(percent: number): number {
+        return this.min + (this.max - this.min) * (percent / 100);
+    }
+
     private _handleClick(e: MouseEvent) {
         const rect = this.bar.getBoundingClientRect();
         const percentage = this._calcPercentage(rect, e);
-        this.ball.style.left = percentage + "%";
+        this.ball.style.left = this._calcStep(percentage, true) + "%";
         // set value & fire event
-        this.value = percentage;
-        this.dispatchEvent(new CustomEvent("change", { detail: { value: percentage } }));
+        const value = this._calcStep(this._calcValue(percentage));
+        this.value = value;
+        this.dispatchEvent(new CustomEvent("change", { detail: { value } }));
     }
 
     private _handleMove() {
@@ -93,7 +130,7 @@ export class SDSlider extends LitElement {
         let percentage: number;
         const onMouseMove = (e: MouseEvent) => {
             percentage = this._calcPercentage(rect, e);
-            this.ball.style.left = percentage + "%";
+            this.ball.style.left = this._calcStep(percentage, true) + "%";
         };
 
         // add listener
@@ -106,8 +143,9 @@ export class SDSlider extends LitElement {
             document.documentElement.style.userSelect = "";
 
             // set value & fire event
-            this.value = percentage;
-            this.dispatchEvent(new CustomEvent("change", { detail: { value: percentage } }));
+            const value = this._calcStep(this._calcValue(percentage));
+            this.value = value;
+            this.dispatchEvent(new CustomEvent("change", { detail: { value } }));
             // remove listener
             window.removeEventListener("mousemove", onMouseMove);
         });
