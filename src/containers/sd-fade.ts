@@ -19,6 +19,12 @@ export class SDFade extends LitElement {
 
     @query("#container") private container!: HTMLDivElement;
 
+    protected firstUpdated() {
+        if (this.hidden) {
+            this._onTransitionEnd();
+        }
+    }
+
     render() {
         return html`
             <div id="container">
@@ -35,17 +41,18 @@ export class SDFade extends LitElement {
         }
     }
 
-    private _transitionListener = (() => {
+    private _onTransitionEnd = (() => {
         this.container.style.display = "none";
     }).bind(this);
 
     private _show() {
         this.container.style.display = "";
-        this.container.removeEventListener("transitionend", this._transitionListener);
+        this.container.removeEventListener("transitionend", this._onTransitionEnd);
         this._animate(() => this.container.classList.remove("hide"));
     }
+
     private _hide() {
-        this.container.addEventListener("transitionend", this._transitionListener);
+        this.container.addEventListener("transitionend", this._onTransitionEnd);
         this._animate(() => this.container.classList.add("hide"));
     }
 

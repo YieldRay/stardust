@@ -22,19 +22,20 @@ export class SDSlider extends LitElement {
             this.value = this.min;
         }
         const percentage = ((this.value - this.min) / (this.max - this.min)) * 100;
-        this.ball.style.left = this._calcStep(percentage, true) + "%";
+        this.thumb.style.left = this._calcStep(percentage, true) + "%";
     }
 
     static styles = css`
         :host {
             --size: 1em;
+            -webkit-tap-highlight-color: transparent;
         }
         .container {
             position: relative;
             margin: 0 calc(var(--size) / 2);
             min-height: var(--size);
         }
-        .bar {
+        .slider {
             height: 0.25em;
             border-radius: var(--size);
             background: var(--sd-color-border);
@@ -46,7 +47,7 @@ export class SDSlider extends LitElement {
             cursor: pointer;
             box-sizing: padding-box;
         }
-        .ball {
+        .thumb {
             width: var(--size);
             height: var(--size);
             border-radius: 100%;
@@ -56,20 +57,25 @@ export class SDSlider extends LitElement {
             cursor: grab;
             transform: translate(-50%, -50%);
             top: 50%;
+            touch-action: none;
         }
-        .ball:hover,
-        .ball.hover {
+        .thumb:hover,
+        .thumb.hover {
             transform: translate(-50%, -50%) scale(1.33);
         }
     `;
 
-    @query(".ball") ball!: HTMLDivElement;
-    @query(".bar") bar!: HTMLDivElement;
+    @query(".thumb") thumb!: HTMLDivElement;
+    @query(".slider") slider!: HTMLDivElement;
     render() {
         return html`
             <div class="container">
-                <div class="bar" @click=${this._handleClick}>
-                    <div class="ball" @dragstart=${() => false} @mousedown=${this._handleMove}></div>
+                <div class="slider" @click=${this._handleClick}>
+                    <div
+                        class="thumb"
+                        @dragstart=${(e: DragEvent) => e.preventDefault()}
+                        @pointerdown=${this._pointerdown}
+                    ></div>
                 </div>
             </div>
         `;
@@ -109,46 +115,44 @@ export class SDSlider extends LitElement {
     }
 
     private _handleClick(e: MouseEvent) {
-        const rect = this.bar.getBoundingClientRect();
+        const rect = this.slider.getBoundingClientRect();
         const percentage = this._calcPercentage(rect, e);
-        this.ball.style.left = this._calcStep(percentage, true) + "%";
+        this.thumb.style.left = this._calcStep(percentage, true) + "%";
         // set value & fire event
         const value = this._calcStep(this._calcValue(percentage));
         this.value = value;
         this.dispatchEvent(new CustomEvent("change", { detail: { value } }));
     }
 
-    private _handleMove() {
+    private _pointerdown(event: PointerEvent) {
+        const { thumb, slider } = this;
+        thumb.setPointerCapture(event.pointerId);
         // add grab style
-        this.ball.style.cursor = "grabbing";
-        this.ball.classList.add("hover");
-        document.documentElement.style.cursor = "grabbing";
-        document.documentElement.style.userSelect = "none";
+        thumb.style.cursor = "grabbing";
+        thumb.classList.add("hover");
 
         // calc size
-        const rect = this.bar.getBoundingClientRect();
+        const rect = slider.getBoundingClientRect();
         let percentage: number;
-        const onMouseMove = (e: MouseEvent) => {
+
+        thumb.onpointermove = (e: PointerEvent) => {
             percentage = this._calcPercentage(rect, e);
-            this.ball.style.left = this._calcStep(percentage, true) + "%";
+            thumb.style.left = this._calcStep(percentage, true) + "%";
         };
 
-        // add listener
-        window.addEventListener("mousemove", onMouseMove);
-        window.addEventListener("mouseup", () => {
+        thumb.onpointerup = () => {
+            thumb.onpointermove = null;
+            thumb.onpointerup = null;
+
             // remove grab style
-            this.ball.style.cursor = "";
-            this.ball.classList.remove("hover");
-            document.documentElement.style.cursor = "";
-            document.documentElement.style.userSelect = "";
+            thumb.style.cursor = "";
+            thumb.classList.remove("hover");
 
             // set value & fire event
             const value = this._calcStep(this._calcValue(percentage));
             this.value = value;
             this.dispatchEvent(new CustomEvent("change", { detail: { value } }));
-            // remove listener
-            window.removeEventListener("mousemove", onMouseMove);
-        });
+        };
     }
 }
 

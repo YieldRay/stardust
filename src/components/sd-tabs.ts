@@ -18,11 +18,11 @@ export class SDTabs extends LitElement {
             if (!tab) return;
 
             // set .active
-            this.tabs.forEach((tab) => (tab.active = false));
+            this._tabs.forEach((tab) => (tab.active = false));
             tab.active = true;
 
             // update index
-            const index = this.tabs.indexOf(tab);
+            const index = this._tabs.indexOf(tab);
             if (this.tab != index)
                 // only update if tab changes
                 this.dispatchEvent(
@@ -40,7 +40,7 @@ export class SDTabs extends LitElement {
     /**
      * 获取插槽所有子<sd-tab>元素
      */
-    @queryAssignedElements({ flatten: true, selector: "sd-tab" }) tabs!: Array<SDTab>;
+    @queryAssignedElements({ flatten: true, selector: "sd-tab" }) private _tabs!: Array<SDTab>;
 
     static styles = css`
         .container {
@@ -73,12 +73,12 @@ export class SDTabs extends LitElement {
     protected updated(changedProperties: PropertyValueMap<this>) {
         if (changedProperties.has("tab")) {
             if (this.tab < 0) return;
-            if (this.tab >= this.tabs.length) {
-                this.tabs.forEach((t) => (t.active = false));
+            if (this.tab >= this._tabs.length) {
+                this._tabs.forEach((t) => (t.active = false));
                 return;
             }
-            this.tabs.forEach((t) => (t.active = false));
-            this.tabs[this.tab].active = true;
+            this._tabs.forEach((t) => (t.active = false));
+            this._tabs[this.tab].active = true;
         }
     }
 }
