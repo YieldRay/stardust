@@ -2,6 +2,9 @@ import { LitElement, css, html, PropertyValueMap } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
 
+export type Position = "top" | "bottom";
+const isPosition = (x: unknown): x is Position => typeof x === "string" && ["top", "bottom"].includes(x);
+
 /**
  * 一般来说，这个元素需要包装才能使用
  *
@@ -16,12 +19,11 @@ export class SDCollapse extends LitElement {
 
     /** 位置，默认为top，可选为bottom */
     @property({
-        converter(value) {
-            if (["top", "bottom"].includes(value ?? "top")) return value;
-            return "top";
+        converter(value): Position {
+            return isPosition(value) ? value : "top";
         },
     })
-    position: "top" | "bottom" = "top";
+    position: Position = "top";
 
     static styles = css`
         .body {

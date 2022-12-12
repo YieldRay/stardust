@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 
 type PositionX = "left" | "center" | "right";
 type PositionY = "top" | "center" | "bottom";
@@ -34,9 +35,14 @@ export class SDFloat extends LitElement {
     })
     position: Pos = "disabled";
 
+    /**
+     * 默认为absolute定位，此值设为true则fixed定位
+     */
+    @property({ type: Boolean }) fixed = false;
+
     static styles = css`
         .container {
-            position: fixed;
+            position: absolute;
         }
         .disabled {
             position: static;
@@ -88,7 +94,12 @@ export class SDFloat extends LitElement {
 
     render() {
         return html`
-            <div class="container ${this.position}">
+            <div
+                class="container ${this.position}"
+                style=${styleMap({
+                    position: this.fixed ? "fixed" : "",
+                })}
+            >
                 <slot></slot>
             </div>
         `;

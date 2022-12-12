@@ -17,7 +17,16 @@
         <link rel="stylesheet" href="./dist/style.css" />
     </head>
     <body>
-        <sd-button>SD-BUTTON</sd-button>
+        <sd-drawer id="$drawer" position="left" fixed>
+            <sd-button onclick="$drawer.open=!$drawer.open">toggle menu</sd-button>
+            <sd-button
+                onclick="document.documentElement[document.documentElement.hasAttribute('data-dark-mode')?'removeAttribute':'setAttribute']('data-dark-mode','')"
+            >
+                toggle darkmode
+            </sd-button>
+        </sd-drawer>
+
+        <sd-button onclick="$drawer.open=!$drawer.open">SD-BUTTON</sd-button>
 
         <sd-checkbox checked disabled>
             <span slot="before">(</span>
@@ -64,13 +73,72 @@
                 this is detail
             </sd-detail>
 
-            <br />
-            123
-            <br />
-            456
-            <br />
-            789
-            <br />
+            <table>
+                <caption>
+                    Table Caption
+                </caption>
+                <thead>
+                    <tr>
+                        <th>Table Heading 1</th>
+                        <th>Table Heading 2</th>
+                        <th>Table Heading 3</th>
+                        <th>Table Heading 4</th>
+                        <th>Table Heading 5</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Table Footer 1</th>
+                        <th>Table Footer 2</th>
+                        <th>Table Footer 3</th>
+                        <th>Table Footer 4</th>
+                        <th>Table Footer 5</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>Table Cell 1</td>
+                        <td>Table Cell 2</td>
+                        <td>Table Cell 3</td>
+                        <td>Table Cell 4</td>
+                        <td>Table Cell 5</td>
+                    </tr>
+                    <tr>
+                        <td>Table Cell 1</td>
+                        <td>Table Cell 2</td>
+                        <td>Table Cell 3</td>
+                        <td>Table Cell 4</td>
+                        <td>Table Cell 5</td>
+                    </tr>
+                    <tr>
+                        <td>Table Cell 1</td>
+                        <td>Table Cell 2</td>
+                        <td>Table Cell 3</td>
+                        <td>Table Cell 4</td>
+                        <td>Table Cell 5</td>
+                    </tr>
+                    <tr>
+                        <td>Table Cell 1</td>
+                        <td>Table Cell 2</td>
+                        <td>Table Cell 3</td>
+                        <td>Table Cell 4</td>
+                        <td>Table Cell 5</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <tr>
+                    <th>a</th>
+                    <th>b</th>
+                    <th>c</th>
+                </tr>
+                <tr>
+                    <td>111</td>
+                    <td>222</td>
+                    <td>333</td>
+                </tr>
+            </table>
 
             <sd-tabs tab="1">
                 <sd-tab>AA</sd-tab>
@@ -78,7 +146,7 @@
                 <sd-tab>CC</sd-tab>
             </sd-tabs>
 
-            <sd-slider step="10" min="10" max="50" value="20"></sd-slider>
+            <sd-slider step="5" min="10" max="50" value="25"></sd-slider>
             <sd-slider step="0" min="10" max="50" value="20"></sd-slider>
 
             <sd-select>
@@ -88,7 +156,7 @@
             </sd-select>
         </div>
 
-        <sd-float position="center-right">
+        <sd-float position="center-right" fixed>
             <p>I'm floating!</p>
         </sd-float>
 

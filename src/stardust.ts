@@ -1,4 +1,5 @@
 import "./variables.css";
+import "./table.css";
 // components
 export { SDButton } from "./components/sd-button";
 export { SDCard } from "./components/sd-card";
@@ -19,6 +20,7 @@ export { SDTextarea } from "./components/sd-textarea";
 // containers
 export { SDAside } from "./containers/sd-aside";
 export { SDCollapse } from "./containers/sd-collapse";
+export { SDDrawer } from "./containers/sd-drawer";
 export { SDFade } from "./containers/sd-fade";
 export { SDFloat } from "./containers/sd-float";
 export { SDLoading } from "./containers/sd-loading";

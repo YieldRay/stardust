@@ -19,11 +19,16 @@ export class SDCard extends LitElement {
             border-color: var(--sd-color-border-active);
         }
         .header {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .body {
             padding: var(--sd-length-padding);
+            word-break: break-word;
         }
         .footer {
+            word-break: break-word;
         }
     `;
 

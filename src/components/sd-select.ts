@@ -79,6 +79,7 @@ export class SDSelect extends LitElement {
             --min-width: 10em;
             --max-width: 100%;
             --triangle-size: 0.25em;
+            color: var(--sd-color-text);
         }
         .select {
             padding: var(--sd-length-padding);
@@ -102,6 +103,7 @@ export class SDSelect extends LitElement {
             min-width: var(--min-width);
             max-width: var(--max-width);
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         ::slotted(sd-option) {
@@ -110,7 +112,7 @@ export class SDSelect extends LitElement {
             overflow: hidden;
         }
         ::slotted(sd-option:hover) {
-            background-color: var(--sd-color-primary);
+            background-color: var(--sd-color-border-active);
         }
         ::slotted(sd-option:not(:first-child)) {
             border-top: none;

@@ -43,6 +43,10 @@ export class SDTabs extends LitElement {
     @queryAssignedElements({ flatten: true, selector: "sd-tab" }) private _tabs!: Array<SDTab>;
 
     static styles = css`
+        :host {
+            color: var(--sd-color-text);
+        }
+        
         .container {
             border: solid var(--sd-color-border) var(--sd-length-border);
             display: inline-flex;
