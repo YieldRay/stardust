@@ -54,6 +54,7 @@ export class SDCheckBox extends LitElement {
             height: var(--size);
             border: solid var(--sd-color-border) var(--border-size);
             overflow: hidden;
+            background: var(--sd-color-background);
         }
     `;
 

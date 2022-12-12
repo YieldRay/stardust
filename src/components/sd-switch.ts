@@ -66,6 +66,7 @@ export class SDSwitch extends LitElement {
             overflow: hidden;
             border-radius: var(--height);
             border: solid var(--sd-color-border) var(--border);
+            background: var(--sd-color-background);
             position: relative;
         }
         .center {

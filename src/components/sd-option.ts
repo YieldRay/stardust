@@ -12,11 +12,7 @@ export class SDOption extends LitElement {
             white-space: nowrap;
             overflow: hidden;
             padding: var(--sd-length-padding);
-            background: var(--sd-color-secondary);
             transition: all var(--sd-time-fast);
-        }
-        .container:hover {
-            background: var(--sd-color-primary);
         }
     `;
     @property() value = "";

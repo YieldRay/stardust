@@ -15,6 +15,7 @@ export { SDSpinner } from "./components/sd-spinner";
 export { SDSwitch } from "./components/sd-switch";
 export { SDTab } from "./components/sd-tab";
 export { SDTabs } from "./components/sd-tabs";
+export { SDTextarea } from "./components/sd-textarea";
 // containers
 export { SDAside } from "./containers/sd-aside";
 export { SDCollapse } from "./containers/sd-collapse";

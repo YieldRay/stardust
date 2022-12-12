@@ -34,9 +34,10 @@ export class SDFab extends LitElement {
         }
 
         #container {
-            box-shadow: 1px 1px 1px var(--sd-color-shadow), -1px 1px 1px var(--sd-color-shadow);
             cursor: pointer;
             display: inline-block;
+            box-shadow: 1px 1px 1px var(--sd-color-shadow), -1px 1px 1px var(--sd-color-shadow);
+            background: var(--sd-color-background);
             width: var(--size);
             height: var(--size);
             border-radius: 50%;

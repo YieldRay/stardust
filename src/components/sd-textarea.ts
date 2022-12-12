@@ -1,45 +1,28 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
-/**
- * @slot before - 输入框内部，文本前方
- * @slot after - 输入框内部，文本后方
- * @fires change - {{value: String}}
- * @fires input - {{value: String}}
- */
-@customElement("sd-input")
-export class SDInput extends LitElement {
-    @property() type = "text";
+@customElement("sd-textarea")
+export class SDTextarea extends LitElement {
+    @property() value = "";
 
-    @property()
-    get value() {
-        if (!this.input) return "";
-        return this.input.value ?? "";
-    }
-    set value(v) {
-        this.input.value = v;
-    }
-    @property() placeholder = "";
+    @query("textarea") private textarea!: HTMLTextAreaElement;
 
-    @query("input") private input!: HTMLInputElement;
     render() {
         return html`
             <div class="container">
-                <slot name="before"></slot>
-                <input
+                <textarea
                     .value=${this.value}
-                    .type=${this.type}
                     @change=${() => this._handleChange()}
                     @input=${() => this._handleInput()}
-                    placeholder=${this.placeholder}
-                />
-                <slot name="after"></slot>
+                >
+<slot></slot></textarea
+                >
             </div>
         `;
     }
 
     public focus() {
-        this.input.focus();
+        this.textarea.focus();
     }
 
     private _handleChange() {
@@ -52,29 +35,34 @@ export class SDInput extends LitElement {
     }
 
     static styles = css`
-        input {
+        :host(:hover) .container {
+            border-color: var(--sd-color-border-active);
+        }
+
+        textarea {
             all: unset;
             height: 100%;
             margin: 0 calc(var(--padding-x) / 2);
-            padding: var(--sd-length-padding);
             flex: 1;
         }
+
         .container {
+            padding: var(--sd-length-padding);
             border: solid var(--sd-color-border) var(--sd-length-border);
             border-radius: var(--sd-length-radius);
             overflow: hidden;
             display: inline-flex;
             align-items: center;
+            max-width: 100%;
+            min-height: 2em;
+            resize: both;
             background: var(--sd-color-background);
-        }
-        :host(:hover) .container {
-            border-color: var(--sd-color-border-active);
         }
     `;
 }
 
 declare global {
     interface HTMLElementTagNameMap {
-        "sd-input": SDInput;
+        "sd-textarea": SDTextarea;
     }
 }

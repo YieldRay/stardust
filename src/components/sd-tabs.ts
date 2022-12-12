@@ -48,6 +48,7 @@ export class SDTabs extends LitElement {
             display: inline-flex;
             border-radius: var(--sd-length-radius);
             overflow: hidden;
+            background: var(--sd-color-background);
         }
 
         slot {

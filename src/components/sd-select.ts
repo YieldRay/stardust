@@ -51,6 +51,7 @@ export class SDSelect extends LitElement {
             </sd-aside>
         `;
     }
+
     private _handleClick(e: MouseEvent) {
         this.expand = false;
         const option = findTagInPath<SDOption>(e, "sd-option");
@@ -61,6 +62,18 @@ export class SDSelect extends LitElement {
         this.dispatchEvent(new CustomEvent("change", { detail: { index } }));
     }
 
+    private _outsideClick = ((e: MouseEvent) => {
+        if (e.target !== this) this.expand = false;
+    }).bind(this);
+
+    protected firstUpdated() {
+        window.addEventListener("click", this._outsideClick);
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener("click", this._outsideClick);
+    }
+
     static styles = css`
         :host {
             --min-width: 10em;
@@ -68,12 +81,15 @@ export class SDSelect extends LitElement {
             --triangle-size: 0.25em;
         }
         .select {
-            cursor: pointer;
             padding: var(--sd-length-padding);
-            display: flex;
             gap: var(--triangle-size);
+            cursor: pointer;
+            display: flex;
             align-items: center;
+            background: var(--sd-color-background);
             justify-content: space-between;
+            border: solid var(--sd-color-border) var(--sd-length-border);
+            border-radius: var(--sd-length-radius);
         }
         .options {
             cursor: pointer;
@@ -86,8 +102,26 @@ export class SDSelect extends LitElement {
             min-width: var(--min-width);
             max-width: var(--max-width);
             box-sizing: border-box;
+        }
+
+        ::slotted(sd-option) {
             border: solid var(--sd-color-border) var(--sd-length-border);
-            border-radius: var(--sd-length-radius);
+            background: var(--sd-color-background);
+            overflow: hidden;
+        }
+        ::slotted(sd-option:hover) {
+            background-color: var(--sd-color-primary);
+        }
+        ::slotted(sd-option:not(:first-child)) {
+            border-top: none;
+        }
+        ::slotted(sd-option:first-child) {
+            border-top-left-radius: var(--sd-length-radius);
+            border-top-right-radius: var(--sd-length-radius);
+        }
+        ::slotted(sd-option:last-child) {
+            border-bottom-left-radius: var(--sd-length-radius);
+            border-bottom-right-radius: var(--sd-length-radius);
         }
 
         .triangle {

@@ -12,7 +12,7 @@ export class SDProgress extends LitElement {
     static styles = css`
         :host {
             --height: 0.75em;
-            --background: var(--sd-color-alert);
+            --background: var(--sd-color-primary);
         }
         .container {
             width: 100%;
