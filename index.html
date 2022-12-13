@@ -42,118 +42,110 @@
 
         <sd-switch style="--size: 2em">G</sd-switch>
 
-        <div style="height: 100vh">
-            <sd-card>
-                <div slot="header">
-                    <h1>StarDust!</h1>
-                </div>
-                <script>
-                    document.write(new URL("./dist/stardust.js", location).href);
-                    document.write("<br>");
-                    document.write(new URL("./dist/style.css", location).href);
-                </script>
+        <sd-card>
+            <div slot="header">
+                <h1>StarDust!</h1>
+            </div>
+            <script>
+                document.write(new URL("./dist/stardust.js", location).href);
+                document.write("<br>");
+                document.write(new URL("./dist/style.css", location).href);
+            </script>
 
-                <div slot="footer">
-                    <p>this is a sd-card</p>
-                </div>
-            </sd-card>
+            <div slot="footer">
+                <p>this is a sd-card</p>
+            </div>
+        </sd-card>
 
-            <sd-card>
-                <sd-loading>
-                    <span slot="loading"> <sd-spinner></sd-spinner></span>
-                    <p>This</p>
-                    <p>is</p>
-                    <p>content</p>
-                </sd-loading>
-            </sd-card>
+        <sd-card>
+            <sd-loading>
+                <span slot="loading"> <sd-spinner></sd-spinner></span>
+                <p>This</p>
+                <p>is</p>
+                <p>content</p>
+            </sd-loading>
+        </sd-card>
 
-            <sd-detail>
-                <span slot="summary"> this is summary </span>
-                this is detail
-            </sd-detail>
+        <sd-detail>
+            <span slot="summary"> this is summary </span>
+            this is detail
+        </sd-detail>
 
-            <table>
-                <caption>
-                    Table Caption
-                </caption>
-                <thead>
-                    <tr>
-                        <th>Table Heading 1</th>
-                        <th>Table Heading 2</th>
-                        <th>Table Heading 3</th>
-                        <th>Table Heading 4</th>
-                        <th>Table Heading 5</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Table Footer 1</th>
-                        <th>Table Footer 2</th>
-                        <th>Table Footer 3</th>
-                        <th>Table Footer 4</th>
-                        <th>Table Footer 5</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>Table Cell 1</td>
-                        <td>Table Cell 2</td>
-                        <td>Table Cell 3</td>
-                        <td>Table Cell 4</td>
-                        <td>Table Cell 5</td>
-                    </tr>
-                    <tr>
-                        <td>Table Cell 1</td>
-                        <td>Table Cell 2</td>
-                        <td>Table Cell 3</td>
-                        <td>Table Cell 4</td>
-                        <td>Table Cell 5</td>
-                    </tr>
-                    <tr>
-                        <td>Table Cell 1</td>
-                        <td>Table Cell 2</td>
-                        <td>Table Cell 3</td>
-                        <td>Table Cell 4</td>
-                        <td>Table Cell 5</td>
-                    </tr>
-                    <tr>
-                        <td>Table Cell 1</td>
-                        <td>Table Cell 2</td>
-                        <td>Table Cell 3</td>
-                        <td>Table Cell 4</td>
-                        <td>Table Cell 5</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table>
+        <table>
+            <caption>
+                Table Caption
+            </caption>
+            <thead>
                 <tr>
-                    <th>a</th>
-                    <th>b</th>
-                    <th>c</th>
+                    <th>Table Heading 1</th>
+                    <th>Table Heading 2</th>
+                    <th>Table Heading 3</th>
+                    <th>Table Heading 4</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Table Footer 1</th>
+                    <th>Table Footer 2</th>
+                    <th>Table Footer 3</th>
+                    <th>Table Footer 4</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td>Table Cell 1</td>
+                    <td>Table Cell 2</td>
+                    <td>Table Cell 3</td>
+                    <td>Table Cell 4</td>
                 </tr>
                 <tr>
-                    <td>111</td>
-                    <td>222</td>
-                    <td>333</td>
+                    <td>Table Cell 1</td>
+                    <td>Table Cell 2</td>
+                    <td>Table Cell 3</td>
+                    <td>Table Cell 4</td>
                 </tr>
-            </table>
+                <tr>
+                    <td>Table Cell 1</td>
+                    <td>Table Cell 2</td>
+                    <td>Table Cell 3</td>
+                    <td>Table Cell 4</td>
+                </tr>
+                <tr>
+                    <td>Table Cell 1</td>
+                    <td>Table Cell 2</td>
+                    <td>Table Cell 3</td>
+                    <td>Table Cell 4</td>
+                </tr>
+            </tbody>
+        </table>
 
-            <sd-tabs tab="1">
-                <sd-tab>AA</sd-tab>
-                <sd-tab>BB</sd-tab>
-                <sd-tab>CC</sd-tab>
-            </sd-tabs>
+        <table>
+            <tr>
+                <th>a</th>
+                <th>b</th>
+                <th>c</th>
+            </tr>
+            <tr>
+                <td>111</td>
+                <td>222</td>
+                <td>333</td>
+            </tr>
+        </table>
 
-            <sd-slider step="5" min="10" max="50" value="25"></sd-slider>
-            <sd-slider step="0" min="10" max="50" value="20"></sd-slider>
+        <sd-tabs tab="1">
+            <sd-tab>AA</sd-tab>
+            <sd-tab>BB</sd-tab>
+            <sd-tab>CC</sd-tab>
+        </sd-tabs>
 
-            <sd-select>
-                <sd-option value="0">第一个选项</sd-option>
-                <sd-option value="1" selected>中间</sd-option>
-                <sd-option value="2">最后面</sd-option>
-            </sd-select>
-        </div>
+        <sd-slider step="5" min="10" max="50" value="25"></sd-slider>
+        <sd-slider step="0" min="10" max="50" value="20"></sd-slider>
+
+        <sd-select>
+            <sd-option value="0">第一个选项</sd-option>
+            <sd-option value="1" selected>中间</sd-option>
+            <sd-option value="2">最后面</sd-option>
+        </sd-select>
 
         <sd-float position="center-right" fixed>
             <p>I'm floating!</p>

@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { when } from "lit/directives/when.js";
 
 export type Position = "top" | "bottom" | "left" | "right";
 const isPosition = (x: unknown): x is Position =>
@@ -26,6 +27,34 @@ export class SDDrawer extends LitElement {
      */
     @property({ type: Boolean }) open = false;
 
+    /**
+     * 是否显示遮罩。点击遮罩即可关闭（将open设置为false）
+     */
+    @property({ type: Boolean }) mask = true;
+
+    render() {
+        return html`
+            ${when(
+                this.mask && this.open,
+                () => html`
+                    <div
+                        class="mask"
+                        @click=${() => (this.open = false)}
+                        style=${styleMap({ position: this.fixed ? "fixed" : "" })}
+                    ></div>
+                `
+            )}
+
+            <div
+                class="container ${this.position}"
+                data-open=${this.open ? "" : nothing}
+                style=${styleMap({ position: this.fixed ? "fixed" : "" })}
+            >
+                <slot></slot>
+            </div>
+        `;
+    }
+
     static styles = css`
         :host {
             --width: 20em;
@@ -36,24 +65,33 @@ export class SDDrawer extends LitElement {
             position: absolute;
             color: var(--sd-color-text);
             background: var(--sd-color-background);
-            max-width: 100vw;
-            max-height: 100vh;
+            max-width: 100%;
+            max-height: 100%;
             overflow: auto;
             transition: all var(--sd-time-normal);
+            z-index: 1;
+        }
+        .mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--sd-color-shadow);
             z-index: 1;
         }
 
         .left,
         .right {
             top: 0;
-            height: 100vh;
+            height: 100%;
             width: var(--width);
         }
         .top,
         .bottom {
             left: 0;
             height: var(--height);
-            width: 100vw;
+            width: 100%;
         }
 
         .top,
@@ -92,20 +130,6 @@ export class SDDrawer extends LitElement {
             transform: translateY(100%);
         }
     `;
-
-    render() {
-        return html`
-            <div
-                class="container ${this.position}"
-                data-open=${this.open ? "" : nothing}
-                style=${styleMap({
-                    position: this.fixed ? "fixed" : "",
-                })}
-            >
-                <slot></slot>
-            </div>
-        `;
-    }
 }
 
 declare global {

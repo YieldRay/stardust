@@ -52,7 +52,7 @@ export class SDFab extends LitElement {
 
     render() {
         return html`
-            <sd-float position="${this.fixed ? "bottom-right" : "disabled"}">
+            <sd-float fixed position="${this.fixed ? "bottom-right" : "disabled"}">
                 <div
                     style=${styleMap({
                         marginRight: this.fixed ? "var(--distance)" : null,

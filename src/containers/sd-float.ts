@@ -45,7 +45,7 @@ export class SDFloat extends LitElement {
             position: absolute;
         }
         .disabled {
-            position: static;
+            position: static !important;
         }
         .top-left {
             top: 0;
