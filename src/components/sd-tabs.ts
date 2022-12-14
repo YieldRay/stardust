@@ -46,7 +46,7 @@ export class SDTabs extends LitElement {
         :host {
             color: var(--sd-color-text);
         }
-        
+
         .container {
             border: solid var(--sd-color-border) var(--sd-length-border);
             display: inline-flex;
@@ -59,12 +59,6 @@ export class SDTabs extends LitElement {
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
-        }
-
-        .active {
-            color: var(--sd-color-text-reverse);
-            background-color: var(--sd-color-primary);
-            border-radius: var(--sd-length-radius);
         }
     `;
     render() {

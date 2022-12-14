@@ -21,10 +21,10 @@ export class SDSwitch extends LitElement {
     static styles = css`
         :host {
             display: inline-block;
+            vertical-align: text-bottom;
             overflow: hidden;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
-            vertical-align: text-bottom;
             --size: 1em;
             --scale: 1.75;
             /*! NEVER CHANGE ABOVE CSS PROPERTY OUTSIDE, THEY ARE CALCULATED !*/

@@ -15,6 +15,7 @@ export class SDButton extends LitElement {
     static styles = css`
         :host {
             display: inline-flex; /* 消除空字符空间 */
+            vertical-align: baseline;
             margin: 0;
             padding: 0;
             user-select: none;

@@ -22,6 +22,10 @@ export class SDTab extends LitElement {
             color: var(--sd-color-text-reverse);
             background-color: var(--sd-color-primary);
         }
+
+        div:not(.active):hover {
+            background-color: var(--sd-color-border-active);
+        }
     `;
     render() {
         return html`

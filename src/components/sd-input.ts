@@ -64,6 +64,7 @@ export class SDInput extends LitElement {
             border-radius: var(--sd-length-radius);
             overflow: hidden;
             display: inline-flex;
+            vertical-align: middle;
             align-items: center;
             background: var(--sd-color-background);
         }

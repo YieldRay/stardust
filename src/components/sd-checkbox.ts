@@ -20,6 +20,7 @@ export class SDCheckBox extends LitElement {
             --size: 1em;
             --border-size: calc(var(--size) * 0.12);
             display: inline-block;
+            vertical-align: text-bottom;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
             overflow: hidden;
