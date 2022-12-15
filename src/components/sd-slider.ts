@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
+import stylesheet from "../stylesheet.js";
 
 /**
  * @fires change
@@ -25,45 +26,48 @@ export class SDSlider extends LitElement {
         this.thumb.style.left = this._calcStep(percentage, true) + "%";
     }
 
-    static styles = css`
-        :host {
-            --size: 1em;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .container {
-            position: relative;
-            margin: 0 calc(var(--size) / 2);
-            min-height: var(--size);
-        }
-        .slider {
-            height: 0.25em;
-            border-radius: var(--size);
-            background: var(--sd-color-border);
-            width: 100%;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            left: 50%;
-            cursor: pointer;
-            box-sizing: padding-box;
-        }
-        .thumb {
-            width: var(--size);
-            height: var(--size);
-            border-radius: 100%;
-            background: var(--sd-color-primary);
-            position: absolute;
-            transition: transform var(--sd-time-fast);
-            cursor: grab;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            touch-action: none;
-        }
-        .thumb:hover,
-        .thumb.hover {
-            transform: translate(-50%, -50%) scale(1.33);
-        }
-    `;
+    static styles = [
+        stylesheet,
+        css`
+            :host {
+                --size: 1em;
+                -webkit-tap-highlight-color: transparent;
+            }
+            .container {
+                position: relative;
+                margin: 0 calc(var(--size) / 2);
+                min-height: var(--size);
+            }
+            .slider {
+                height: 0.25em;
+                border-radius: var(--size);
+                background: var(--sd-color-border);
+                width: 100%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+                cursor: pointer;
+                box-sizing: padding-box;
+            }
+            .thumb {
+                width: var(--size);
+                height: var(--size);
+                border-radius: 100%;
+                background: var(--sd-color-primary);
+                position: absolute;
+                transition: transform var(--sd-time-fast);
+                cursor: grab;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                touch-action: none;
+            }
+            .thumb:hover,
+            .thumb.hover {
+                transform: translate(-50%, -50%) scale(1.33);
+            }
+        `,
+    ];
 
     @query(".thumb") thumb!: HTMLDivElement;
     @query(".slider") slider!: HTMLDivElement;

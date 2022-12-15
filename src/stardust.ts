@@ -10,6 +10,8 @@ export { SDFab } from "./components/sd-fab";
 export { SDInput } from "./components/sd-input";
 export { SDOption } from "./components/sd-option";
 export { SDProgress } from "./components/sd-progress";
+export { SDRadio } from "./components/sd-radio";
+export { SDRadioGroup } from "./components/sd-radio-group";
 export { SDSelect } from "./components/sd-select";
 export { SDSlider } from "./components/sd-slider";
 export { SDSpinner } from "./components/sd-spinner";

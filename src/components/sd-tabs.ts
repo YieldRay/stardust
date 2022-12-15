@@ -2,6 +2,7 @@ import { LitElement, css, html, PropertyValueMap } from "lit";
 import { customElement, property, queryAssignedElements } from "lit/decorators.js";
 import { findTagInPath } from "../utils";
 import { SDTab } from "./sd-tab";
+import stylesheet from "../stylesheet.js";
 
 /**
  * 此元素应包含 <sd-tab> 元素
@@ -42,28 +43,28 @@ export class SDTabs extends LitElement {
      */
     @queryAssignedElements({ flatten: true, selector: "sd-tab" }) private _tabs!: Array<SDTab>;
 
-    static styles = css`
-        :host {
-            color: var(--sd-color-text);
-        }
+    static styles = [
+        stylesheet,
+        css`
+            .container {
+                display: inline-flex;
+                border: solid var(--sd-color-border) var(--sd-length-border);
+                border-radius: var(--sd-length-radius);
+                background: var(--sd-color-background);
+                overflow: hidden;
+            }
 
-        .container {
-            border: solid var(--sd-color-border) var(--sd-length-border);
-            display: inline-flex;
-            border-radius: var(--sd-length-radius);
-            overflow: hidden;
-            background: var(--sd-color-background);
-        }
+            slot {
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+            }
+        `,
+    ];
 
-        slot {
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-    `;
     render() {
         return html`
-            <div class="container">
+            <div class="container theme">
                 <slot></slot>
             </div>
         `;

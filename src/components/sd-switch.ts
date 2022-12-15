@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import stylesheet from "../stylesheet.js";
 
 /**
  * @cssprop --size - 元素的尺寸，即高度
@@ -18,122 +19,123 @@ export class SDSwitch extends LitElement {
 
     @state() isInit = true;
 
-    static styles = css`
-        :host {
-            display: inline-block;
-            vertical-align: text-bottom;
-            overflow: hidden;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            --size: 1em;
-            --scale: 1.75;
-            /*! NEVER CHANGE ABOVE CSS PROPERTY OUTSIDE, THEY ARE CALCULATED !*/
-            --height: var(--size);
-            --width: calc(var(--size) * var(--scale));
-            --border: calc(var(--height) * 0.12);
-            --duration: var(--sd-time-normal);
-            --ball-size: calc(var(--height) - var(--border) * 2);
-            --distance: calc(var(--width) - var(--ball-size) - 2 * var(--border));
-        }
-
-        :host(:hover) .box {
-            border-color: var(--sd-color-border-active);
-        }
-
-        :host([disabled]) {
-            opacity: 0.4;
-        }
-
-        label {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        input {
-            all: unset;
-        }
-
-        .box {
-            transition: border-color var(--sd-time-fast);
-            box-sizing: border-box;
-            display: inline-block;
-            cursor: pointer;
-            user-select: none;
-            color: var(--sd-color-text-reverse);
-            width: var(--width);
-            height: var(--height);
-            overflow: hidden;
-            border-radius: var(--height);
-            border: solid var(--sd-color-border) var(--border);
-            background: var(--sd-color-background);
-            position: relative;
-        }
-        .center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            vertical-align: middle;
-        }
-
-        #ball {
-            position: absolute;
-            width: var(--ball-size);
-            height: var(--ball-size);
-            overflow: hidden;
-            border-radius: var(--ball-size);
-            background-color: var(--sd-color-primary);
-            top: 0;
-        }
-
-        #slotOuter {
-            width: var(--ball-size);
-            height: var(--ball-size);
-            position: absolute;
-            overflow: hidden;
-            left: 0;
-            top: 0;
-            transition: left var(--duration) ease-in-out;
-        }
-
-        #slotInner {
-            font-size: calc(var(--ball-size) * 0.75);
-        }
-
-        .to-left {
-            animation: var(--duration) ease-in-out 0s forwards toLeft;
-        }
-        .to-right {
-            animation: var(--duration) ease-in-out 0s forwards toRight;
-        }
-
-        @keyframes toRight {
-            from {
-                left: 0;
+    static styles = [
+        stylesheet,
+        css`
+            :host {
+                display: inline-block;
+                vertical-align: baseline;
+                overflow: hidden;
+                --size: 1em;
+                --scale: 1.75;
+                /*! NEVER CHANGE ABOVE CSS PROPERTY OUTSIDE, THEY ARE CALCULATED !*/
+                --height: var(--size);
+                --width: calc(var(--size) * var(--scale));
+                --border: calc(var(--height) * 0.12);
+                --duration: var(--sd-time-normal);
+                --ball-size: calc(var(--height) - var(--border) * 2);
+                --distance: calc(var(--width) - var(--ball-size) - 2 * var(--border));
             }
-            50% {
+
+            :host(:hover) .box {
+                border-color: var(--sd-color-border-active);
+            }
+
+            :host([disabled]) {
+                opacity: 0.4;
+            }
+
+            label {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            input {
+                all: unset;
+            }
+
+            .box {
+                transition: border-color var(--sd-time-fast);
+                box-sizing: border-box;
+                display: inline-block;
+                cursor: pointer;
+                user-select: none;
+                color: var(--sd-color-text-reverse);
                 width: var(--width);
-                left: 0;
+                height: var(--height);
+                overflow: hidden;
+                border-radius: var(--height);
+                border: solid var(--sd-color-border) var(--border);
+                background: var(--sd-color-background);
+                position: relative;
             }
-            to {
+            .center {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                vertical-align: middle;
+            }
+
+            #ball {
+                position: absolute;
                 width: var(--ball-size);
-                left: var(--distance);
+                height: var(--ball-size);
+                overflow: hidden;
+                border-radius: var(--ball-size);
+                background-color: var(--sd-color-primary);
+                top: 0;
             }
-        }
-        @keyframes toLeft {
-            from {
-                left: var(--distance);
-            }
-            50% {
-                width: var(--width);
-                left: 0;
-            }
-            to {
+
+            #slotOuter {
                 width: var(--ball-size);
+                height: var(--ball-size);
+                position: absolute;
+                overflow: hidden;
                 left: 0;
+                top: 0;
+                transition: left var(--duration) ease-in-out;
             }
-        }
-    `;
+
+            #slotInner {
+                font-size: calc(var(--ball-size) * 0.75);
+            }
+
+            .to-left {
+                animation: var(--duration) ease-in-out 0s forwards toLeft;
+            }
+            .to-right {
+                animation: var(--duration) ease-in-out 0s forwards toRight;
+            }
+
+            @keyframes toRight {
+                from {
+                    left: 0;
+                }
+                50% {
+                    width: var(--width);
+                    left: 0;
+                }
+                to {
+                    width: var(--ball-size);
+                    left: var(--distance);
+                }
+            }
+            @keyframes toLeft {
+                from {
+                    left: var(--distance);
+                }
+                50% {
+                    width: var(--width);
+                    left: 0;
+                }
+                to {
+                    width: var(--ball-size);
+                    left: 0;
+                }
+            }
+        `,
+    ];
 
     @query("#ball") private ballElem!: HTMLDivElement;
 
@@ -141,7 +143,7 @@ export class SDSwitch extends LitElement {
 
     render() {
         return html`
-            <label>
+            <label class="ui">
                 <input
                     type="checkbox"
                     .checked=${this.checked}

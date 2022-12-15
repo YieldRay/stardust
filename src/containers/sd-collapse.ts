@@ -1,6 +1,7 @@
 import { LitElement, css, html, PropertyValueMap } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
+import stylesheet from "../stylesheet.js";
 
 export type Position = "top" | "bottom";
 const isPosition = (x: unknown): x is Position => typeof x === "string" && ["top", "bottom"].includes(x);
@@ -25,17 +26,20 @@ export class SDCollapse extends LitElement {
     })
     position: Position = "top";
 
-    static styles = css`
-        .body {
-            display: block;
-            overflow: hidden;
-            transition: all var(--sd-time-normal);
-        }
-        .action {
-            display: block;
-            cursor: pointer;
-        }
-    `;
+    static styles = [
+        stylesheet,
+        css`
+            .body {
+                display: block;
+                overflow: hidden;
+                transition: all var(--sd-time-normal);
+            }
+            .action {
+                display: block;
+                cursor: pointer;
+            }
+        `,
+    ];
 
     @query(".body") private body!: HTMLDivElement;
 

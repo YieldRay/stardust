@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
+import stylesheet from "../stylesheet.js";
 
 @customElement("sd-textarea")
 export class SDTextarea extends LitElement {
@@ -7,15 +8,43 @@ export class SDTextarea extends LitElement {
 
     @query("textarea") private textarea!: HTMLTextAreaElement;
 
+    static styles = [
+        stylesheet,
+        css`
+            :host(:hover) .container {
+                border-color: var(--sd-color-border-active);
+            }
+
+            textarea {
+                all: unset;
+                height: 100%;
+                margin: 0 calc(var(--padding-x) / 2);
+                flex: 1;
+            }
+
+            .container {
+                padding: var(--sd-length-padding);
+                overflow: hidden;
+                display: inline-flex;
+                align-items: center;
+                max-width: 100%;
+                min-height: 2em;
+                resize: both;
+            }
+        `,
+    ];
+
     render() {
         return html`
-            <div class="container">
+            <div class="container border theme">
                 <textarea
                     .value=${this.value}
                     @change=${() => this._handleChange()}
                     @input=${() => this._handleInput()}
                 >
-<slot></slot></textarea
+                
+                <slot></slot>
+                </textarea
                 >
             </div>
         `;
@@ -33,32 +62,6 @@ export class SDTextarea extends LitElement {
         const value = this.value;
         this.dispatchEvent(new CustomEvent<{ value: string }>("change", { detail: { value } }));
     }
-
-    static styles = css`
-        :host(:hover) .container {
-            border-color: var(--sd-color-border-active);
-        }
-
-        textarea {
-            all: unset;
-            height: 100%;
-            margin: 0 calc(var(--padding-x) / 2);
-            flex: 1;
-        }
-
-        .container {
-            padding: var(--sd-length-padding);
-            border: solid var(--sd-color-border) var(--sd-length-border);
-            border-radius: var(--sd-length-radius);
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            max-width: 100%;
-            min-height: 2em;
-            resize: both;
-            background: var(--sd-color-background);
-        }
-    `;
 }
 
 declare global {

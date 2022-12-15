@@ -2,6 +2,9 @@ table {
     border-collapse: collapse;
     margin: 0.05em;
     border: solid var(--sd-color-border) var(--sd-length-border);
+    color: var(--sd-color-text);
+    background-color: var(--sd-color-background);
+    transition: color, background-color var(--sd-time-normal);
 }
 
 thead {

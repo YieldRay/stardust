@@ -1,6 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import stylesheet from "../stylesheet.js";
 
 type PositionX = "left" | "center" | "right";
 type PositionY = "top" | "center" | "bottom";
@@ -40,57 +41,60 @@ export class SDFloat extends LitElement {
      */
     @property({ type: Boolean }) fixed = false;
 
-    static styles = css`
-        .container {
-            position: absolute;
-        }
-        .disabled {
-            position: static !important;
-        }
-        .top-left {
-            top: 0;
-            left: 0;
-        }
-        .top-center {
-            top: 0;
-            left: 50%;
-            transform: translate(-50%, 0);
-        }
-        .top-right {
-            top: 0;
-            right: 0;
-        }
-        .center-left {
-            top: 50%;
-            left: 0;
-            transform: translate(0, -50%);
-        }
-        .center-center {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .center-right {
-            top: 50%;
-            right: 0;
-            transform: translate(0, -50%);
-        }
-        .bottom-left {
-            top: 100%;
-            left: 0;
-            transform: translate(0, -100%);
-        }
-        .bottom-center {
-            top: 100%;
-            left: 50%;
-            transform: translate(-50%, -100%);
-        }
-        .bottom-right {
-            top: 100%;
-            right: 0;
-            transform: translate(0, -100%);
-        }
-    `;
+    static styles = [
+        stylesheet,
+        css`
+            .container {
+                position: absolute;
+            }
+            .disabled {
+                position: static !important;
+            }
+            .top-left {
+                top: 0;
+                left: 0;
+            }
+            .top-center {
+                top: 0;
+                left: 50%;
+                transform: translate(-50%, 0);
+            }
+            .top-right {
+                top: 0;
+                right: 0;
+            }
+            .center-left {
+                top: 50%;
+                left: 0;
+                transform: translate(0, -50%);
+            }
+            .center-center {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .center-right {
+                top: 50%;
+                right: 0;
+                transform: translate(0, -50%);
+            }
+            .bottom-left {
+                top: 100%;
+                left: 0;
+                transform: translate(0, -100%);
+            }
+            .bottom-center {
+                top: 100%;
+                left: 50%;
+                transform: translate(-50%, -100%);
+            }
+            .bottom-right {
+                top: 100%;
+                right: 0;
+                transform: translate(0, -100%);
+            }
+        `,
+    ];
 
     render() {
         return html`

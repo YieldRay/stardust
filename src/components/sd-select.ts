@@ -2,6 +2,7 @@ import { LitElement, css, html } from "lit";
 import { customElement, property, queryAssignedElements, state } from "lit/decorators.js";
 import { findTagInPath } from "../utils";
 import { SDOption } from "./sd-option";
+import stylesheet from "../stylesheet.js";
 import { equal } from "froebel";
 
 /**
@@ -65,11 +66,83 @@ export class SDSelect extends LitElement {
     @state() expand = false;
     @state() selectedText = "";
 
+    static styles = [
+        stylesheet,
+        css`
+            :host {
+                --min-width: 10em;
+                --max-width: 100%;
+                --font-size: 1em;
+                --triangle-size: 0.25em;
+            }
+            .select {
+                padding: var(--sd-length-padding);
+                gap: var(--triangle-size);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                transition: all var(--sd-time-fast);
+            }
+            .options {
+                cursor: pointer;
+                overflow: hidden;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .select,
+            .options {
+                font-size: var(--font-size);
+                min-width: var(--min-width);
+                max-width: var(--max-width);
+                box-sizing: border-box;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .text {
+                font-size: var(--font-size);
+                flex: 1;
+                min-height: var(--font-size);
+                line-height: var(--font-size);
+            }
+
+            ::slotted(sd-option) {
+                border: solid var(--sd-color-border) var(--sd-length-border);
+                background: var(--sd-color-background);
+                overflow: hidden;
+            }
+            ::slotted(sd-option:not([disabled]):hover),
+            .select:hover {
+                background-color: var(--sd-color-border-active);
+            }
+            ::slotted(sd-option:not(:first-child)) {
+                border-top: none;
+            }
+            ::slotted(sd-option:first-child) {
+                border-top-left-radius: var(--sd-length-radius);
+                border-top-right-radius: var(--sd-length-radius);
+            }
+            ::slotted(sd-option:last-child) {
+                border-bottom-left-radius: var(--sd-length-radius);
+                border-bottom-right-radius: var(--sd-length-radius);
+            }
+
+            .triangle {
+                --size: 0.25em;
+                width: 0;
+                height: 0;
+                border-top: var(--triangle-size) solid var(--sd-color-text);
+                border-left: var(--triangle-size) solid transparent;
+                border-right: var(--triangle-size) solid transparent;
+            }
+        `,
+    ];
+
     render() {
         return html`
             <sd-aside>
-                <div class="select" @click=${() => (this.expand = !this.expand)}>
-                    <span class="text"> ${this.selectedText} </span>
+                <div class="select border theme" @click=${() => (this.expand = !this.expand)}>
+                    <span class="text ellipsis"> ${this.selectedText} </span>
                     <div class="triangle"></div>
                 </div>
                 <div slot="aside">
@@ -137,81 +210,6 @@ export class SDSelect extends LitElement {
         super.disconnectedCallback();
         window.removeEventListener("click", this._outsideClick);
     }
-
-    static styles = css`
-        :host {
-            --min-width: 10em;
-            --max-width: 100%;
-            --font-size: 1em;
-            --triangle-size: 0.25em;
-            color: var(--sd-color-text);
-        }
-        .select {
-            overflow: hidden;
-            text-overflow: ellipse;
-            padding: var(--sd-length-padding);
-            gap: var(--triangle-size);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            background: var(--sd-color-background);
-            justify-content: space-between;
-            border: solid var(--sd-color-border) var(--sd-length-border);
-            border-radius: var(--sd-length-radius);
-            transition: all var(--sd-time-fast);
-        }
-        .options {
-            cursor: pointer;
-            overflow: hidden;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .select,
-        .options {
-            font-size: var(--font-size);
-            min-width: var(--min-width);
-            max-width: var(--max-width);
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .text {
-            font-size: var(--font-size);
-            flex: 1;
-            min-height: var(--font-size);
-            line-height: var(--font-size);
-        }
-
-        ::slotted(sd-option) {
-            border: solid var(--sd-color-border) var(--sd-length-border);
-            background: var(--sd-color-background);
-            overflow: hidden;
-        }
-        ::slotted(sd-option:not([disabled]):hover),
-        .select:hover {
-            background-color: var(--sd-color-border-active);
-        }
-        ::slotted(sd-option:not(:first-child)) {
-            border-top: none;
-        }
-        ::slotted(sd-option:first-child) {
-            border-top-left-radius: var(--sd-length-radius);
-            border-top-right-radius: var(--sd-length-radius);
-        }
-        ::slotted(sd-option:last-child) {
-            border-bottom-left-radius: var(--sd-length-radius);
-            border-bottom-right-radius: var(--sd-length-radius);
-        }
-
-        .triangle {
-            --size: 0.25em;
-            width: 0;
-            height: 0;
-            border-top: var(--triangle-size) solid var(--sd-color-text);
-            border-left: var(--triangle-size) solid transparent;
-            border-right: var(--triangle-size) solid transparent;
-        }
-    `;
 }
 
 declare global {

@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
+import stylesheet from "../stylesheet.js";
 
 /**
  * @slot header - 卡片首部
@@ -7,35 +8,28 @@ import { customElement } from "lit/decorators.js";
  */
 @customElement("sd-card")
 export class SDCard extends LitElement {
-    static styles = css`
-        .container {
-            transition: border-color var(--sd-time-normal);
-            border-radius: var(--sd-length-radius);
-            color: var(--sd-color-text);
-            background-color: var(--sd-color-secondary);
-            border: solid var(--sd-color-border) var(--sd-length-border);
-        }
-        .container:hover {
-            border-color: var(--sd-color-border-active);
-        }
-        .header {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .body {
-            padding: var(--sd-length-padding);
-            word-break: break-word;
-        }
-        .footer {
-            word-break: break-word;
-        }
-    `;
+    static styles = [
+        stylesheet,
+        css`
+            .container {
+                background-color: var(--sd-color-secondary);
+            }
+            .header {
+            }
+            .body {
+                padding: var(--sd-length-padding);
+                word-break: break-word;
+            }
+            .footer {
+                word-break: break-word;
+            }
+        `,
+    ];
 
     render() {
         return html`
-            <div class="container">
-                <div class="header">
+            <div class="container border theme">
+                <div class="header ellipsis">
                     <slot name="header"></slot>
                 </div>
                 <div class="body">

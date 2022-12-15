@@ -1,6 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import stylesheet from "../stylesheet.js";
 
 @customElement("sd-progress")
 export class SDProgress extends LitElement {
@@ -9,29 +10,31 @@ export class SDProgress extends LitElement {
      */
     @property({ type: Number }) value = 0;
 
-    static styles = css`
-        :host {
-            --height: 0.75em;
-            --background: var(--sd-color-primary);
-        }
-        .container {
-            width: 100%;
-            box-sizing: border-box;
-            height: var(--height);
-            border-radius: var(--height);
-            overflow: hidden;
-            color: var(--sd-color-text);
-            border: solid var(--sd-color-border) var(--sd-length-border);
-        }
-        .indicator {
-            height: 100%;
-            background: var(--background);
-            box-shadow: 1px 0 var(--height) var(--sd-color-shadow);
-        }
-    `;
+    static styles = [
+        stylesheet,
+        css`
+            :host {
+                --height: 0.75em;
+                --background: var(--sd-color-primary);
+            }
+            .container {
+                width: 100%;
+                box-sizing: border-box;
+                height: var(--height);
+                overflow: hidden;
+                border-radius: var(--height);
+                border: solid var(--sd-color-border) var(--sd-length-border);
+            }
+            .indicator {
+                height: 100%;
+                background: var(--background);
+                box-shadow: 1px 0 var(--height) var(--sd-color-shadow);
+            }
+        `,
+    ];
 
     render() {
-        return html`<div class="container">
+        return html`<div class="container theme">
             <div
                 class="indicator"
                 style=${styleMap({

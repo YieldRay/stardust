@@ -1,5 +1,6 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
+import stylesheet from "../stylesheet.js";
 
 @customElement("sd-ripple")
 export class SDRipple extends LitElement {
@@ -15,28 +16,31 @@ export class SDRipple extends LitElement {
      */
     @property({ type: Number }) scale = 1;
 
-    static styles = css`
-        :host {
-            display: inline-block;
-            padding: 0;
-            overflow: hidden;
-            position: relative;
-        }
+    static styles = [
+        stylesheet,
+        css`
+            :host {
+                display: inline-block;
+                padding: 0;
+                overflow: hidden;
+                position: relative;
+            }
 
-        .ripple {
-            position: absolute;
-            box-sizing: border-box;
-            border-radius: 50%;
-            transform-origin: center center;
-            background-color: rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transform: scale(0);
-        }
-        .animate {
-            opacity: 1;
-            transform: scale(1);
-        }
-    `;
+            .ripple {
+                position: absolute;
+                box-sizing: border-box;
+                border-radius: 50%;
+                transform-origin: center center;
+                background-color: rgba(0, 0, 0, 0.1);
+                opacity: 0;
+                transform: scale(0);
+            }
+            .animate {
+                opacity: 1;
+                transform: scale(1);
+            }
+        `,
+    ];
 
     @query("#container") private container!: HTMLDivElement;
 

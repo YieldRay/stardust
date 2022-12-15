@@ -27,15 +27,16 @@
 }
 
 :root[data-dark-mode] {
+    background-color: #131317;
+    color: var(--sd-color-text);
+}
+
+*[data-dark-mode] {
     --sd-color-text: #fefefe;
     --sd-color-text-reverse: #19252c;
     --sd-color-background: #232429;
     --sd-color-primary: #7fc1ff;
-    --sd-color-secondary: #09253b;
+    --sd-color-secondary: #0f172a;
     --sd-color-border: #353537;
     --sd-color-border-active: #303033;
-
-    /* should override */
-    background-color: #131317;
-    color: var(--sd-color-text);
 }

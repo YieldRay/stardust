@@ -1,6 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
+import stylesheet from "../stylesheet.js";
 
 type Position = "left" | "right" | "center";
 
@@ -15,18 +16,21 @@ export class SDDivider extends LitElement {
     })
     position: Position = "center";
 
-    static styles = css`
-        :host {
-            display: flex;
-            align-items: center;
-            color: var(--sd-color-border);
-        }
-        .line {
-            flex: 9;
-            height: calc(var(--sd-length-border) * 0.75);
-            background: var(--sd-color-border);
-        }
-    `;
+    static styles = [
+        stylesheet,
+        css`
+            :host {
+                display: flex;
+                align-items: center;
+                color: var(--sd-color-border);
+            }
+            .line {
+                flex: 9;
+                height: calc(var(--sd-length-border) * 0.75);
+                background: var(--sd-color-border);
+            }
+        `,
+    ];
 
     render() {
         return html`

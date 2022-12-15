@@ -2,6 +2,7 @@ import { LitElement, css, html } from "lit";
 import { customElement, property, state, query } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { throttle } from "froebel/function";
+import stylesheet from "../stylesheet.js";
 
 //@ts-ignore
 import { SDRipple } from "../containers/sd-ripple";
@@ -26,27 +27,29 @@ export class SDFab extends LitElement {
     /** 隐藏状态 */
     @state() hidden = false;
 
-    static styles = css`
-        :host {
-            --size: 3em;
-            --distance: 2em;
-            -webkit-tap-highlight-color: transparent;
-        }
+    static styles = [
+        stylesheet,
+        css`
+            :host {
+                --size: 3em;
+                --distance: 2em;
+                -webkit-tap-highlight-color: transparent;
+            }
 
-        #container {
-            cursor: pointer;
-            display: inline-block;
-            box-shadow: 1px 1px 1px var(--sd-color-shadow), -1px 1px 1px var(--sd-color-shadow);
-            background: var(--sd-color-background);
-            width: var(--size);
-            height: var(--size);
-            border-radius: 50%;
-            transition: opacity var(--sd-time-normal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    `;
+            #container {
+                cursor: pointer;
+                display: inline-block;
+                box-shadow: 1px 1px 1px var(--sd-color-shadow), -1px 1px 1px var(--sd-color-shadow);
+                width: var(--size);
+                height: var(--size);
+                border-radius: var(--size);
+                transition: opacity var(--sd-time-normal);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        `,
+    ];
 
     @query("#container") private container!: SDRipple;
 

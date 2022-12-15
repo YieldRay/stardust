@@ -2,6 +2,7 @@ import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
 import { classMap } from "lit/directives/class-map.js";
+import stylesheet from "../stylesheet.js";
 
 /**
  * @slot -
@@ -11,23 +12,26 @@ import { classMap } from "lit/directives/class-map.js";
 export class SDLoading extends LitElement {
     @property({ type: Boolean }) loading = true;
 
-    static styles = css`
-        .container {
-            position: relative;
-            transition: all var(--sd-time-normal);
-        }
-        .opacity {
-            opacity: 0.4;
-            cursor: progress
-        }
+    static styles = [
+        stylesheet,
+        css`
+            .container {
+                position: relative;
+                transition: all var(--sd-time-normal);
+            }
+            .opacity {
+                opacity: 0.4;
+                cursor: progress;
+            }
 
-        .loading {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-    `;
+            .loading {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        `,
+    ];
 
     render() {
         return html`

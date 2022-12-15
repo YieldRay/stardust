@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
+import stylesheet from "../stylesheet.js";
 
 /**
  * @slot - 默认插槽
@@ -9,20 +10,23 @@ import { customElement, property, query } from "lit/decorators.js";
 export class SDAside extends LitElement {
     @property({ type: Boolean }) hidden = false;
 
-    static styles = css`
-        :host {
-            display: inline-block;
-        }
-        #body {
-            position: relative;
-            max-width: 100vw;
-            max-height: 100vh;
-        }
-        #aside {
-            position: absolute;
-            transition: all var(--sd-time-normal);
-        }
-    `;
+    static styles = [
+        stylesheet,
+        css`
+            :host {
+                display: inline-block;
+            }
+            #body {
+                position: relative;
+                max-width: 100vw;
+                max-height: 100vh;
+            }
+            #aside {
+                position: absolute;
+                transition: all var(--sd-time-normal);
+            }
+        `,
+    ];
 
     @query("#body") private body!: HTMLDivElement;
 

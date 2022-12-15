@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
+import stylesheet from "../stylesheet.js";
 
 /**
  * @slot before - 输入框内部，文本前方
@@ -21,10 +22,29 @@ export class SDInput extends LitElement {
     }
     @property() placeholder = "";
 
+    static styles = [
+        stylesheet,
+        css`
+            input {
+                all: unset;
+                height: 100%;
+                margin: 0 calc(var(--padding-x) / 2);
+                padding: var(--sd-length-padding);
+                flex: 1;
+            }
+            .container {
+                overflow: hidden;
+                display: inline-flex;
+                vertical-align: middle;
+                align-items: center;
+            }
+        `,
+    ];
+
     @query("input") private input!: HTMLInputElement;
     render() {
         return html`
-            <div class="container">
+            <div class="container border theme">
                 <slot name="before"></slot>
                 <input
                     .value=${this.value}
@@ -50,28 +70,6 @@ export class SDInput extends LitElement {
         const value = this.value;
         this.dispatchEvent(new CustomEvent<{ value: string }>("change", { detail: { value } }));
     }
-
-    static styles = css`
-        input {
-            all: unset;
-            height: 100%;
-            margin: 0 calc(var(--padding-x) / 2);
-            padding: var(--sd-length-padding);
-            flex: 1;
-        }
-        .container {
-            border: solid var(--sd-color-border) var(--sd-length-border);
-            border-radius: var(--sd-length-radius);
-            overflow: hidden;
-            display: inline-flex;
-            vertical-align: middle;
-            align-items: center;
-            background: var(--sd-color-background);
-        }
-        :host(:hover) .container {
-            border-color: var(--sd-color-border-active);
-        }
-    `;
 }
 
 declare global {
