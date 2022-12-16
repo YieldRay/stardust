@@ -147,6 +147,14 @@
         <sd-slider step="5" min="10" max="50" value="25"></sd-slider>
         <sd-slider step="0" min="10" max="50" value="20"></sd-slider>
 
+        <sd-tree node="NodeName" has-child>
+            <span slot="node">NodeName in HTML</span>
+            <sd-tree node="subtree" has-child>
+                <sd-tree node="sub111"></sd-tree>
+                <sd-tree node="sub222"></sd-tree>
+            </sd-tree>
+        </sd-tree>
+
         <sd-select multiple style="--max-width: 10em">
             <sd-option value="0">第一个选项，很长很长很长很长</sd-option>
             <sd-option value="1" selected>中间</sd-option>

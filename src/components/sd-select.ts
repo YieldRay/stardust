@@ -73,7 +73,6 @@ export class SDSelect extends LitElement {
                 --min-width: 10em;
                 --max-width: 100%;
                 --font-size: 1em;
-                --triangle-size: 0.25em;
             }
             .select {
                 padding: var(--sd-length-padding);
@@ -125,15 +124,6 @@ export class SDSelect extends LitElement {
             ::slotted(sd-option:last-child) {
                 border-bottom-left-radius: var(--sd-length-radius);
                 border-bottom-right-radius: var(--sd-length-radius);
-            }
-
-            .triangle {
-                --size: 0.25em;
-                width: 0;
-                height: 0;
-                border-top: var(--triangle-size) solid var(--sd-color-text);
-                border-left: var(--triangle-size) solid transparent;
-                border-right: var(--triangle-size) solid transparent;
             }
         `,
     ];

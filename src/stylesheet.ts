@@ -26,4 +26,13 @@ export default css`
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    .triangle {
+        --triangle-size: 0.25em;
+        width: 0;
+        height: 0;
+        border-top: var(--triangle-size) solid var(--sd-color-text);
+        border-left: var(--triangle-size) solid transparent;
+        border-right: var(--triangle-size) solid transparent;
+    }
 `;
