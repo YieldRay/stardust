@@ -28,4 +28,5 @@ export { SDFade } from "./containers/sd-fade";
 export { SDFloat } from "./containers/sd-float";
 export { SDLoading } from "./containers/sd-loading";
 export { SDRipple } from "./containers/sd-ripple";
+export { SDTransition } from "./containers/sd-transition";
 export { SDTree } from "./containers/sd-tree";
