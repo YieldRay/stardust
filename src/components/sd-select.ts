@@ -3,7 +3,7 @@ import { customElement, property, queryAssignedElements, state } from "lit/decor
 import { findTagInPath } from "../utils";
 import { SDOption } from "./sd-option";
 import stylesheet from "../stylesheet.js";
-import { equal } from "froebel";
+import equal from "froebel/equal";
 
 /**
  * @fires change

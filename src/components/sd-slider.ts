@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
+import clamp from "froebel/clamp";
 import stylesheet from "../stylesheet.js";
 
 /**
@@ -92,9 +93,7 @@ export class SDSlider extends LitElement {
     private _calcPercentage(rect: DOMRect, e: MouseEvent) {
         const { clientX } = e;
         const percentage = ((clientX - rect.left) / rect.width) * 100;
-        let value = percentage;
-        if (percentage > 100) value = 100;
-        if (percentage < 0) value = 0;
+        const value = clamp(0, percentage, 100);
         return value;
     }
 

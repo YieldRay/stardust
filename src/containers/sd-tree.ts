@@ -5,7 +5,7 @@ import { when } from "lit/directives/when.js";
 import stylesheet from "../stylesheet.js";
 
 /**
- * @dependency sd-fade
+ * @dependency sd-transition
  */
 @customElement("sd-tree")
 export class SDTree extends LitElement {
@@ -69,11 +69,23 @@ export class SDTree extends LitElement {
                 <div><slot name="node">${this.node}</slot></div>
             </div>
 
-            <sd-fade .hidden=${!this.expand}>
+            <sd-transition
+                .enter=${{
+                    from: { transform: "translateY(-.25em)", opacity: "0" },
+                    to: { transform: "translateY(0)", opacity: "1" },
+                    begin: { display: "block", transformOrigin: "0 0" },
+                }}
+                .leave=${{
+                    from: { transform: "translateY(0)", opacity: "1" },
+                    to: { transform: "translateY(-.25em)", opacity: "0" },
+                    end: { display: "none" },
+                }}
+                .state=${this.expand}
+            >
                 <div class="subtree">
                     <slot></slot>
                 </div>
-            </sd-fade>
+            </sd-transition>
         `;
     }
 
