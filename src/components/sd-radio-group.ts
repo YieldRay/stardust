@@ -1,8 +1,10 @@
 import { LitElement, html } from "lit";
 import { customElement, property, queryAssignedElements } from "lit/decorators.js";
 import { findTagInPath } from "../utils";
-import { SDRadio } from "./sd-radio";
 import stylesheet from "../stylesheet.js";
+
+// @dependency
+import { SDRadio } from "./sd-radio";
 
 @customElement("sd-radio-group")
 export class SDRadioGroup extends LitElement {

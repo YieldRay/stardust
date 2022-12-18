@@ -4,16 +4,13 @@ import { when } from "lit/directives/when.js";
 import { classMap } from "lit/directives/class-map.js";
 import stylesheet from "../stylesheet.js";
 
-//@ts-ignore
-import { SDCollapse } from "../containers/sd-collapse";
-//@ts-ignore
-import { SDCard } from "../components/sd-card";
+// @dependency
+import "../containers/sd-collapse";
+import "../components/sd-card";
 
 /**
  * High-level component of sd-collapse
  *
- * @dependency sd-collapse
- * @dependency sd-card
  * @slot summary
  * @slot arrow
  */

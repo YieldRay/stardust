@@ -4,10 +4,10 @@ import { styleMap } from "lit/directives/style-map.js";
 import { throttle } from "froebel/function";
 import stylesheet from "../stylesheet.js";
 
-//@ts-ignore
+// @dependency
+import "../containers/sd-ripple";
+import "../containers/sd-float";
 import { SDRipple } from "../containers/sd-ripple";
-//@ts-ignore
-import { SDFloat } from "../containers/sd-float";
 
 /**
  * @cssprop --size - 元素的尺寸，即直径
@@ -62,13 +62,13 @@ export class SDFab extends LitElement {
                         marginBottom: this.fixed ? "var(--distance)" : null,
                     })}
                 >
-                    <sd-fade .hidden=${this.hidden}>
+                    <sd-transition-easy .state=${!this.hidden}>
                         <sd-ripple scale="1.25" id="container">
                             <slot>
                                 <div>▲</div>
                             </slot>
                         </sd-ripple>
-                    </sd-fade>
+                    </sd-transition-easy>
                 </div>
             </sd-float>
         `;

@@ -69,23 +69,17 @@ export class SDTree extends LitElement {
                 <div><slot name="node">${this.node}</slot></div>
             </div>
 
-            <sd-transition
-                .enter=${{
-                    from: { transform: "translateY(-.25em)", opacity: "0" },
-                    to: { transform: "translateY(0)", opacity: "1" },
-                    begin: { display: "block", transformOrigin: "0 0" },
-                }}
-                .leave=${{
-                    from: { transform: "translateY(0)", opacity: "1" },
-                    to: { transform: "translateY(-.25em)", opacity: "0" },
-                    end: { display: "none" },
-                }}
+            <sd-transition-easy
+                .enter=${{ transform: "translateY(0)", opacity: "1" }}
+                .leave=${{ transform: "translateY(-.25em)", opacity: "0" }}
+                .begin=${{ display: "block", transformOrigin: "0 0" }}
+                .end=${{ display: "none" }}
                 .state=${this.expand}
             >
                 <div class="subtree">
                     <slot></slot>
                 </div>
-            </sd-transition>
+            </sd-transition-easy>
         `;
     }
 

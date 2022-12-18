@@ -2,6 +2,9 @@ import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import stylesheet from "../stylesheet.js";
 
+// @dependency
+import "../containers/sd-transition-easy";
+
 /**
  * @cssprop --size - 元素的尺寸
  * @slot - 开关内部
@@ -78,9 +81,9 @@ export class SDCheckBox extends LitElement {
 
                 <slot name="before"></slot>
                 <span class="box">
-                    <sd-fade .hidden=${!this.checked}>
+                    <sd-transition-easy .state=${this.checked}>
                         <slot>✔</slot>
-                    </sd-fade>
+                    </sd-transition-easy>
                 </span>
                 <slot name="after"></slot>
             </label>

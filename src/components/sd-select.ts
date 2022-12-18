@@ -1,9 +1,12 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, queryAssignedElements, state } from "lit/decorators.js";
 import { findTagInPath } from "../utils";
-import { SDOption } from "./sd-option";
 import stylesheet from "../stylesheet.js";
 import equal from "froebel/equal";
+
+// @dependency
+import { SDOption } from "./sd-option";
+import "../containers/sd-transition-easy";
 
 /**
  * @fires change
@@ -136,11 +139,11 @@ export class SDSelect extends LitElement {
                     <div class="triangle"></div>
                 </div>
                 <div slot="aside">
-                    <sd-fade .hidden=${!this.expand}>
+                    <sd-transition-easy .state=${this.expand}>
                         <div div class="options">
                             <slot @click=${this._handleClick} @slotchange=${this._slotChange}></slot>
                         </div>
-                    </sd-fade>
+                    </sd-transition-easy>
                 </div>
             </sd-aside>
         `;

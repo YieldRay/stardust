@@ -18,3 +18,10 @@ export function findTagInPath<E extends Element>(e: Event, tagName: string): E |
         return isTag(ele, tagName);
     });
 }
+
+export function applyCSSStyle(ele: HTMLElement, styl?: Partial<CSSStyleDeclaration>) {
+    if (!styl) return;
+    for (const [k, v] of Object.entries(styl)) {
+        Reflect.set(ele.style, k, v);
+    }
+}

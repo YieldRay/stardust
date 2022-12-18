@@ -1,13 +1,12 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-
 import stylesheet from "../stylesheet.js";
 
-//@ts-ignore
-import { SDRipple } from "../containers/sd-ripple";
+// @dependency
+import "../containers/sd-ripple";
 
 /**
- * @dependency sd-ripple
+ * rippled button
  */
 @customElement("sd-button")
 export class SDButton extends LitElement {

@@ -1,8 +1,10 @@
 import { LitElement, css, html, PropertyValueMap } from "lit";
 import { customElement, property, queryAssignedElements } from "lit/decorators.js";
 import { findTagInPath } from "../utils";
-import { SDTab } from "./sd-tab";
 import stylesheet from "../stylesheet.js";
+
+// @dependency
+import { SDTab } from "./sd-tab";
 
 /**
  * 此元素应包含 <sd-tab> 元素

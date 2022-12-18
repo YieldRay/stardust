@@ -1,21 +1,15 @@
-import { LitElement, css, html, PropertyValueMap } from "lit";
+import { LitElement, html, PropertyValueMap } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import stylesheet from "../stylesheet.js";
+import { applyCSSStyle } from "../utils.js";
 
 export interface Transition {
-    from: Partial<CSSStyleDeclaration>;
-    to: Partial<CSSStyleDeclaration>;
+    from?: Partial<CSSStyleDeclaration>;
+    to?: Partial<CSSStyleDeclaration>;
     begin?: Partial<CSSStyleDeclaration>;
     end?: Partial<CSSStyleDeclaration>;
     transition?: string;
     afterEnd?: () => void;
-}
-
-function applyCSSStyle(ele: HTMLElement, styl?: Partial<CSSStyleDeclaration>) {
-    if (!styl) return;
-    for (const [k, v] of Object.entries(styl)) {
-        Reflect.set(ele.style, k, v);
-    }
 }
 
 /**
@@ -26,7 +20,7 @@ function applyCSSStyle(ele: HTMLElement, styl?: Partial<CSSStyleDeclaration>) {
  */
 @customElement("sd-transition")
 export class SDTransition extends LitElement {
-    static styles = [stylesheet, css``];
+    static styles = [stylesheet];
 
     @property() enter: Transition = {
         from: { opacity: "0" },

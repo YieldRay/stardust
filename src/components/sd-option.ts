@@ -4,6 +4,9 @@ import { classMap } from "lit/directives/class-map.js";
 import { when } from "lit/directives/when.js";
 import stylesheet from "../stylesheet.js";
 
+// @dependency
+import "./sd-checkbox";
+
 @customElement("sd-option")
 export class SDOption extends LitElement {
     @property() value = "";
