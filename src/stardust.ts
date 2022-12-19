@@ -8,6 +8,7 @@ export { SDDivider } from "./components/sd-divider";
 export { SDDetail } from "./components/sd-detail";
 export { SDFab } from "./components/sd-fab";
 export { SDInput } from "./components/sd-input";
+export { SDModal } from "./components/sd-modal";
 export { SDOption } from "./components/sd-option";
 export { SDProgress } from "./components/sd-progress";
 export { SDRadio } from "./components/sd-radio";

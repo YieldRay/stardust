@@ -11,7 +11,7 @@
     --sd-color-border-active: #e0e0e0;
     --sd-color-alert: #fff9c4;
     --sd-color-disabled: #000; /*unset*/
-    --sd-color-shadow: rgba(0, 0, 0, 0.2);
+    --sd-color-shadow: rgba(0, 0, 0, 0.1);
 
     /* length */
     --sd-length-radius: 0.75em;

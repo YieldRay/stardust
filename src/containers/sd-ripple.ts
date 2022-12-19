@@ -71,6 +71,23 @@ export class SDRipple extends LitElement {
         return ripple;
     }
 
+    private _globalMouseUp = () => {
+        const ripples = this.renderRoot.querySelectorAll(".ripple.animate");
+        if (!ripples) return;
+        const ripple = ripples[ripples.length - 1];
+        if (!(ripple instanceof HTMLElement)) return;
+        ripple.classList.remove("animate");
+        ripple.style.transition = "all cubic-bezier(0,1.21,.81,.95) var(--sd-time-slow)";
+        requestAnimationFrame(() => {
+            ripple.classList.add("animate");
+            setTimeout(() => (ripple.ontransitioncancel = () => ripple.remove()), 100);
+        });
+    };
+
+    disconnectedCallback() {
+        window.removeEventListener("mouseup", this._globalMouseUp);
+    }
+
     private _handleMouseDown(event: MouseEvent) {
         if (this.disabled) return;
         const container = this.container;
@@ -79,13 +96,7 @@ export class SDRipple extends LitElement {
         const remove = () => ripple.remove();
         ripple.addEventListener("transitionend", remove);
         requestAnimationFrame(() => ripple.classList.add("animate"));
-        window.addEventListener("mouseup", () => {
-            ripple.classList.remove("animate");
-            ripple.style.transition = "all cubic-bezier(0,1.21,.81,.95) var(--sd-time-slow)";
-            requestAnimationFrame(() => {
-                ripple.classList.add("animate");
-            });
-        });
+        window.addEventListener("mouseup", this._globalMouseUp);
     }
 
     /**

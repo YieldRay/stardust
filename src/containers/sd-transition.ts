@@ -46,6 +46,11 @@ export class SDTransition extends LitElement {
      */
     @property({ type: Boolean }) immediate = false;
 
+    /**
+     * 过渡默认作用在this（:host）上，修改可调整作用到第一个子元素上
+     */
+    @property({ type: Boolean, attribute: "apply-to-first-element" }) applyToFirstElement = false;
+
     render() {
         return html`<slot></slot>`;
     }
@@ -54,29 +59,41 @@ export class SDTransition extends LitElement {
 
     protected updated(changedProperties: PropertyValueMap<this>) {
         const state = this.state ? "enter" : "leave";
+
+        // the TARGET element to which transition will apply
+        const target: HTMLElement = this.applyToFirstElement
+            ? (() => {
+                  const slotted = this.querySelector("slot")?.assignedElements({ flatten: true })[0];
+                  return slotted instanceof HTMLElement ? slotted : this;
+              })()
+            : this;
+
+        // if show the transition for the first render
         if (this.immediate) this._init = false;
         if (this._init) {
             this._init = false;
             state && applyCSSStyle(this, this[state].end);
             return;
         }
+
+        // handle state change
         if (changedProperties.has("state")) {
             switch (state) {
                 case "enter":
                 case "leave":
-                    applyCSSStyle(this, this[state].begin); // begin
-                    this.style.transition =
+                    applyCSSStyle(target, this[state].begin); // begin
+                    target.style.transition =
                         this[state].transition ?? `all var(--sd-time-normal) ${this.state ? "ease-in" : "ease-out"}`;
-                    applyCSSStyle(this, this[state].from); // from
-                    requestAnimationFrame(() => applyCSSStyle(this, this[state].to)); // to
+                    applyCSSStyle(target, this[state].from); // from
+                    requestAnimationFrame(() => applyCSSStyle(target, this[state].to)); // to
                     const afterEnd = () => {
-                        applyCSSStyle(this, this[state].end); // end
-                        this.ontransitionend = null;
-                        this.ontransitioncancel = null;
+                        applyCSSStyle(target, this[state].end); // end
+                        target.ontransitionend = null;
+                        target.ontransitioncancel = null;
                         this[state].afterEnd?.(); // (callback) afterEnd
                     };
-                    this.ontransitionend = afterEnd;
-                    this.ontransitioncancel = afterEnd;
+                    target.ontransitionend = afterEnd;
+                    target.ontransitioncancel = afterEnd;
                     break;
                 default:
             }

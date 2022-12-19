@@ -36,6 +36,8 @@ export class SDFloat extends LitElement {
     })
     position: Pos = "disabled";
 
+    @property() z = "";
+
     /**
      * 默认为absolute定位，此值设为true则fixed定位
      */
@@ -102,6 +104,7 @@ export class SDFloat extends LitElement {
                 class="container ${this.position}"
                 style=${styleMap({
                     position: this.fixed ? "fixed" : "",
+                    zIndex: this.z,
                 })}
             >
                 <slot></slot>

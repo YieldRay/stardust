@@ -33,6 +33,10 @@ export class SDTransitionEasy extends LitElement {
      * 是否使用 <sd-transition-group>
      */
     @property({ type: Boolean }) group = false;
+    /**
+     * 是否作用到第一个子元素上，一般使用唯一子元素时才有用
+     */
+    @property({ type: Boolean, attribute: "apply-to-first-element" }) applyToFirstElement = false;
 
     render() {
         return html`
@@ -57,6 +61,7 @@ export class SDTransitionEasy extends LitElement {
                         }}
                         .state=${this.state}
                         .immediate=${this.immediate}
+                        .applyToFirstElement=${this.applyToFirstElement}
                     >
                         <slot></slot>
                     </sd-transition>

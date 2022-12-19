@@ -25,7 +25,14 @@
             </sd-button>
         </sd-drawer>
 
-        <sd-button onclick="$drawer.open=!$drawer.open">SD-BUTTON</sd-button>
+        <sd-modal id="$modal" open>
+            <p>Hello,World!</p>
+            <p onclick="$modal.open=false">[close]</p>
+        </sd-modal>
+
+        <sd-button onclick="$drawer.open=!$drawer.open">OPEN DRAWER</sd-button>
+
+        <sd-button>SD-BUTTON</sd-button>
 
         <sd-checkbox checked disabled>
             <span slot="before">(</span>
