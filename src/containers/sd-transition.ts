@@ -13,10 +13,10 @@ export interface Transition {
 }
 
 /**
- * perform transition when the whole slotted element enter/leave to/from the DOM
+ * Perform transition when the whole slotted element enter/leave to/from the DOM
  * @example
  *  `<button @click=${()=>(show = !show)}>toggle</button>`
- *  <sd-transition .state=${state}><p>hello</p></sd-transition>
+ *  `<sd-transition .state=${state}><p>hello</p></sd-transition>`
  */
 @customElement("sd-transition")
 export class SDTransition extends LitElement {
@@ -36,18 +36,19 @@ export class SDTransition extends LitElement {
     };
 
     /**
-     * `true`  则为 enter；
-     * `false` 则为 leave；
+     * `true`  for `enter`;
+     * `false` for `leave`;
      */
     @property({ type: Boolean }) state = true;
 
     /**
-     * 是否执行第一次过渡，默认不执行
+     * execute the first transition, which is not executed by default.
      */
     @property({ type: Boolean }) immediate = false;
 
     /**
-     * 过渡默认作用在this（:host）上，修改可调整作用到第一个子元素上
+     * transition acts on this (`:host`) by default,
+     * modify this to adjuste to act on the first child element.
      */
     @property({ type: Boolean, attribute: "apply-to-first-element" }) applyToFirstElement = false;
 

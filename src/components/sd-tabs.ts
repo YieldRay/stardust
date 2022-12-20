@@ -7,7 +7,7 @@ import stylesheet from "../stylesheet.js";
 import { SDTab } from "./sd-tab";
 
 /**
- * 此元素应包含 <sd-tab> 元素
+ * This element should contain the `<sd-tab>` element
  *
  * @fires change - {{ index: Number; tab: SDTab }}
  */

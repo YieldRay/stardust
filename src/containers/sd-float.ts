@@ -12,11 +12,14 @@ export type Position = "disabled" | `${PositionX}-${PositionY}` | `${PositionY}-
 //? Pos is for inner use, while Position is exported
 type Pos = Exclude<Position, `${PositionX}-${PositionY}`>; // "disabled" | `${PositionY}-${PositionX}`;
 
+/**
+ * A float container element with 9 optional positions
+ */
 @customElement("sd-float")
 export class SDFloat extends LitElement {
     /**
-     * 浮动的位置，若类型不匹配将报错
-     * 可设置为disabled或为空，此时将取消浮动（static定位）
+     * floating position, if the type does not match, an error will be reported.
+     * can be set to disabled or empty, at this time will cancel the floating (position: static).
      */
     @property({
         converter(value) {
@@ -39,7 +42,8 @@ export class SDFloat extends LitElement {
     @property() z = "";
 
     /**
-     * 默认为absolute定位，此值设为true则fixed定位
+     * the default is absolute positioning,
+     * if this value is set to true, the fixed positioning will be performed.
      */
     @property({ type: Boolean }) fixed = false;
 

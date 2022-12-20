@@ -10,7 +10,9 @@ const isPosition = (x: unknown): x is Position =>
 
 @customElement("sd-drawer")
 export class SDDrawer extends LitElement {
-    /** 位置，默认为left，可选为top,bottom,left,right */
+    /**
+     *  position, the default is left, which can be `top` `bottom` `left` `right`
+     */
     @property({
         converter(value) {
             return isPosition(value) ? value : "left";
@@ -19,17 +21,19 @@ export class SDDrawer extends LitElement {
     position: Position = "left";
 
     /**
-     * 默认为absolute定位，此值设为true则fixed定位
+     * the default is absolute positioning,
+     * if this value is set to true, the fixed positioning will be performed.
      */
     @property({ type: Boolean }) fixed = false;
 
     /**
-     * 是否打开
+     * open?
      */
     @property({ type: Boolean }) open = false;
 
     /**
-     * 是否显示遮罩。点击遮罩即可关闭（将open设置为false）
+     * Whether to show the mask.
+     * Click the mask to close (will set `open` to `false`)
      */
     @property({ type: Boolean }) mask = true;
 

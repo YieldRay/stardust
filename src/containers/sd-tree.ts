@@ -4,24 +4,33 @@ import { styleMap } from "lit/directives/style-map.js";
 import { when } from "lit/directives/when.js";
 import stylesheet from "../stylesheet.js";
 
+import "./sd-transition";
+
 /**
- * @dependency sd-transition
+ * A tree element for displaying recursive content
+ * @example
+ * ```html
+ *  <sd-tree node="NODENAME IN ATTRIBUTE" has-child>
+ *      <span slot="node">NODENAME IN HTML (will override attribute) </span>
+ *      <sd-tree node="subtree" has-child>
+ *          <sd-tree node="111"></sd-tree>
+ *          <sd-tree node="222"></sd-tree>
+ *      </sd-tree>
+ *  </sd-tree>
+ * ```
  */
 @customElement("sd-tree")
 export class SDTree extends LitElement {
-    /**
-     * 是否包含子节点
-     */
+    /** whether the element has child nodes */
     @property({ type: Boolean, attribute: "has-child" }) hasChild = false;
 
     /**
-     * 本结点的内容，仅能为文本。若需要渲染HTML则应使用 slot=node 插槽
+     *  the content of this node (can only be text).
+     *  `slot=node` slot should be used if HTML needs to be rendered.
      */
     @property() node = "";
 
-    /**
-     * 是否展开
-     */
+    /** whether the tree is expanded */
     @property({ type: Boolean }) expand = false;
 
     static styles = [

@@ -3,12 +3,14 @@ import { customElement, property } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
 import stylesheet from "../stylesheet.js";
 
+// @dependency
 import "./sd-transition";
+import "./sd-transition-group";
 
 /**
- *  <sd-transition> made easy
- * the default transition is a opacity transition
- * which can used for fading in/out
+ * `<sd-transition>` made easy.
+ * The default transition is a opacity transition,
+ * and when it fade out, we make it `display: none`
  */
 @customElement("sd-transition-easy")
 export class SDTransitionEasy extends LitElement {
@@ -18,23 +20,26 @@ export class SDTransitionEasy extends LitElement {
     @property() leave: Partial<CSSStyleDeclaration> = { opacity: "0" };
     @property() begin: Partial<CSSStyleDeclaration> = { display: "" };
     @property() end: Partial<CSSStyleDeclaration> = { display: "none" };
+
     /**
-     * `true`  则为 enter；
-     * `false` 则为 leave；
+     * `true`  for `enter`;
+     * `false` for `leave`;
      */
     @property({ type: Boolean }) state = true;
 
     /**
-     * 是否执行第一次过渡，默认不执行
+     * execute the first transition, which is not executed by default.
      */
     @property({ type: Boolean }) immediate = false;
 
     /**
-     * 是否使用 <sd-transition-group>
+     * use <sd-transition> (default) or <sd-transition-group>
      */
     @property({ type: Boolean }) group = false;
+
     /**
-     * 是否作用到第一个子元素上，一般使用唯一子元素时才有用
+     * transition acts on this (`:host`) by default,
+     * modify this to adjuste to act on the first child element.
      */
     @property({ type: Boolean, attribute: "apply-to-first-element" }) applyToFirstElement = false;
 

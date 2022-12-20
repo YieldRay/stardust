@@ -6,7 +6,7 @@ import stylesheet from "../stylesheet.js";
 @customElement("sd-progress")
 export class SDProgress extends LitElement {
     /**
-     * 按百分比计，范围为0-100
+     * By percentage, the range is 0-100.
      */
     @property({ type: Number }) value = 0;
 

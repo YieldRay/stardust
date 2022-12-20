@@ -5,14 +5,14 @@ import stylesheet from "../stylesheet.js";
 @customElement("sd-ripple")
 export class SDRipple extends LitElement {
     /**
-     * 是否禁用涟漪
-     * 一般用于容器内部元素禁用时禁用涟漪
+     * Whether ripple is disabled.
+     * Generally used to disable ripples when the elements inside the container are disabled.
      */
     @property({ type: Boolean, reflect: true }) disabled = false;
 
     /**
-     * 涟漪缩放尺寸，默认为1
-     * 默认情况下涟漪的直径为元素宽高中较大的一个
+     * ripple scaling size, the default scale is 1.
+     * By default, the diameter of the ripple is the larger one of the width and height of the container element.
      */
     @property({ type: Number }) scale = 1;
 
@@ -100,7 +100,7 @@ export class SDRipple extends LitElement {
     }
 
     /**
-     * 移除所有涟漪效果
+     * Remove all ripple effects
      */
     public removeRipple() {
         this.renderRoot.querySelectorAll(".ripple").forEach((e) => e.remove());

@@ -2,6 +2,9 @@ import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import stylesheet from "../stylesheet.js";
 
+/**
+ * A center placed modal with default background
+ */
 @customElement("sd-modal")
 export class SDModal extends LitElement {
     static styles = [
@@ -10,7 +13,6 @@ export class SDModal extends LitElement {
             .container {
                 max-height: 100vh;
                 max-width: 100vw;
-                background-color: var(--sd-color-background);
                 box-shadow: 1px 1px 2px var(--sd-color-shadow), -1px -1px 2px var(--sd-color-shadow);
                 border-radius: 3px;
                 overflow: auto;
@@ -29,7 +31,7 @@ export class SDModal extends LitElement {
                     .begin=${{ display: "block" }}
                     .end=${{ display: "block" }}
                 >
-                    <div class="container ui">
+                    <div class="container theme">
                         <slot></slot>
                     </div>
                 </sd-transition-easy>

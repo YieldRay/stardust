@@ -11,8 +11,9 @@ import "../containers/sd-ripple";
  */
 @customElement("sd-button")
 export class SDButton extends LitElement {
-    /**  是否禁用按钮 */
+    /**  whether the button is disabled */
     @property({ type: Boolean, reflect: true }) disabled = false;
+    /** whether the boutton is a circle shape */
     @property({ type: Boolean }) rounded = false;
 
     static styles = [

@@ -3,21 +3,17 @@ import { customElement, property, query, state } from "lit/decorators.js";
 import stylesheet from "../stylesheet.js";
 
 /**
- * @cssprop --size - 元素的尺寸，即高度
- * @cssprop --scale - 元素的宽高比，高度即为 --size * --scale
- * @slot - 开关内部
- * @slot before - 开关前的标签，可以触发开关
- * @slot after - 开关后的标签，可以触发开关
- * @fires change - {{checked: Boolean}}
- */
+* @cssprop --size - the size of the element, i.e. the height
+* @cssprop --scale - the aspect ratio of the element, and the height is `--size * --scale`.
+* @slot - inside the switch
+* @slot before - the label before the switch, which can trigger the switch.
+* @slot after - the label after the switch can trigger the switch.
+* @fires change - {{checked: Boolean}}
+*/
 @customElement("sd-switch")
 export class SDSwitch extends LitElement {
-    /** 是否选中 */
     @property({ type: Boolean, reflect: true }) checked = false;
-    /** 是否禁用 */
     @property({ type: Boolean, reflect: true }) disabled = false;
-
-    @state() isInit = true;
 
     static styles = [
         stylesheet,
@@ -169,6 +165,8 @@ export class SDSwitch extends LitElement {
             </label>
         `;
     }
+
+    @state() isInit = true;
 
     protected updated(changedProperties: PropertyValueMap<this>): void {
         // the first time the component is shown, do not run the animation

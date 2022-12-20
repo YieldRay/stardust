@@ -3,8 +3,8 @@ import { customElement, property, query } from "lit/decorators.js";
 import stylesheet from "../stylesheet.js";
 
 /**
- * @slot - 默认插槽
- * @slot aside - 悬浮的元素，位置相对默认插槽自动计算
+ * @slot - default slot
+ * @slot aside - suspended element, the position of which is automatically calculated relative to the default slot.
  */
 @customElement("sd-aside")
 export class SDAside extends LitElement {
@@ -44,7 +44,7 @@ export class SDAside extends LitElement {
     }
 
     /**
-     * 调用此方法重新计算并设置菜单位置
+     * Call this method to recalculate and set the menu position.
      */
     public calculatePosition() {
         const { body, aside } = this;

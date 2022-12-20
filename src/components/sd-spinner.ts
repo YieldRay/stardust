@@ -2,6 +2,9 @@ import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import stylesheet from "../stylesheet.js";
 
+/**
+ * A simple spinner
+ */
 @customElement("sd-spinner")
 export class SDSpinner extends LitElement {
     static styles = [

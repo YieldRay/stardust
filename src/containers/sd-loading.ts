@@ -5,8 +5,8 @@ import { classMap } from "lit/directives/class-map.js";
 import stylesheet from "../stylesheet.js";
 
 /**
- * @slot -
- * @slot loading -
+ * @slot - The actual content
+ * @slot loading - The loading content, will placed to the center of the actual content
  */
 @customElement("sd-loading")
 export class SDLoading extends LitElement {

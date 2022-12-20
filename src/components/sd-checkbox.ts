@@ -6,17 +6,15 @@ import stylesheet from "../stylesheet.js";
 import "../containers/sd-transition-easy";
 
 /**
- * @cssprop --size - 元素的尺寸
- * @slot - 开关内部
- * @slot before - 开关前的标签，可以触发开关
- * @slot after - 开关后的标签，可以触发开关
+ * @cssprop --size - the size of the element
+ * @slot - inside the switch
+ * @slot before - the label before the switch, which can trigger the switch.
+ * @slot after - the label after the switch can trigger the switch.
  * @fires change - {{checked: Boolean}}
  */
 @customElement("sd-checkbox")
 export class SDCheckBox extends LitElement {
-    /** 是否选中 */
     @property({ type: Boolean, reflect: true }) checked = false;
-    /** 是否禁用 */
     @property({ type: Boolean, reflect: true }) disabled = false;
 
     static styles = [

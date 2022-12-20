@@ -32,3 +32,4 @@ export { SDTransition } from "./containers/sd-transition";
 export { SDTransitionEasy } from "./containers/sd-transition-easy";
 export { SDTransitionGroup } from "./containers/sd-transition-group";
 export { SDTree } from "./containers/sd-tree";
+export { SDWindow } from "./containers/sd-window";

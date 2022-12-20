@@ -7,7 +7,7 @@ type Position = "left" | "right" | "center";
 
 @customElement("sd-divider")
 export class SDDivider extends LitElement {
-    /** 插槽（一般为文本）位置，默认为center，可选为left right */
+    /** slot (usually text) position, default is `center`, optional is `left` `right` */
     @property({
         converter(value): Position {
             if (["left", "right", "center"].includes(value ?? "top")) return value as Position;

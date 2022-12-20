@@ -40,7 +40,7 @@ export class SDSelect extends LitElement {
     }
 
     /**
-     * 通过下标获取和设置选中选项
+     * Get and set the selected option by subscript.
      */
     @property()
     get selectedIndex(): number | number[] {

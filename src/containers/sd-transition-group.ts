@@ -4,20 +4,21 @@ import stylesheet from "../stylesheet.js";
 import { applyCSSStyle } from "../utils.js";
 
 /**
- * The transition can only apply to newer append element
+ * The transition can only apply to newer append element,
+ * as when a element leave the slot, we cannot add a style to it
  */
 @customElement("sd-transition-group")
 export class SDTransitionGroup extends LitElement {
     static styles = [stylesheet];
-    render() {
-        return html`<slot @slotchange=${this._handleSlotChange}></slot>`;
-    }
 
     @property() from: Partial<CSSStyleDeclaration> = { opacity: "0" };
     @property() to: Partial<CSSStyleDeclaration> = { opacity: "1" };
     @property() transition: string = "opacity ease-in var(--sd-time-normal)";
     @property({ type: Boolean }) immediate = false;
 
+    render() {
+        return html`<slot @slotchange=${this._handleSlotChange}></slot>`;
+    }
     @state() _init = true;
 
     private _handleSlotChange(e: Event) {

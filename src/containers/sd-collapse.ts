@@ -7,18 +7,18 @@ export type Position = "top" | "bottom";
 const isPosition = (x: unknown): x is Position => typeof x === "string" && ["top", "bottom"].includes(x);
 
 /**
- * 一般来说，这个元素需要包装才能使用
+ * Generally speaking, this element needs to be wrapped before it can be used.
  *
- * @slot toggle - 切换展开/折叠状态
+ * @slot toggle - toggle the expanded/collapsed state.
  * @fires change - {{expand: Boolean}}
- *
  */
+
 @customElement("sd-collapse")
 export class SDCollapse extends LitElement {
-    /** 是否展开 */
+    /** Expand or not */
     @property({ type: Boolean, reflect: true }) expand = false;
 
-    /** 位置，默认为top，可选为bottom */
+    /** position, the default is `top`, can also set to `bottom` */
     @property({
         converter(value): Position {
             return isPosition(value) ? value : "top";

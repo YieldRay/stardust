@@ -18,7 +18,7 @@
     </head>
     <body>
         <sd-drawer id="$drawer" position="left" fixed>
-            <sd-button onclick="$drawer.open=!$drawer.open">toggle menu</sd-button>
+            <sd-button onclick="$drawer.open=!$drawer.open">CLOSE DRAWER</sd-button>
             <sd-button
                 onclick="document.documentElement[document.documentElement.hasAttribute('data-dark-mode')?'removeAttribute':'setAttribute']('data-dark-mode','')"
             >
@@ -26,7 +26,19 @@
             </sd-button>
         </sd-drawer>
 
-        <sd-button onclick="$drawer.open=!$drawer.open">SD-BUTTON</sd-button>
+        <sd-modal id="$modal" open>
+            <p>Hello,World!</p>
+            <p onclick="$modal.open=false">[close]</p>
+        </sd-modal>
+
+        <sd-button onclick="$drawer.open=!$drawer.open">OPEN DRAWER</sd-button>
+
+        <sd-window style="left: 50%; top: 50%">
+            <div data-draggable>title (draggable)</div>
+            <div>CONTENT (not draggable)</div>
+        </sd-window>
+
+        <sd-button onclick="$modal.open=true">SD-BUTTON</sd-button>
 
         <sd-checkbox checked disabled>
             <span slot="before">(</span>
@@ -156,18 +168,20 @@
         </sd-tree>
 
         <sd-select multiple style="--max-width: 10em">
-            <sd-option value="0">第一个选项，很长很长很长很长</sd-option>
-            <sd-option value="1" selected>中间</sd-option>
-            <sd-option value="2" disabled>最后面</sd-option>
+            <sd-option value="0">the first option is soooooooooooo long</sd-option>
+            <sd-option value="1" selected>middle</sd-option>
+            <sd-option value="2" disabled>the last one</sd-option>
         </sd-select>
 
         <sd-float position="center-right" fixed>
             <p>I'm floating!</p>
         </sd-float>
 
-        <sd-input placeholder="请输入">
-            <span slot="before">@</span>
-        </sd-input>
+        <sd-box display="block" p="1em">
+            <sd-input placeholder="please type here...">
+                <span slot="before">@</span>
+            </sd-input>
+        </sd-box>
 
         <sd-progress value="12"></sd-progress>
 

@@ -4,7 +4,7 @@ import { classMap } from "lit/directives/class-map.js";
 import stylesheet from "../stylesheet.js";
 
 /**
- *  此元素应置于 <sd-tabs> 元素内
+ *  This element should be placed inside the `<sd-tabs>` element.
  */
 @customElement("sd-tab")
 export class SDTab extends LitElement {

@@ -3,8 +3,8 @@ import { customElement, property, query } from "lit/decorators.js";
 import stylesheet from "../stylesheet.js";
 
 /**
- * @slot before - 输入框内部，文本前方
- * @slot after - 输入框内部，文本后方
+* @slot before - inside the input box, in front of the text
+* @slot after - inside the input box, behind the text
  * @fires change - {{value: String}}
  * @fires input - {{value: String}}
  */

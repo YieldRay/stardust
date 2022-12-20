@@ -9,13 +9,14 @@ import stylesheet from "../stylesheet.js";
 @customElement("sd-slider")
 export class SDSlider extends LitElement {
     /**
-     * 每步长度，默认为连续值。若设置，应设置为整数，否则由于Javascript计算浮点数失精会造成错误
+     * The length of each step is a continuous value by default.
+     * If it is set, it should be set to an integer
      */
     @property({ type: Number, reflect: false }) step = 0;
     @property({ type: Number }) min = 0;
     @property({ type: Number }) max = 100;
     /**
-     * 滑动条当前百分比，范围 min-max 默认为 0-100
+     * The current percentage of sliding bar, the default range min-max is 0-100.
      */
     @property({ type: Number, reflect: true }) value = this.min;
 
@@ -143,9 +144,10 @@ export class SDSlider extends LitElement {
             thumb.style.left = this._calcStep(percentage, true) + "%";
         };
 
-        thumb.onpointerup = () => {
+        thumb.onpointerup = (e: PointerEvent) => {
             thumb.onpointermove = null;
             thumb.onpointerup = null;
+            thumb.releasePointerCapture(e.pointerId);
 
             // remove grab style
             thumb.style.cursor = "";
