@@ -37,29 +37,6 @@ export class SDDrawer extends LitElement {
      */
     @property({ type: Boolean }) mask = true;
 
-    render() {
-        return html`
-            ${when(
-                this.mask && this.open,
-                () => html`
-                    <div
-                        class="mask"
-                        @click=${() => (this.open = false)}
-                        style=${styleMap({ position: this.fixed ? "fixed" : "" })}
-                    ></div>
-                `
-            )}
-
-            <div
-                class="container ${this.position}"
-                data-open=${this.open ? "" : nothing}
-                style=${styleMap({ position: this.fixed ? "fixed" : "" })}
-            >
-                <slot></slot>
-            </div>
-        `;
-    }
-
     static styles = [
         stylesheet,
         css`
@@ -74,7 +51,7 @@ export class SDDrawer extends LitElement {
                 max-height: 100%;
                 overflow: auto;
                 transition: all var(--sd-time-normal);
-                z-index: 1;
+                z-index: 2; /* zIndex */
                 background-color: var(--sd-color-background);
             }
             .mask {
@@ -84,7 +61,7 @@ export class SDDrawer extends LitElement {
                 width: 100%;
                 height: 100%;
                 background: var(--sd-color-shadow);
-                z-index: 1;
+                z-index: 1; /* zIndex */
             }
 
             .left,
@@ -137,6 +114,29 @@ export class SDDrawer extends LitElement {
             }
         `,
     ];
+
+    render() {
+        return html`
+            ${when(
+                this.mask && this.open,
+                () => html`
+                    <div
+                        class="mask"
+                        @click=${() => (this.open = false)}
+                        style=${styleMap({ position: this.fixed ? "fixed" : "" })}
+                    ></div>
+                `
+            )}
+
+            <div
+                class="container ${this.position}"
+                data-open=${this.open ? "" : nothing}
+                style=${styleMap({ position: this.fixed ? "fixed" : "" })}
+            >
+                <slot></slot>
+            </div>
+        `;
+    }
 }
 
 declare global {

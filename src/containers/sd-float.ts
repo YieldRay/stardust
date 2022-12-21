@@ -39,7 +39,7 @@ export class SDFloat extends LitElement {
     })
     position: Pos = "disabled";
 
-    @property() z = "";
+    @property() z = "1";
 
     /**
      * the default is absolute positioning,

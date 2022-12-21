@@ -144,10 +144,9 @@ export class SDSlider extends LitElement {
             thumb.style.left = this._calcStep(percentage, true) + "%";
         };
 
-        thumb.onpointerup = (e: PointerEvent) => {
+        thumb.onpointerup = () => {
             thumb.onpointermove = null;
             thumb.onpointerup = null;
-            thumb.releasePointerCapture(e.pointerId);
 
             // remove grab style
             thumb.style.cursor = "";

@@ -25,7 +25,7 @@ export class SDTransition extends LitElement {
     @property() enter: Transition = {
         from: { opacity: "0" },
         to: { opacity: "1" },
-        begin: { display: "" },
+        begin: { display: "block" },
         transition: "opacity ease-in var(--sd-time-normal)",
     };
     @property() leave: Transition = {

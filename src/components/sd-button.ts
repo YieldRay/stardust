@@ -3,9 +3,6 @@ import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import stylesheet from "../stylesheet.js";
 
-// @dependency
-import "../containers/sd-ripple";
-
 /**
  * @cssprop --size - default=2em
  */
@@ -37,7 +34,7 @@ export class SDButton extends LitElement {
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                transition: border-color var(--sd-time-normal);
+                transition: border-color, transform var(--sd-time-normal);
                 padding: var(--sd-length-padding);
                 color: var(--sd-color-text-reverse);
                 background-color: var(--sd-color-primary);
@@ -51,6 +48,9 @@ export class SDButton extends LitElement {
             .container:hover {
                 border: solid var(--sd-color-border) var(--sd-length-border);
             }
+            .container:active {
+                opacity: 0.9;
+            }
             .rounded {
                 border-radius: var(--size);
                 height: var(--size);
@@ -60,11 +60,13 @@ export class SDButton extends LitElement {
     ];
 
     render() {
-        return html`<sd-ripple class="container ui ${classMap({ rounded: this.rounded })}">
-            <span>
-                <slot></slot>
-            </span>
-        </sd-ripple>`;
+        return html`
+            <div class="container ui ${classMap({ rounded: this.rounded })}">
+                <span>
+                    <slot></slot>
+                </span>
+            </div>
+        `;
     }
 }
 

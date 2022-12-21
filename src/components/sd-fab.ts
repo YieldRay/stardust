@@ -5,9 +5,7 @@ import { throttle } from "froebel/function";
 import stylesheet from "../stylesheet.js";
 
 // @dependency
-import "../containers/sd-ripple";
 import "../containers/sd-float";
-import { SDRipple } from "../containers/sd-ripple";
 
 /**
  * @cssprop --size - the size of the element, i.e. the diameter
@@ -36,7 +34,7 @@ export class SDFab extends LitElement {
                 -webkit-tap-highlight-color: transparent;
             }
 
-            #container {
+            .container {
                 cursor: pointer;
                 display: inline-block;
                 box-shadow: 1px 1px 1px var(--sd-color-shadow), -1px 1px 1px var(--sd-color-shadow);
@@ -51,7 +49,7 @@ export class SDFab extends LitElement {
         `,
     ];
 
-    @query("#container") private container!: SDRipple;
+    @query(".container") private container!: HTMLDivElement;
 
     @state() hidden = false;
 
@@ -65,11 +63,11 @@ export class SDFab extends LitElement {
                     })}
                 >
                     <sd-transition-easy .state=${!this.hidden}>
-                        <sd-ripple scale="1.25" id="container">
+                        <div class="container theme">
                             <slot>
                                 <div>▲</div>
                             </slot>
-                        </sd-ripple>
+                        </div>
                     </sd-transition-easy>
                 </div>
             </sd-float>

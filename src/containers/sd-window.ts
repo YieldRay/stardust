@@ -1,11 +1,12 @@
 import { LitElement, css, html } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement } from "lit/decorators.js";
 import stylesheet from "../stylesheet.js";
 
 /**
  * A window container that has a fixed position.
  * You can place the window by add style to the host element.
  * Adding dataset `data-draggable` to make the target element to be a draggabe area.
+ * Notice: `data-draggable` work only for direct children
  * @example
  * ```html
  *  <sd-window style="left:50%;top:50%">
@@ -17,7 +18,6 @@ import stylesheet from "../stylesheet.js";
 
 @customElement("sd-window")
 export class SDWindow extends LitElement {
-    @state() listenerRefs: Array<() => void> = [];
     static styles = [
         stylesheet,
         css`
@@ -36,8 +36,6 @@ export class SDWindow extends LitElement {
     }
 
     private _handleSlotChange(e: Event) {
-        this._cancelListeners();
-
         const slot = e.target as HTMLSlotElement;
 
         const needDraggable: HTMLElement[] = (
@@ -47,20 +45,18 @@ export class SDWindow extends LitElement {
         needDraggable.forEach((e) => this._makeDraggable(this, e));
     }
 
-    disconnectedCallback() {
-        this._cancelListeners();
-    }
-
     private _makeDraggable(windowEle: HTMLElement, targetEle: HTMLElement) {
         targetEle.style.cursor = "move";
         targetEle.style.userSelect = "none";
+        targetEle.style.touchAction = "none";
 
-        targetEle.addEventListener("mousedown", (event) => {
-            targetEle.ondragstart = () => false;
+        targetEle.addEventListener("pointerdown", (event) => {
+            targetEle.setPointerCapture(event.pointerId);
 
             const rect = targetEle.getBoundingClientRect();
             const shiftX = event.clientX - rect.x;
             const shiftY = event.clientY - rect.y;
+
             // move windowEle to page coordinate
             function moveAt(pageX: number, pageY: number) {
                 const left = pageX - shiftX;
@@ -74,20 +70,12 @@ export class SDWindow extends LitElement {
                 if (rect.right >= window.innerWidth) windowEle.style.left = window.innerWidth - rect.width + "px";
                 if (rect.bottom >= window.innerHeight) windowEle.style.top = window.innerHeight - rect.height + "px";
             }
-            const onMouseMove = (event: MouseEvent) => moveAt(event.clientX, event.clientY);
-            document.addEventListener("mousemove", onMouseMove);
-            const onMouseUp = () => document.removeEventListener("mousemove", onMouseMove);
-            document.addEventListener("mouseup", onMouseUp);
-            // here only keep record of onmouseup,
-            // as normally onmouseup will be triggered and onmousemove will stop listening
-            this.listenerRefs.push(onMouseUp);
+            const onPointerMove = (event: PointerEvent) => moveAt(event.clientX, event.clientY);
+            targetEle.addEventListener("pointermove", onPointerMove);
+            const cancelListener = () => targetEle.removeEventListener("pointermove", onPointerMove);
+            targetEle.addEventListener("pointercancel", cancelListener);
+            targetEle.addEventListener("pointerup", cancelListener);
         });
-    }
-
-    private _cancelListeners() {
-        if (this.listenerRefs.length === 0) return;
-        this.listenerRefs.forEach((l) => document.removeEventListener("mouseup", l));
-        this.listenerRefs = []; // trigger GC
     }
 }
 

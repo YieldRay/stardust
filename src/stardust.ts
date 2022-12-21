@@ -27,7 +27,6 @@ export { SDCollapse } from "./containers/sd-collapse";
 export { SDDrawer } from "./containers/sd-drawer";
 export { SDFloat } from "./containers/sd-float";
 export { SDLoading } from "./containers/sd-loading";
-export { SDRipple } from "./containers/sd-ripple";
 export { SDTransition } from "./containers/sd-transition";
 export { SDTransitionEasy } from "./containers/sd-transition-easy";
 export { SDTransitionGroup } from "./containers/sd-transition-group";

@@ -18,7 +18,7 @@ export class SDTransitionEasy extends LitElement {
 
     @property() enter: Partial<CSSStyleDeclaration> = { opacity: "1" };
     @property() leave: Partial<CSSStyleDeclaration> = { opacity: "0" };
-    @property() begin: Partial<CSSStyleDeclaration> = { display: "" };
+    @property() begin: Partial<CSSStyleDeclaration> = { display: "block" };
     @property() end: Partial<CSSStyleDeclaration> = { display: "none" };
 
     /**

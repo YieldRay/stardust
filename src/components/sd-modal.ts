@@ -23,7 +23,7 @@ export class SDModal extends LitElement {
     @property({ type: Boolean }) open = false;
     render() {
         return html`
-            <sd-float fixed position="center-center" z="1">
+            <sd-float fixed position="center-center">
                 <sd-transition-easy
                     .state=${this.open}
                     .enter=${{ opacity: "1", transform: "translateY(0)", display: "block" }}
