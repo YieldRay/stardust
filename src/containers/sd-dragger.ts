@@ -1,11 +1,11 @@
 import { LitElement, css, html } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import stylesheet from "../stylesheet.js";
+import { cssPercentage } from "../utils.js";
 
 /**
- * A window container that has a fixed position.
- * You can place the window by add style to the host element.
- * Adding dataset `data-draggable` to make the target element to be a draggabe area.
+ * You can manually place the host element just by css property `left` `right` `top` `bottom`
+ * Adding dataset `data-draggable` to make the target element to be a draggable area.
  * Notice: `data-draggable` work only for direct children
  * @example
  * ```html
@@ -16,8 +16,8 @@ import stylesheet from "../stylesheet.js";
  * ```
  */
 
-@customElement("sd-window")
-export class SDWindow extends LitElement {
+@customElement("sd-dragger")
+export class SDDragger extends LitElement {
     static styles = [
         stylesheet,
         css`
@@ -35,6 +35,12 @@ export class SDWindow extends LitElement {
         return html`<slot @slotchange=${this._handleSlotChange}></slot>`;
     }
 
+    /**
+     * Use `%` rather than `px`, which can simply avoid the host element's
+     * moving outside the document when the window size reduced
+     * */
+    @property({ type: Boolean }) percentage: Boolean = false;
+
     private _handleSlotChange(e: Event) {
         const slot = e.target as HTMLSlotElement;
 
@@ -45,7 +51,7 @@ export class SDWindow extends LitElement {
         needDraggable.forEach((e) => this._makeDraggable(this, e));
     }
 
-    private _makeDraggable(windowEle: HTMLElement, targetEle: HTMLElement) {
+    private _makeDraggable(hostEle: HTMLElement, targetEle: HTMLElement) {
         targetEle.style.cursor = "move";
         targetEle.style.userSelect = "none";
         targetEle.style.touchAction = "none";
@@ -53,24 +59,33 @@ export class SDWindow extends LitElement {
         targetEle.addEventListener("pointerdown", (event) => {
             targetEle.setPointerCapture(event.pointerId);
 
+            // record initial pointer shift
             const rect = targetEle.getBoundingClientRect();
             const shiftX = event.clientX - rect.x;
             const shiftY = event.clientY - rect.y;
 
-            // move windowEle to page coordinate
-            function moveAt(pageX: number, pageY: number) {
-                const left = pageX - shiftX;
-                const top = pageY - shiftY;
-                windowEle.style.left = left + "px";
-                windowEle.style.top = top + "px";
+            const onPointerMove = (event: PointerEvent) => {
+                const pointerX = event.clientX;
+                const pointerY = event.clientY;
+                const left = pointerX - shiftX;
+                const top = pointerY - shiftY;
+                if (this.percentage) {
+                    hostEle.style.left = cssPercentage(left, document.documentElement.clientWidth);
+                    hostEle.style.top = cssPercentage(top, document.documentElement.clientHeight);
+                    hostEle.style.bottom = "";
+                    hostEle.style.right = "";
+                } else {
+                    hostEle.style.left = left + "px";
+                    hostEle.style.top = top + "px";
+                }
                 // prevent moving element outside the window
-                const rect = windowEle.getBoundingClientRect();
-                if (windowEle.offsetLeft <= 0) windowEle.style.left = "0px";
-                if (rect.top <= 0) windowEle.style.top = "0px";
-                if (rect.right >= window.innerWidth) windowEle.style.left = window.innerWidth - rect.width + "px";
-                if (rect.bottom >= window.innerHeight) windowEle.style.top = window.innerHeight - rect.height + "px";
-            }
-            const onPointerMove = (event: PointerEvent) => moveAt(event.clientX, event.clientY);
+                const rect = hostEle.getBoundingClientRect();
+                if (hostEle.offsetLeft <= 0) hostEle.style.left = "0px";
+                if (rect.top <= 0) hostEle.style.top = "0px";
+                if (rect.right >= window.innerWidth) hostEle.style.left = window.innerWidth - rect.width + "px";
+                if (rect.bottom >= window.innerHeight) hostEle.style.top = window.innerHeight - rect.height + "px";
+            };
+
             targetEle.addEventListener("pointermove", onPointerMove);
             const cancelListener = () => targetEle.removeEventListener("pointermove", onPointerMove);
             targetEle.addEventListener("pointercancel", cancelListener);
@@ -81,6 +96,6 @@ export class SDWindow extends LitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        "sd-window": SDWindow;
+        "sd-dragger": SDDragger;
     }
 }

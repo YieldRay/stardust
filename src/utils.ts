@@ -29,3 +29,8 @@ export function applyCSSStyle(ele: HTMLElement, styl?: Partial<CSSStyleDeclarati
         Reflect.set(ele.style, k, v);
     }
 }
+
+export function cssPercentage(lhs: number, rhs: number, toFixed?: number): string {
+    const percent = (lhs / rhs) * 100;
+    return (typeof toFixed === "number" ? percent.toFixed(toFixed) : percent.toString()) + "%";
+}
