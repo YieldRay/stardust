@@ -1,6 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, queryAssignedElements, state } from "lit/decorators.js";
-import { findTagInPath } from "../utils";
+import { isTarget } from "../utils";
 import stylesheet from "../stylesheet.js";
 import equal from "froebel/equal";
 
@@ -167,26 +167,27 @@ export class SDSelect extends LitElement {
     }
 
     private _handleClick(e: MouseEvent) {
-        const option = findTagInPath<SDOption>(e, "sd-option");
-        if (!option) return;
-        if (option.disabled) return;
+        if (isTarget<SDOption>(e.target, "sd-option")) {
+            const option = e.target;
+            if (option.disabled) return;
 
-        // record previous state
-        const prevIndex = this.selectedIndex;
+            // record previous state
+            const prevIndex = this.selectedIndex;
 
-        if (!this.multiple) {
-            this.expand = false;
-            this._options.forEach((opt) => (opt.selected = false));
-        }
+            if (!this.multiple) {
+                this.expand = false;
+                this._options.forEach((opt) => (opt.selected = false));
+            }
 
-        // change to new state
-        option.selected = !option.selected;
-        const index = this.selectedIndex;
+            // change to new state
+            option.selected = !option.selected;
+            const index = this.selectedIndex;
 
-        // fires when NOT equal
-        if (!equal(prevIndex, index)) {
-            this.dispatchEvent(new CustomEvent("change", { detail: { index } }));
-            this._setSelectedText();
+            // fires when NOT equal
+            if (!equal(prevIndex, index)) {
+                this.dispatchEvent(new CustomEvent("change", { detail: { index } }));
+                this._setSelectedText();
+            }
         }
     }
 

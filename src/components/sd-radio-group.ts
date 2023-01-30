@@ -1,6 +1,6 @@
 import { LitElement, html } from "lit";
 import { customElement, property, queryAssignedElements } from "lit/decorators.js";
-import { findTagInPath } from "../utils";
+import { isTarget } from "../utils";
 import stylesheet from "../stylesheet.js";
 
 // @dependency
@@ -17,12 +17,14 @@ export class SDRadioGroup extends LitElement {
     constructor() {
         super();
         this.addEventListener("click", (e) => {
-            const radio = findTagInPath<SDRadio>(e, "sd-radio");
-            if (!radio) return; // skip if not a radio
-            if (radio.checked) return; // skip if has been checked
-            this._radios.forEach((r) => (r.checked = false));
-            radio.checked = true;
-            this.dispatchEvent(new CustomEvent("change", { detail: { value: radio.value } }));
+            if (isTarget<SDRadio>(e.target, "sd-radio")) {
+                const radio = e.target;
+                if (radio.checked) return; // skip if has been checked
+                this._radios.forEach((r) => (r.checked = false));
+                radio.checked = true;
+                this.dispatchEvent(new CustomEvent("change", { detail: { value: radio.value } }));
+                return;
+            }
         });
     }
 

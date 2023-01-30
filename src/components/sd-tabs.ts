@@ -1,6 +1,6 @@
 import { LitElement, css, html, PropertyValueMap } from "lit";
 import { customElement, property, queryAssignedElements } from "lit/decorators.js";
-import { findTagInPath } from "../utils";
+import { isTarget } from "../utils";
 import stylesheet from "../stylesheet.js";
 
 // @dependency
@@ -17,21 +17,21 @@ export class SDTabs extends LitElement {
         super();
 
         this.addEventListener("click", (e) => {
-            const tab = findTagInPath<SDTab>(e, "sd-tab");
-            if (!tab) return;
+            if (isTarget<SDTab>(e.target, "sd-tab")) {
+                const tab = e.target;
+                // set .active
+                this._tabs.forEach((tab) => (tab.active = false));
+                tab.active = true;
 
-            // set .active
-            this._tabs.forEach((tab) => (tab.active = false));
-            tab.active = true;
-
-            // update index
-            const index = this._tabs.indexOf(tab);
-            if (this.tab != index)
-                // only update if tab changes
-                this.dispatchEvent(
-                    new CustomEvent<{ index: Number; tab: SDTab }>("change", { detail: { tab, index } })
-                );
-            this.tab = index;
+                // update index
+                const index = this._tabs.indexOf(tab);
+                if (this.tab != index)
+                    // only update if tab changes
+                    this.dispatchEvent(
+                        new CustomEvent<{ index: Number; tab: SDTab }>("change", { detail: { tab, index } })
+                    );
+                this.tab = index;
+            }
         });
     }
 
