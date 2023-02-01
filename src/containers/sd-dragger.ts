@@ -69,21 +69,29 @@ export class SDDragger extends LitElement {
                 const pointerY = event.clientY;
                 const left = pointerX - shiftX;
                 const top = pointerY - shiftY;
+                const docWidth = document.documentElement.clientWidth;
+                const docHeight = document.documentElement.clientHeight;
                 if (this.percentage) {
-                    hostEle.style.left = cssPercentage(left, document.documentElement.clientWidth);
-                    hostEle.style.top = cssPercentage(top, document.documentElement.clientHeight);
-                    hostEle.style.bottom = "";
-                    hostEle.style.right = "";
+                    hostEle.style.left = cssPercentage(left, docWidth);
+                    hostEle.style.top = cssPercentage(top, docHeight);
                 } else {
                     hostEle.style.left = left + "px";
                     hostEle.style.top = top + "px";
                 }
+                hostEle.style.bottom = "";
+                hostEle.style.right = "";
                 // prevent moving element outside the window
                 const rect = hostEle.getBoundingClientRect();
-                if (hostEle.offsetLeft <= 0) hostEle.style.left = "0px";
-                if (rect.top <= 0) hostEle.style.top = "0px";
-                if (rect.right >= window.innerWidth) hostEle.style.left = window.innerWidth - rect.width + "px";
-                if (rect.bottom >= window.innerHeight) hostEle.style.top = window.innerHeight - rect.height + "px";
+                if (hostEle.offsetLeft <= 0) hostEle.style.left = this.percentage ? "0%" : "0px";
+                if (rect.top <= 0) hostEle.style.top = this.percentage ? "0%" : "0px";
+                if (rect.right >= docWidth)
+                    hostEle.style.left = this.percentage
+                        ? `calc(100% - ${rect.width}px)`
+                        : docWidth - rect.width + "px";
+                if (rect.bottom >= docHeight)
+                    hostEle.style.top = this.percentage
+                        ? `calc(100% - ${rect.height}px)`
+                        : docHeight - rect.height + "px";
             };
 
             targetEle.addEventListener("pointermove", onPointerMove);
