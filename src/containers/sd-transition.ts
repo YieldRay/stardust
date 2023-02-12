@@ -14,6 +14,7 @@ export interface Transition {
 
 /**
  * Perform transition when the whole slotted element enter/leave to/from the DOM
+ * To customize it, provide `enter` `leave` props
  * @example
  *  `<button @click=${()=>(show = !show)}>toggle</button>`
  *  `<sd-transition .state=${state}><p>hello</p></sd-transition>`

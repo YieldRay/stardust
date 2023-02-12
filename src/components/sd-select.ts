@@ -6,7 +6,7 @@ import equal from "froebel/equal";
 
 // @dependency
 import { SDOption } from "./sd-option";
-import "../containers/sd-transition-easy";
+import "../containers/sd-transition";
 
 /**
  * @fires change
@@ -19,12 +19,12 @@ export class SDSelect extends LitElement {
     }
 
     /**
-     * 是否启用多选
+     * whether multiple select is enabled
      */
     @property({ type: Boolean }) multiple = false;
 
     /**
-     * 获取所有选中的选项元素
+     * Get all selected <sd-option> element
      */
     @property()
     get selectedOptions(): SDOption | undefined | SDOption[] {
@@ -139,11 +139,25 @@ export class SDSelect extends LitElement {
                     <div class="triangle"></div>
                 </div>
                 <div slot="aside">
-                    <sd-transition-easy .state=${this.expand}>
+                    <sd-transition
+                        .state=${this.expand}
+                        .enter=${{
+                            from: { opacity: "0" },
+                            to: { opacity: "1" },
+                            begin: { display: "block" },
+                            transition: "opacity ease-in var(--sd-time-fast)",
+                        }}
+                        .leave=${{
+                            from: { opacity: "1" },
+                            to: { opacity: "0" },
+                            end: { display: "none" },
+                            transition: "opacity ease-out var(--sd-time-fast)",
+                        }}
+                    >
                         <div div class="options">
                             <slot @click=${this._handleClick} @slotchange=${this._slotChange}></slot>
                         </div>
-                    </sd-transition-easy>
+                    </sd-transition>
                 </div>
             </sd-aside>
         `;

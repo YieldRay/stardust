@@ -11,6 +11,11 @@ import "./sd-transition-group";
  * `<sd-transition>` made easy.
  * The default transition is a opacity transition,
  * and when it fade out, we make it `display: none`
+ * To customize it, you provide four properties:
+ * `enter` `leave` `begin` `end`
+ * where `enter` & `leave` should be css properties
+ *  that able to perform transition
+ * in the most case, `begin` & `end` are not need to change
  */
 @customElement("sd-transition-easy")
 export class SDTransitionEasy extends LitElement {

@@ -37,7 +37,7 @@ export class SDDragger extends LitElement {
 
     /**
      * Use `%` rather than `px`, which can simply avoid the host element's
-     * moving outside the document when the window size reduced
+     * moving outside the document after the window size reduced
      * */
     @property({ type: Boolean }) percentage: Boolean = false;
 

@@ -80,7 +80,7 @@ export class SDTree extends LitElement {
 
             <sd-transition-easy
                 .enter=${{ transform: "translateY(0)", opacity: "1" }}
-                .leave=${{ transform: "translateY(-.25em)", opacity: "0" }}
+                .leave=${{ transform: "translateY(-.15em)", opacity: "0" }}
                 .begin=${{ display: "block", transformOrigin: "0 0" }}
                 .end=${{ display: "none" }}
                 .state=${this.expand}
