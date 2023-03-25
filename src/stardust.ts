@@ -7,6 +7,7 @@ export { SDCheckBox } from "./components/sd-checkbox";
 export { SDDivider } from "./components/sd-divider";
 export { SDDetail } from "./components/sd-detail";
 export { SDFab } from "./components/sd-fab";
+export { SDInputText } from "./components/sd-input-text";
 export { SDInput } from "./components/sd-input";
 export { SDModal } from "./components/sd-modal";
 export { SDOption } from "./components/sd-option";

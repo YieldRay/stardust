@@ -24,15 +24,21 @@ export class SDFloat extends LitElement {
     @property({
         converter(value) {
             const errMsg = `The position attribute set to <sd-modal> cannot be parsed! It should be like "top-center"`;
+
             if (!value) return "disabled";
             if (value === "disabled") return value;
+
             const pos = value.split("-");
             if (pos.length != 2) throw new Error(errMsg);
+
             const [lhs, rhs] = pos;
+
             let x: PositionX, y: PositionY;
+
             if (isX(lhs) && isY(rhs)) (x = lhs), (y = rhs);
             else if (isY(lhs) && isX(rhs)) (x = rhs), (y = lhs);
             else throw new Error(errMsg);
+            
             return `${y}-${x}`;
         },
         reflect: true,

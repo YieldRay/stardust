@@ -11,7 +11,7 @@ import { cssPercentage } from "../utils.js";
  * ```html
  *  <sd-window style="left:50%;top:50%">
  *      <div data-draggable> title (draggable) </div>
- *      <div> CONTENT (not draggable) </div>
+ *      <div> content (not draggable) </div>
  *  </sd-window>
  * ```
  */

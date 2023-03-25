@@ -11,7 +11,7 @@ import "./sd-transition";
  * @example
  * ```html
  *  <sd-tree node="NODENAME IN ATTRIBUTE" has-child>
- *      <span slot="node">NODENAME IN HTML (will override attribute) </span>
+ *      <span slot="node">NODENAME IN HTML (will override `node="NODENAME IN ATTRIBUTE"`) </span>
  *      <sd-tree node="subtree" has-child>
  *          <sd-tree node="111"></sd-tree>
  *          <sd-tree node="222"></sd-tree>

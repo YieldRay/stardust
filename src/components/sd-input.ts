@@ -1,15 +1,18 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import stylesheet from "../stylesheet.js";
 
 /**
-* @slot before - inside the input box, in front of the text
-* @slot after - inside the input box, behind the text
+ * @slot before - inside the input box, in front of the text
+ * @slot after - inside the input box, behind the text
  * @fires change - {{value: String}}
  * @fires input - {{value: String}}
  */
 @customElement("sd-input")
 export class SDInput extends LitElement {
+    @property({ type: Boolean, reflect: true }) disabled = false;
+
     @property() type = "text";
 
     @property()
@@ -38,15 +41,29 @@ export class SDInput extends LitElement {
                 vertical-align: middle;
                 align-items: center;
             }
+
+            :host([disabled]) {
+                cursor: not-allowed;
+                opacity: 0.6;
+                pointer-events: none;
+                user-select: none;
+            }
         `,
     ];
 
     @query("input") private input!: HTMLInputElement;
     render() {
         return html`
-            <div class="container border theme">
+            <div
+                class=${classMap({
+                    container: true,
+                    border: true,
+                    theme: true,
+                })}
+            >
                 <slot name="before"></slot>
                 <input
+                    .disabled=${this.disabled}
                     .value=${this.value}
                     .type=${this.type}
                     @change=${() => this._handleChange()}

@@ -1,19 +1,22 @@
 import { LitElement, css, html, nothing, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import stylesheet from "../stylesheet.js";
 
 /**
-* @cssprop --size - the size of the element, i.e. the height
-* @cssprop --scale - the aspect ratio of the element, and the height is `--size * --scale`.
-* @slot - inside the switch
-* @slot before - the label before the switch, which can trigger the switch.
-* @slot after - the label after the switch can trigger the switch.
-* @fires change - {{checked: Boolean}}
-*/
+ * @cssprop --size - the size of the element, i.e. the height
+ * @cssprop --scale - the aspect ratio of the element, and the height is `--size * --scale`.
+ * @slot - inside the switch
+ * @slot before - the label before the switch, which can trigger the switch.
+ * @slot after - the label after the switch can trigger the switch.
+ * @fires change - {{checked: Boolean}}
+ */
 @customElement("sd-switch")
 export class SDSwitch extends LitElement {
     @property({ type: Boolean, reflect: true }) checked = false;
     @property({ type: Boolean, reflect: true }) disabled = false;
+
+    @state() _ball_ring = false;
 
     static styles = [
         stylesheet,
@@ -83,6 +86,21 @@ export class SDSwitch extends LitElement {
                 top: 0;
             }
 
+            .ring {
+                filter: opacity(0.8);
+            }
+
+            /* #ballRing {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: calc(var(--ball-size) * 1.2);
+                width: calc(var(--ball-size) * 1.2);
+                height: calc(var(--ball-size) * 1.2);
+                background-color: rgba(0, 0, 0, 0.1);
+            } */
+
             #slotOuter {
                 width: var(--ball-size);
                 height: var(--ball-size);
@@ -139,7 +157,11 @@ export class SDSwitch extends LitElement {
 
     render() {
         return html`
-            <label class="ui">
+            <label
+                class="ui"
+                @mouseenter=${() => (this._ball_ring = true)}
+                @mouseleave=${() => (this._ball_ring = false)}
+            >
                 <input
                     type="checkbox"
                     .checked=${this.checked}
@@ -154,7 +176,16 @@ export class SDSwitch extends LitElement {
 
                 <slot name="before"></slot>
                 <span class="box">
-                    <div id="ball"></div>
+                    <div class=${this._ball_ring ? "ring" : ""}>
+                        <div id="ball">
+                            <!-- <div
+                            id="ballRing"
+                            style=${styleMap({
+                                opacity: String(this._ball_ring ? 1 : 0),
+                            })}
+                            ></div> -->
+                        </div>
+                    </div>
                     <div id="slotOuter" class="center" .style=${this.checked ? `left: var(--distance)` : nothing}>
                         <div id="slotInner">
                             <slot></slot>
