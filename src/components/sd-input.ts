@@ -28,11 +28,14 @@ export class SDInput extends LitElement {
     static styles = [
         stylesheet,
         css`
+            :host {
+                display: inline-block;
+            }
             input {
                 all: unset;
                 height: 100%;
                 margin: 0 calc(var(--padding-x) / 2);
-                padding: var(--sd-length-padding);
+                padding: var(--sd-length-padding-y) 0;
                 flex: 1;
             }
             .container {
@@ -43,10 +46,12 @@ export class SDInput extends LitElement {
             }
 
             :host([disabled]) {
-                cursor: not-allowed;
                 opacity: 0.6;
-                pointer-events: none;
+                cursor: not-allowed;
                 user-select: none;
+            }
+            .slot {
+                padding: 0 var(--sd-length-padding-y);
             }
         `,
     ];
@@ -61,7 +66,9 @@ export class SDInput extends LitElement {
                     theme: true,
                 })}
             >
-                <slot name="before"></slot>
+                <span class="slot">
+                    <slot name="before"> &nbsp; </slot>
+                </span>
                 <input
                     .disabled=${this.disabled}
                     .value=${this.value}
@@ -70,7 +77,9 @@ export class SDInput extends LitElement {
                     @input=${() => this._handleInput()}
                     placeholder=${this.placeholder}
                 />
-                <slot name="after"></slot>
+                <span class="slot">
+                    <slot name="after"> &nbsp; </slot>
+                </span>
             </div>
         `;
     }

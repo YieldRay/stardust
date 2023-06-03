@@ -29,15 +29,15 @@ export class SDInputText extends LitElement {
         stylesheet,
         css`
             :host {
-                font-size: 1em;
+                --font-size: 1em;
+                font-size: var(--font-size);
+                display: inline-block;
             }
-
             :host([disabled]) {
                 opacity: 0.6;
                 pointer-events: none;
                 user-select: none;
             }
-
             .container {
                 overflow: hidden;
                 display: inline-flex;
@@ -56,20 +56,21 @@ export class SDInputText extends LitElement {
                 /* the inner container */
                 position: relative;
             }
-
+            .slot {
+                padding: 0 var(--sd-length-padding-y);
+            }
             input {
                 all: unset;
-                height: 1em;
-                padding: 0 var(--sd-length-padding);
-                padding-top: 1em;
+                display: inline-block;
+                height: calc(var(--font-size) + var(--sd-length-padding-y));
+                padding-top: var(--font-size);
+                padding-right: var(--sd-length-padding-x);
                 flex: 1;
             }
-
             .label {
                 pointer-events: none;
-                position: absolute;
-                padding: var(--sd-length-padding);
                 transition: all var(--sd-time-fast);
+                position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
                 opacity: 0.8;
@@ -86,7 +87,9 @@ export class SDInputText extends LitElement {
     render() {
         return html`
             <div class="container border theme">
-                <slot></slot>
+                <span class="slot">
+                    <slot></slot>
+                </span>
                 <div class="input">
                     <input
                         type="text"

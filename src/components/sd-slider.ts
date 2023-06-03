@@ -32,6 +32,8 @@ export class SDSlider extends LitElement {
         stylesheet,
         css`
             :host {
+                display: inline-block;
+                min-width: 10em;
                 --size: 1em;
                 -webkit-tap-highlight-color: transparent;
             }

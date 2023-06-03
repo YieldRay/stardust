@@ -11,6 +11,9 @@ export class SDTextarea extends LitElement {
     static styles = [
         stylesheet,
         css`
+            :host {
+                display: inline-block;
+            }
             :host(:hover) .container {
                 border-color: var(--sd-color-border-active);
             }

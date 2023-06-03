@@ -73,6 +73,7 @@ export class SDSelect extends LitElement {
         stylesheet,
         css`
             :host {
+                display: inline-block;
                 --min-width: 10em;
                 --max-width: 100%;
                 --font-size: 1em;

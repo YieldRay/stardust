@@ -14,6 +14,7 @@ export class SDProgress extends LitElement {
         stylesheet,
         css`
             :host {
+                display: block;
                 --height: 0.75em;
                 --background: var(--sd-color-primary);
             }

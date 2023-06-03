@@ -11,6 +11,9 @@ export class SDCard extends LitElement {
     static styles = [
         stylesheet,
         css`
+            :host {
+                display: block;
+            }
             .container {
                 background-color: var(--sd-color-secondary);
             }

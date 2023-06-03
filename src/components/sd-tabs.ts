@@ -48,6 +48,9 @@ export class SDTabs extends LitElement {
     static styles = [
         stylesheet,
         css`
+            :host {
+                display: inline-block;
+            }
             .container {
                 display: inline-flex;
                 border: solid var(--sd-color-border) var(--sd-length-border);

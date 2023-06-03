@@ -36,6 +36,9 @@ export class SDTree extends LitElement {
     static styles = [
         stylesheet,
         css`
+            :host {
+                display: block;
+            }
             .node {
                 cursor: pointer;
                 display: flex;
