@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import _minifyHTML from "rollup-plugin-minify-html-literals";
-//@ts-ignore
+// @ts-ignore
 const minifyHTML = _minifyHTML.default;
 
 // https://vitejs.dev/config/

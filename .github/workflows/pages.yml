@@ -35,14 +35,13 @@ jobs:
             - name: Npm build
               run: npm run build
             - name: Clean unused
-              run: rm -rf src node_modules types *.md *.js* index.html && mv preview.html index.html
+              run: node ./.github/gh-pages.js
             - name: Setup Pages
               uses: actions/configure-pages@v2
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
               with:
-                  # Upload entire repository
-                  path: "."
+                  path: "./out"
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v1
