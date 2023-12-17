@@ -155,7 +155,7 @@ export class SDSelect extends LitElement {
                             transition: "opacity ease-out var(--sd-time-fast)",
                         }}
                     >
-                        <div div class="options">
+                        <div class="options">
                             <slot @click=${this._handleClick} @slotchange=${this._slotChange}></slot>
                         </div>
                     </sd-transition>

@@ -1,7 +1,5 @@
 import { defineConfig } from "vite";
-import _minifyHTML from "rollup-plugin-minify-html-literals";
-// @ts-ignore
-const minifyHTML = _minifyHTML.default;
+import { minifyTemplateLiterals } from "rollup-plugin-minify-template-literals";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +12,7 @@ export default defineConfig({
         target: "esnext",
         rollupOptions: {
             // external: /^lit/
-            plugins: [minifyHTML()],
+            plugins: [minifyTemplateLiterals()],
         },
     },
 });
