@@ -36,12 +36,12 @@ export class SDTabs extends LitElement {
     }
 
     /**
-     * 选中的sd-tab子元素的序号，第一个为0，顺序同文档顺序。若没有，则为-1
+     * Index of the selected sd-tab child (0-based, document order). -1 if none selected.
      */
     @property({ type: Number, reflect: true }) tab = -1;
 
     /**
-     * 获取插槽所有子<sd-tab>元素
+     * All sd-tab child elements assigned to the slot.
      */
     @queryAssignedElements({ flatten: true, selector: "sd-tab" }) private _tabs!: Array<SDTab>;
 

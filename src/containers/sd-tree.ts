@@ -4,7 +4,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import { when } from "lit/directives/when.js";
 import stylesheet from "../stylesheet.js";
 
-import "./sd-transition";
+import "./sd-transition-easy";
 
 /**
  * A tree element for displaying recursive content

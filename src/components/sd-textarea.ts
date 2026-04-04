@@ -23,6 +23,7 @@ export class SDTextarea extends LitElement {
                 height: 100%;
                 margin: 0 calc(var(--padding-x) / 2);
                 flex: 1;
+                resize: none;
             }
 
             .container {
@@ -44,11 +45,7 @@ export class SDTextarea extends LitElement {
                     .value=${this.value}
                     @change=${() => this._handleChange()}
                     @input=${() => this._handleInput()}
-                >
-                
-                <slot></slot>
-                </textarea
-                >
+                ></textarea>
             </div>
         `;
     }
@@ -58,12 +55,12 @@ export class SDTextarea extends LitElement {
     }
 
     private _handleChange() {
-        const value = this.value;
-        this.dispatchEvent(new CustomEvent<{ value: string }>("change", { detail: { value } }));
+        this.value = this.textarea.value;
+        this.dispatchEvent(new CustomEvent<{ value: string }>("change", { detail: { value: this.value } }));
     }
     private _handleInput() {
-        const value = this.value;
-        this.dispatchEvent(new CustomEvent<{ value: string }>("change", { detail: { value } }));
+        this.value = this.textarea.value;
+        this.dispatchEvent(new CustomEvent<{ value: string }>("input", { detail: { value: this.value } }));
     }
 }
 

@@ -23,6 +23,7 @@ export class SDAside extends LitElement {
             }
             #aside {
                 position: absolute;
+                z-index: 100;
                 transition: all var(--sd-time-normal);
             }
         `,

@@ -94,7 +94,7 @@ export class SDInput extends LitElement {
     }
     private _handleInput() {
         const value = this.value;
-        this.dispatchEvent(new CustomEvent<{ value: string }>("change", { detail: { value } }));
+        this.dispatchEvent(new CustomEvent<{ value: string }>("input", { detail: { value } }));
     }
 }
 

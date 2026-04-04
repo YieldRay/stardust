@@ -10,7 +10,7 @@ export class SDDivider extends LitElement {
     /** slot (usually text) position, default is `center`, optional is `left` `right` */
     @property({
         converter(value): Position {
-            if (["left", "right", "center"].includes(value ?? "top")) return value as Position;
+            if (value === "left" || value === "right" || value === "center") return value;
             return "center";
         },
     })

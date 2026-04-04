@@ -139,7 +139,7 @@ export class SDSlider extends LitElement {
 
         // calc size
         const rect = slider.getBoundingClientRect();
-        let percentage: number;
+        let percentage = parseFloat(thumb.style.left) || 0;
 
         thumb.onpointermove = (e: PointerEvent) => {
             percentage = this._calcPercentage(rect, e);
