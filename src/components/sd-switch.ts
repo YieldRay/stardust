@@ -1,6 +1,5 @@
 import { LitElement, css, html, nothing, PropertyValueMap } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { styleMap } from "lit/directives/style-map.js";
 import stylesheet from "../stylesheet.js";
 
 /**
@@ -90,17 +89,6 @@ export class SDSwitch extends LitElement {
                 filter: opacity(0.8);
             }
 
-            /* #ballRing {
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                border-radius: calc(var(--ball-size) * 1.2);
-                width: calc(var(--ball-size) * 1.2);
-                height: calc(var(--ball-size) * 1.2);
-                background-color: rgba(0, 0, 0, 0.1);
-            } */
-
             #slotOuter {
                 width: var(--ball-size);
                 height: var(--ball-size);
@@ -169,7 +157,7 @@ export class SDSwitch extends LitElement {
                     @change=${() => {
                         this.checked = this.input.checked;
                         this.dispatchEvent(
-                            new CustomEvent<{ checked: Boolean }>("change", { detail: { checked: this.checked } })
+                            new CustomEvent<{ checked: boolean }>("change", { detail: { checked: this.checked } })
                         );
                     }}
                 />
@@ -177,14 +165,7 @@ export class SDSwitch extends LitElement {
                 <slot name="before"></slot>
                 <span class="box">
                     <div class=${this._ball_ring ? "ring" : ""}>
-                        <div id="ball">
-                            <!-- <div
-                            id="ballRing"
-                            style=${styleMap({
-                                opacity: String(this._ball_ring ? 1 : 0),
-                            })}
-                            ></div> -->
-                        </div>
+                        <div id="ball"></div>
                     </div>
                     <div id="slotOuter" class="center" .style=${this.checked ? `left: var(--distance)` : nothing}>
                         <div id="slotInner">

@@ -61,7 +61,7 @@ export class SDRadio extends LitElement {
         `;
     }
 
-    @property({ type: Boolean }) inGroup = false;
+    inGroup = false;
     private _handleClick() {
         if (this.inGroup) return;
         this.checked = !this.checked;

@@ -65,7 +65,7 @@ export class SDTransition extends LitElement {
         // the TARGET element to which transition will apply
         const target: HTMLElement = this.applyToFirstElement
             ? (() => {
-                  const slotted = this.querySelector("slot")?.assignedElements({ flatten: true })[0];
+                  const slotted = this.shadowRoot?.querySelector("slot")?.assignedElements({ flatten: true })[0];
                   return slotted instanceof HTMLElement ? slotted : this;
               })()
             : this;

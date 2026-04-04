@@ -6,6 +6,7 @@ import stylesheet from "../stylesheet.js";
 
 // @dependency
 import "../containers/sd-float";
+import "../containers/sd-transition-easy";
 
 /**
  * @cssprop --size - the size of the element, i.e. the diameter
@@ -53,6 +54,8 @@ export class SDFab extends LitElement {
 
     @state() hidden = false;
 
+    private _scrollListener: (() => void) | undefined;
+
     render() {
         return html`
             <sd-float fixed position="${this.fixed ? "bottom-right" : "disabled"}">
@@ -76,26 +79,25 @@ export class SDFab extends LitElement {
 
     protected firstUpdated() {
         if (this.fixed && this.autohide) {
-            if (window.scrollY <= this.threshold) requestAnimationFrame(() => (this.hidden = true));
-            window.addEventListener("scroll", throttle(this._scrollListener.bind(this), 100));
+            if (window.scrollY <= this.threshold) this.hidden = true;
+            const listener = throttle(() => {
+                const shouldHide = window.scrollY <= this.threshold;
+                if (this.hidden !== shouldHide) this.hidden = shouldHide;
+            }, 100);
+            this._scrollListener = listener;
+            window.addEventListener("scroll", listener);
         }
         if (this.backtop) {
             this.container.addEventListener("click", () => {
-                window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: "smooth",
-                });
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
             });
         }
     }
 
-    private _scrollListener() {
-        if (window.scrollY > this.threshold) {
-            // over threshold, display it
-            this.hidden = false;
-        } else {
-            this.hidden = true;
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        if (this._scrollListener) {
+            window.removeEventListener("scroll", this._scrollListener);
         }
     }
 }

@@ -72,7 +72,7 @@ export class SDCheckBox extends LitElement {
                     @change=${() => {
                         this.checked = this.input.checked;
                         this.dispatchEvent(
-                            new CustomEvent<{ checked: Boolean }>("change", { detail: { checked: this.checked } })
+                            new CustomEvent<{ checked: boolean }>("change", { detail: { checked: this.checked } })
                         );
                     }}
                 />

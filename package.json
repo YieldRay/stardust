@@ -13,19 +13,17 @@
         "types"
     ],
     "scripts": {
-        "dev": "vite",
-        "build": "tsc && vite build && tsc",
-        "postbuild": "npx esbuild --minify --allow-overwrite dist/stardust.js --outfile=dist/stardust.js",
-        "doc": "rm -rf docs && wca analyze src --format markdown --outDir docs"
+        "dev": "vite --config vite.docs.ts",
+        "build": "vite build",
+        "build:docs": "vite build --config vite.docs.ts"
     },
     "dependencies": {
         "froebel": "^0.23.2",
-        "lit": "^2.8.0"
+        "lit": "^3.2.0"
     },
     "devDependencies": {
-        "rollup-plugin-minify-template-literals": "^1.1.4",
-        "typescript": "^5.3.3",
-        "vite": "^5.0.10",
-        "web-component-analyzer": "^2.0.0"
+        "@types/node": "^25.5.2",
+        "typescript": "^5.4.5",
+        "vite": "^8.0.3"
     }
 }

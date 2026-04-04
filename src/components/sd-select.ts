@@ -92,6 +92,9 @@ export class SDSelect extends LitElement {
                 overflow: hidden;
                 display: flex;
                 flex-wrap: wrap;
+                position: relative;
+                z-index: 100;
+                background: var(--sd-color-background);
             }
             .select,
             .options {
@@ -206,11 +209,12 @@ export class SDSelect extends LitElement {
         }
     }
 
-    private _outsideClick = ((e: MouseEvent) => {
-        //@ts-ignore
-        if (e.target === this || e.target?.tagName === "SD-OPTION") return;
+    private _outsideClick = (e: MouseEvent) => {
+        const target = e.target;
+        if (!(target instanceof Element)) return;
+        if (target === this || target.tagName === "SD-OPTION") return;
         this.expand = false;
-    }).bind(this);
+    };
 
     protected firstUpdated() {
         window.addEventListener("click", this._outsideClick);

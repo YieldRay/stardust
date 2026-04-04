@@ -59,39 +59,29 @@ export class SDDragger extends LitElement {
         targetEle.addEventListener("pointerdown", (event) => {
             targetEle.setPointerCapture(event.pointerId);
 
-            // record initial pointer shift
-            const rect = targetEle.getBoundingClientRect();
+            // record initial pointer shift and stable element size at drag start
+            const rect = hostEle.getBoundingClientRect();
             const shiftX = event.clientX - rect.x;
             const shiftY = event.clientY - rect.y;
+            const eleWidth = rect.width;
+            const eleHeight = rect.height;
 
             const onPointerMove = (event: PointerEvent) => {
-                const pointerX = event.clientX;
-                const pointerY = event.clientY;
-                const left = pointerX - shiftX;
-                const top = pointerY - shiftY;
+                const left = event.clientX - shiftX;
+                const top = event.clientY - shiftY;
                 const docWidth = document.documentElement.clientWidth;
                 const docHeight = document.documentElement.clientHeight;
-                if (this.percentage) {
-                    hostEle.style.left = cssPercentage(left, docWidth);
-                    hostEle.style.top = cssPercentage(top, docHeight);
-                } else {
-                    hostEle.style.left = left + "px";
-                    hostEle.style.top = top + "px";
-                }
+                const clampedLeft = Math.max(0, Math.min(left, docWidth - eleWidth));
+                const clampedTop = Math.max(0, Math.min(top, docHeight - eleHeight));
                 hostEle.style.bottom = "";
                 hostEle.style.right = "";
-                // prevent moving element outside the window
-                const rect = hostEle.getBoundingClientRect();
-                if (hostEle.offsetLeft <= 0) hostEle.style.left = this.percentage ? "0%" : "0px";
-                if (rect.top <= 0) hostEle.style.top = this.percentage ? "0%" : "0px";
-                if (rect.right >= docWidth)
-                    hostEle.style.left = this.percentage
-                        ? `calc(100% - ${rect.width}px)`
-                        : docWidth - rect.width + "px";
-                if (rect.bottom >= docHeight)
-                    hostEle.style.top = this.percentage
-                        ? `calc(100% - ${rect.height}px)`
-                        : docHeight - rect.height + "px";
+                if (this.percentage) {
+                    hostEle.style.left = cssPercentage(clampedLeft, docWidth);
+                    hostEle.style.top = cssPercentage(clampedTop, docHeight);
+                } else {
+                    hostEle.style.left = clampedLeft + "px";
+                    hostEle.style.top = clampedTop + "px";
+                }
             };
 
             targetEle.addEventListener("pointermove", onPointerMove);

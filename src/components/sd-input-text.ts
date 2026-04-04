@@ -103,7 +103,7 @@ export class SDInputText extends LitElement {
                     <div
                         class=${classMap({
                             label: true,
-                            "label-up": this._focus,
+                            "label-up": this._focus || this.value.length > 0 || this.placeholder.length > 0,
                         })}
                     >
                         ${this.label}
@@ -123,7 +123,7 @@ export class SDInputText extends LitElement {
     }
     private _handleInput() {
         const value = this.value;
-        this.dispatchEvent(new CustomEvent<{ value: string }>("change", { detail: { value } }));
+        this.dispatchEvent(new CustomEvent<{ value: string }>("input", { detail: { value } }));
     }
 }
 
